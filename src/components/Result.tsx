@@ -215,7 +215,6 @@ export default function Result({
               className="w-full px-4 py-3 flex items-center justify-between text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center gap-2">
-                <span className="text-base">⚙️</span>
                 <span className="font-medium">Advanced Options</span>
               </div>
               <svg
@@ -242,7 +241,6 @@ export default function Result({
                     }`}
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <span>⚠️</span>
                     <span>Reality Check</span>
                   </div>
                 </button>
@@ -254,7 +252,6 @@ export default function Result({
                     }`}
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <span>⭐</span>
                     <span>Custom Item</span>
                   </div>
                 </button>
@@ -266,8 +263,7 @@ export default function Result({
                   /* Reality Check Tab */
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-lg">⚠️</span>
-                      <span className="font-bold text-yellow-900">
+                      <span className="font-bold text-gray-900">
                         Realistic Savings Calculator
                       </span>
                     </div>
@@ -336,8 +332,7 @@ export default function Result({
                   /* Custom Item Tab */
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-lg">⭐</span>
-                      <span className="font-bold text-purple-900">
+                      <span className="font-bold text-gray-900">
                         Tambah Item Custom
                       </span>
                     </div>
