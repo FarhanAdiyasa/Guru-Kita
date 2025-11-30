@@ -1,0 +1,21 @@
+{
+  "Claude Design Rules": {
+    "prefix": ["claude-rules", "design-rules", ".clauderc"],
+    "body": [
+      "IMPORTANT: Always follow my .clauderc rules:",
+      "- ZERO emojis in UI",
+      "- Use only tailwind-neutral colors (slate, zinc, stone, gray, amber, emerald)",
+      "- Primary brand color: emerald-600 only",
+      "- Corner radius: 8px or 12px exactly",
+      "- Typography: Inter/Geist 500-600 weight only",
+      "- Layout: dense, left-aligned, Linear/Notion/Stripe style",
+      "- NO centered hero sections",
+      "- NO gradients, glassmorphism, or heavy shadows",
+      "- Icons: Lucide/Phosphor 20×20px, stroke-2",
+      "- Mobile-first, show both desktop+mobile views",
+      "",
+      "Challenge any requests that violate these rules."
+    ],
+    "description": "Insert Claude design rules from .clauderc"
+  }
+}

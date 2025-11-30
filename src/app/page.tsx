@@ -1,65 +1,301 @@
-import Image from "next/image";
+'use client'
+
+import { useState, useEffect } from 'react'
+import { arrayMove } from '@dnd-kit/sortable'
+import Hero from '@/components/Hero'
+import GuruSelection from '@/components/GuruSelection'
+import Result from '@/components/Result'
+import { TeacherProfile, ComprehensiveResults } from '@/types/calculator'
+import { calculateItemResults } from '@/lib/calculator-utils'
+import { CONFIG } from '@/data/config'
+
+const { items } = CONFIG
 
 export default function Home() {
+  const [currentView, setCurrentView] = useState<'home' | 'guru-selection' | 'result'>('home')
+  const [selectedTeacher, setSelectedTeacher] = useState<TeacherProfile | null>(null)
+  const [results, setResults] = useState<ComprehensiveResults | null>(null)
+  const [calculating, setCalculating] = useState(false)
+
+  // State for Result component
+  const [showAllTimelines, setShowAllTimelines] = useState(false)
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false)
+  const [livingCosts, setLivingCosts] = useState(0)
+  const [customItemName, setCustomItemName] = useState('')
+  const [customItemPrice, setCustomItemPrice] = useState('')
+  const [hiddenTimelines, setHiddenTimelines] = useState<Set<string>>(new Set())
+  const [timelineOrder, setTimelineOrder] = useState<string[]>([])
+  const [hideSections, setHideSections] = useState(false)
+  const [activeTab, setActiveTab] = useState<'reality' | 'custom'>('reality')
+  const [showAllTeachers, setShowAllTeachers] = useState(false)
+
+  // Initialize timeline order
+  useEffect(() => {
+    setTimelineOrder(items.map(i => i.id))
+  }, [])
+
+  const handleTryNow = () => {
+    setCurrentView('guru-selection')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleTeacherSelect = (teacher: TeacherProfile) => {
+    setSelectedTeacher(teacher)
+    setCalculating(true)
+    setCurrentView('result')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    // Simulate calculation
+    setTimeout(() => {
+      const itemResults = calculateItemResults(items, teacher, livingCosts)
+      // Find the item that takes the longest to save for (most shocking)
+      const mostShocking = itemResults.reduce((prev, current) =>
+        (current.months > prev.months) ? current : prev
+      )
+
+      const comprehensiveResults: ComprehensiveResults = {
+        teacher,
+        items: itemResults,
+        mostShocking,
+        livingCosts,
+        adjustedMonthlySavings: itemResults[0]?.monthlySavings ?? 0
+      }
+
+      setResults(comprehensiveResults)
+      setCalculating(false)
+    }, 1500)
+  }
+
+  const handleBackToSelection = () => {
+    setCurrentView('guru-selection')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleBackToHome = () => {
+    setCurrentView('home')
+    setSelectedTeacher(null)
+    setResults(null)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleLivingCostsChange = (cost: number) => {
+    setLivingCosts(cost)
+    if (selectedTeacher) {
+      const itemResults = calculateItemResults(items, selectedTeacher, cost)
+      const mostShocking = itemResults.reduce((prev, current) =>
+        (current.months > prev.months) ? current : prev
+      )
+
+      setResults({
+        teacher: selectedTeacher,
+        items: itemResults,
+        mostShocking,
+        livingCosts: cost,
+        adjustedMonthlySavings: itemResults[0]?.monthlySavings ?? 0
+      })
+    }
+  }
+
+  const handleAddCustomItem = () => {
+    if (!customItemName || !customItemPrice || !results) return
+
+    const price = parseInt(customItemPrice)
+    if (isNaN(price) || price <= 0) return
+
+    const newItemId = `custom-${Date.now()}`
+
+    // Create new item result
+    const monthlySavings = results.adjustedMonthlySavings ?? 0
+    const monthsToSave = monthlySavings > 0 ? Math.ceil(price / monthlySavings) : Infinity
+
+    const newItemResult = {
+      item: {
+        id: newItemId,
+        name: customItemName,
+        price: price,
+        category: 'custom',
+        description: 'Custom item',
+        icon: '⭐'
+      },
+      months: monthsToSave,
+      years: Math.floor(monthsToSave / 12),
+      remainingMonths: monthsToSave % 12,
+      message: monthsToSave === Infinity ? "Tidak bisa menabung 😔" : `${monthsToSave} bulan`,
+      monthlySavings: monthlySavings
+    }
+
+    // Update results
+    setResults({
+      ...results,
+      items: [newItemResult, ...results.items]
+    })
+
+    // Update timeline order
+    setTimelineOrder([newItemId, ...timelineOrder])
+
+    // Reset form
+    setCustomItemName('')
+    setCustomItemPrice('')
+    setActiveTab('reality') // Switch back to main tab
+  }
+
+  const handleRemoveCustomItem = (itemId: string) => {
+    if (!results) return
+
+    setResults({
+      ...results,
+      items: results.items.filter(i => i.item.id !== itemId)
+    })
+    setTimelineOrder(timelineOrder.filter(id => id !== itemId))
+
+    const newHidden = new Set(hiddenTimelines)
+    newHidden.delete(itemId)
+    setHiddenTimelines(newHidden)
+  }
+
+  const toggleTimelineVisibility = (itemId: string) => {
+    const newHidden = new Set(hiddenTimelines)
+    if (newHidden.has(itemId)) {
+      newHidden.delete(itemId)
+    } else {
+      newHidden.add(itemId)
+    }
+    setHiddenTimelines(newHidden)
+  }
+
+  const handleShare = async () => {
+    if (!results) return
+
+    const text = `Cek berapa lama guru honorer harus menabung untuk beli ${results.items[0].item.name} di GuruKita.id! 😢`
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'GuruKita.id - Realita Gaji Guru',
+          text: text,
+          url: window.location.href
+        })
+      } catch (err) {
+        console.error('Error sharing:', err)
+      }
+    } else {
+      // Fallback to clipboard
+      navigator.clipboard.writeText(`${text} ${window.location.href}`)
+      alert('Link berhasil disalin!')
+    }
+  }
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event
+
+    if (active.id !== over.id) {
+      const oldIndex = timelineOrder.indexOf(active.id)
+      const newIndex = timelineOrder.indexOf(over.id)
+
+      const newOrder = arrayMove(timelineOrder, oldIndex, newIndex)
+      setTimelineOrder(newOrder)
+    }
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-[#FDFBF7]">
+      {/* Header - Sticky */}
+      <header className="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-sm border-b border-gray-200/50 transition-all duration-300">
+        <div className="max-w-6xl lg:max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={handleBackToHome}>
+            <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg transform hover:rotate-3 transition-transform">
+              GK
+            </div>
+            <div>
+              <h1 className="text-xl font-black text-gray-900 tracking-tight leading-none">
+                GuruKita<span className="text-emerald-600">.id</span>
+              </h1>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
+                Suara Guru Indonesia
+              </p>
+            </div>
+          </div>
+
+          {/* Optional: Add a small action button in header if needed */}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </header>
+
+      {/* Main Content Container */}
+      <main className="relative max-w-6xl lg:max-w-7xl mx-auto px-4 py-2 sm:py-4 min-h-screen flex flex-col">
+
+        <div className="relative flex-1 overflow-hidden">
+          {/* Home View */}
+          <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'home'
+            ? 'relative z-10 translate-y-0 opacity-100'
+            : 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
+            }`}>
+            <div className="flex items-center justify-center min-h-[600px]">
+              <Hero onTryNow={handleTryNow} />
+            </div>
+          </div>
+
+          {/* Guru Selection View */}
+          <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'guru-selection'
+            ? 'relative z-10 translate-y-0 opacity-100'
+            : currentView === 'home'
+              ? 'absolute top-0 left-0 z-0 translate-y-full opacity-0 pointer-events-none'
+              : 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
+            }`}>
+            <GuruSelection
+              onTeacherSelect={handleTeacherSelect}
+              showAllTeachers={showAllTeachers}
+              setShowAllTeachers={setShowAllTeachers}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+
+          {/* Result View */}
+          <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'result'
+            ? 'relative z-10 translate-y-0 opacity-100'
+            : 'absolute top-0 left-0 z-0 translate-y-full opacity-0 pointer-events-none'
+            }`}>
+            {(results || calculating) && (
+              <Result
+                results={results!}
+                calculating={calculating}
+                showAllTimelines={showAllTimelines}
+                setShowAllTimelines={setShowAllTimelines}
+                showLivingCostInput={showAdvancedOptions}
+                setShowLivingCostInput={setShowAdvancedOptions}
+                livingCosts={livingCosts}
+                showAddItem={showAdvancedOptions}
+                setShowAddItem={setShowAdvancedOptions}
+                customItemName={customItemName}
+                setCustomItemName={setCustomItemName}
+                customItemPrice={customItemPrice}
+                setCustomItemPrice={setCustomItemPrice}
+                hiddenTimelines={hiddenTimelines}
+                timelineOrder={timelineOrder}
+                hideSections={hideSections}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                onBackToSelection={handleBackToSelection}
+                onLivingCostsChange={handleLivingCostsChange}
+                onAddCustomItem={handleAddCustomItem}
+                onRemoveCustomItem={handleRemoveCustomItem}
+                onToggleTimelineVisibility={toggleTimelineVisibility}
+                onShare={handleShare}
+              />
+            )}
+          </div>
         </div>
       </main>
+
+      {/* Floating Action Button (Up) - Only show when scrolled? Or always? */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-6 right-6 p-3 bg-gray-900 text-white rounded-full shadow-lg hover:bg-gray-800 transition-colors z-50 opacity-50 hover:opacity-100"
+        aria-label="Back to top"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </button>
+
     </div>
-  );
+  )
 }

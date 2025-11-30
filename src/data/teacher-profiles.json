@@ -1,0 +1,52 @@
+[
+  {
+    "id": "teacher-1",
+    "title": "Guru SD, Barru, 5 tahun",
+    "location": "Barru, Sulawesi Selatan",
+    "level": "SD",
+    "experience": 5,
+    "status": "PNS",
+    "monthlySalary": 2100000,
+    "description": "Guru sekolah dasar negeri"
+  },
+  {
+    "id": "teacher-2",
+    "title": "Guru SD, Jakarta, 3 tahun",
+    "location": "Jakarta Pusat, DKI Jakarta",
+    "level": "SD",
+    "experience": 3,
+    "status": "Honorer",
+    "monthlySalary": 2800000,
+    "description": "Guru honor sekolah dasar"
+  },
+  {
+    "id": "teacher-3",
+    "title": "Guru SMP, Bandung, 8 tahun",
+    "location": "Bandung, Jawa Barat",
+    "level": "SMP",
+    "experience": 8,
+    "status": "PNS",
+    "monthlySalary": 3500000,
+    "description": "Guru sekolah menengah pertama negeri"
+  },
+  {
+    "id": "teacher-4",
+    "title": "Guru SMA, Surabaya, 10 tahun",
+    "location": "Surabaya, Jawa Timur",
+    "level": "SMA",
+    "experience": 10,
+    "status": "PNS",
+    "monthlySalary": 4200000,
+    "description": "Guru sekolah menengah atas negeri"
+  },
+  {
+    "id": "teacher-5",
+    "title": "Guru SD, Semarang, 2 tahun",
+    "location": "Semarang, Jawa Tengah",
+    "level": "SD",
+    "experience": 2,
+    "status": "Honorer",
+    "monthlySalary": 1900000,
+    "description": "Guru honor sekolah dasar"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "iphone-15",
+    "name": "iPhone 15 Pro",
+    "price": 20000000,
+    "category": "technology",
+    "description": "Smartphone Apple terbaru",
+    "icon": "📱"
+  },
+  {
+    "id": "motorcycle-new",
+    "name": "Motor Honda Beat Baru",
+    "price": 18000000,
+    "category": "transportation",
+    "description": "Motor untuk transportasi harian",
+    "icon": "🏍️"
+  },
+  {
+    "id": "motorcycle-used",
+    "name": "Motor Honda Beat Bekas",
+    "price": 12000000,
+    "category": "transportation",
+    "description": "Motor bekas untuk transportasi",
+    "icon": "🏍️"
+  },
+  {
+    "id": "car-downpayment",
+    "name": "DP Mobil LCGC",
+    "price": 30000000,
+    "category": "transportation",
+    "description": "Uang muka mobil basic",
+    "icon": "🚗"
+  },
+  {
+    "id": "house-downpayment",
+    "name": "DP Rumah Type 36",
+    "price": 60000000,
+    "category": "housing",
+    "description": "Uang muka rumah sederhana",
+    "icon": "🏠"
+  },
+  {
+    "id": "umroh",
+    "name": "Paket Umroh Reguler",
+    "price": 25000000,
+    "category": "religious",
+    "description": "Ibadah Umroh 12 hari",
+    "icon": "✈️"
+  },
+  {
+    "id": "family-food",
+    "name": "Belanja Keluarga 1 Bulan",
+    "price": 2500000,
+    "category": "basic",
+    "description": "Kebutuhan makan 4 orang",
+    "icon": "🍚"
+  },
+  {
+    "id": "child-tuition",
+    "name": "SPP Anak Kuliah 1 Semester",
+    "price": 8000000,
+    "category": "education",
+    "description": "Biaya kuliah anak 1 semester",
+    "icon": "🎓"
+  },
+  {
+    "id": "medical-emergency",
+    "name": "Biaya Rumah Sakit Darurat",
+    "price": 5000000,
+    "category": "health",
+    "description": "Rawat inap 3 hari + obat",
+    "icon": "🏥"
+  },
+  {
+    "id": "home-renovation",
+    "name": "Renovasi Dapur",
+    "price": 15000000,
+    "category": "housing",
+    "description": "Perbaikan dapur sederhana",
+    "icon": "🔨"
+  },
+  {
+    "id": "laptop",
+    "name": "Laptop untuk Kerja",
+    "price": 7000000,
+    "category": "technology",
+    "description": "Laptop untuk mengajar online",
+    "icon": "💻"
+  },
+  {
+    "id": "wedding",
+    "name": "Biaya Pernikahan Sederhana",
+    "price": 40000000,
+    "category": "family",
+    "description": "Pernikahan 100 orang undangan",
+    "icon": "💑"
+  }
+]
