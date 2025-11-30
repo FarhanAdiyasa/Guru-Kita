@@ -28,10 +28,25 @@ export default function Home() {
   const [hideSections, setHideSections] = useState(false)
   const [activeTab, setActiveTab] = useState<'reality' | 'custom'>('reality')
   const [showAllTeachers, setShowAllTeachers] = useState(false)
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   // Initialize timeline order
   useEffect(() => {
     setTimelineOrder(items.map(i => i.id))
+  }, [])
+
+  // Handle scroll for "Back to Top" button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true)
+      } else {
+        setShowScrollTop(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const handleTryNow = () => {
@@ -216,7 +231,14 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Optional: Add a small action button in header if needed */}
+          <nav className="flex items-center gap-4">
+            <a href="/feedback" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              Feedback
+            </a>
+            <a href="/suggest-salary" className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors">
+              Input Gaji
+            </a>
+          </nav>
         </div>
       </header>
 
@@ -286,9 +308,11 @@ export default function Home() {
       </main>
 
       {/* Floating Action Button (Up) - Only show when scrolled? Or always? */}
+      {/* Floating Action Button (Up) - Only show when scrolled */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-6 right-6 p-3 bg-gray-900 text-white rounded-full shadow-lg hover:bg-gray-800 transition-colors z-50 opacity-50 hover:opacity-100"
+        className={`fixed bottom-6 right-6 p-3 bg-gray-900 text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 z-50 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+          }`}
         aria-label="Back to top"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

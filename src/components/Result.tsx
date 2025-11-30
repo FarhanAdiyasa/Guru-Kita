@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { ArrowLeft, Share2, RefreshCw, GripVertical, Eye, EyeOff } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { ArrowLeft, Share2, RefreshCw, GripVertical, Eye, EyeOff, Download } from 'lucide-react'
+import html2canvas from 'html2canvas'
 import {
   DndContext,
   closestCenter,
@@ -75,6 +76,8 @@ export default function Result({
   onToggleTimelineVisibility,
   onShare
 }: ResultProps) {
+  const resultRef = useRef<HTMLDivElement>(null)
+  const [isSharing, setIsSharing] = useState(false)
 
   // Indonesian currency formatting
   const formatSalary = (amount: number) => {
@@ -152,6 +155,57 @@ export default function Result({
     return 'Terjangkau'
   }
 
+  const handleShareClick = async () => {
+    if (!resultRef.current) return
+    setIsSharing(true)
+
+    try {
+      // Create a clone of the element to modify for screenshot
+      // We want to capture the whole thing but maybe hide buttons
+      const canvas = await html2canvas(resultRef.current, {
+        scale: 2, // Higher quality
+        backgroundColor: '#FDFBF7', // Match background
+        ignoreElements: (element) => {
+          // Ignore buttons during capture
+          // We can add a specific class 'no-capture' to elements we want to hide
+          return element.classList.contains('no-capture')
+        }
+      })
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) return
+
+        const file = new File([blob], 'gurukita-result.png', { type: 'image/png' })
+        const shareData = {
+          title: 'GuruKita.id Result',
+          text: `Cek realita gaji guru di Indonesia! ${results.teacher.level} di ${results.teacher.location} vs ${results.items[0].item.name}. #GuruKita`,
+          files: [file]
+        }
+
+        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+          try {
+            await navigator.share(shareData)
+          } catch (err) {
+            console.error('Error sharing:', err)
+          }
+        } else {
+          // Fallback: Download image
+          const link = document.createElement('a')
+          link.download = 'gurukita-result.png'
+          link.href = canvas.toDataURL()
+          link.click()
+          alert('Gambar hasil telah diunduh! Silakan bagikan secara manual.')
+        }
+        setIsSharing(false)
+      }, 'image/png')
+    } catch (err) {
+      console.error('Error generating image:', err)
+      setIsSharing(false)
+      // Fallback to text share if image fails
+      onShare()
+    }
+  }
+
   // Initialize drag and drop sensors
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -184,7 +238,7 @@ export default function Result({
 
   return (
     <div className="pb-12">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto" ref={resultRef}>
         {/* Shareable Summary - Seamless Editorial Style */}
         <div className="overflow-hidden">
           {/* Profile Header - Ultra Compact */}
@@ -209,7 +263,7 @@ export default function Result({
           </div>
 
           {/* Advanced Options Toggle */}
-          <div className="border-b border-gray-200">
+          <div className="border-b border-gray-200 no-capture">
             <button
               onClick={() => setShowLivingCostInput(!showLivingCostInput)}
               className="w-full px-4 py-3 flex items-center justify-between text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
@@ -230,7 +284,7 @@ export default function Result({
 
           {/* Advanced Options Content */}
           {showLivingCostInput && (
-            <div className="border-b border-gray-200 bg-gray-50">
+            <div className="border-b border-gray-200 bg-gray-50 no-capture">
               {/* Tab Navigation */}
               <div className="flex border-b border-gray-200">
                 <button
@@ -259,115 +313,164 @@ export default function Result({
 
               {/* Tab Content */}
               <div className="p-4">
-                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 focus:border-purple-500"
-                placeholder="Contoh: Kamera baru, Motor bekas"
-                      />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Harga:
-                </label>
-                <div className="relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
-                    <span className="text-sm font-bold text-gray-600">Rp</span>
-                  </div>
-                  <input
-                    type="number"
-                    value={customItemPrice}
-                    onChange={(e) => setCustomItemPrice(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 focus:border-purple-500"
-                    placeholder="Contoh: 5000000"
-                    min="0"
-                  />
-                </div>
-              </div>
+                {activeTab === 'reality' ? (
+                  /* Reality Check Tab */
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="font-bold text-gray-900">
+                        Hitung Sisa Gaji
+                      </span>
+                    </div>
 
-              <div className="flex gap-2">
-                <button
-                  onClick={onAddCustomItem}
-                  disabled={!customItemName.trim() || !customItemPrice.trim() || Number(customItemPrice) <= 0}
-                  className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm"
-                >
-                  + Tambah Barang
-                </button>
-                <button
-                  onClick={() => {
-                    setCustomItemName('')
-                    setCustomItemPrice('')
-                  }}
-                  className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm"
-                >
-                  Clear
-                </button>
+                    <div className="bg-white rounded-lg p-3 border border-yellow-200">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="text-center">
+                          <div className="text-xs font-bold text-gray-600 uppercase tracking-wide">Gaji Kotor</div>
+                          <div className="text-lg font-black text-emerald-600">
+                            {formatSalary(results.teacher.monthlySalary)}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-xs font-bold text-gray-600 uppercase tracking-wide">Bisa Nabung</div>
+                          <div className={`text-lg font-black ${(results.adjustedMonthlySavings || 0) > 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                            {(results.adjustedMonthlySavings || 0) > 0 ? formatSalary(results.adjustedMonthlySavings || 0) : 'Rp 0 😭'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="text-sm font-medium text-gray-700 mb-2">
+                        Pengeluaran per bulan:
+                      </div>
+                      <div className="relative">
+                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
+                          <span className="text-sm font-bold text-gray-600">Rp</span>
+                        </div>
+                        <input
+                          type="number"
+                          value={livingCosts}
+                          onChange={(e) => onLivingCostsChange(Number(e.target.value))}
+                          className="w-full pl-10 pr-12 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-yellow-300 focus:border-yellow-500"
+                          placeholder="Contoh: 1500000"
+                          min="0"
+                          max={results.teacher.monthlySalary}
+                        />
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10">
+                          <span className="text-xs font-bold text-gray-500">/bln</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 mt-2">
+                        <button
+                          onClick={() => onLivingCostsChange(1500000)}
+                          className="flex-1 px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs font-medium hover:bg-orange-200"
+                        >
+                          Sederhana (1.5jt)
+                        </button>
+                        <button
+                          onClick={() => onLivingCostsChange(2500000)}
+                          className="flex-1 px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs font-medium hover:bg-orange-200"
+                        >
+                          Lumayan (2.5jt)
+                        </button>
+                      </div>
+                    </div>
+
+                    {livingCosts >= results.teacher.monthlySalary && (
+                      <div className="bg-red-100 border border-red-300 rounded-lg p-2 text-center">
+                        <div className="text-red-800 font-bold text-sm">💸 Gaji habis untuk hidup!</div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  /* Custom Item Tab */
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="font-bold text-gray-900">
+                        Tambah Barang Impian
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Nama Barang:
+                      </label>
+                      <input
+                        type="text"
+                        value={customItemName}
+                        onChange={(e) => setCustomItemName(e.target.value)}
+                        className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 focus:border-purple-500"
+                        placeholder="Contoh: Kamera baru, Motor bekas"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Harga:
+                      </label>
+                      <div className="relative">
+                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
+                          <span className="text-sm font-bold text-gray-600">Rp</span>
+                        </div>
+                        <input
+                          type="number"
+                          value={customItemPrice}
+                          onChange={(e) => setCustomItemPrice(e.target.value)}
+                          className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 focus:border-purple-500"
+                          placeholder="Contoh: 5000000"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button
+                        onClick={onAddCustomItem}
+                        disabled={!customItemName.trim() || !customItemPrice.trim() || Number(customItemPrice) <= 0}
+                        className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm"
+                      >
+                        + Tambah Barang
+                      </button>
+                      <button
+                        onClick={() => {
+                          setCustomItemName('')
+                          setCustomItemPrice('')
+                        }}
+                        className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
-        </div>
-      </div>
-          )}
 
-      {/* Timeline Items - Draggable & Customizable */}
-      <div className="p-3">
-        <div className="mb-2 text-center">
-          <div className="text-xs font-bold text-gray-700 mb-1">
-            <strong>3 Timeline Utama</strong> (geser & pilih yang ditampilkan)
-          </div>
-          <div className="text-xs text-gray-500">
-            Seret untuk urutkan • Klik mata untuk sembunyikan/tampilkan
-          </div>
-        </div>
+          {/* Timeline Items - Draggable & Customizable */}
+          <div className="p-3">
+            <div className="mb-2 text-center no-capture">
+              <div className="text-xs font-bold text-gray-700 mb-1">
+                <strong>3 Timeline Utama</strong> (geser & pilih yang ditampilkan)
+              </div>
+              <div className="text-xs text-gray-500">
+                Seret untuk urutkan • Klik mata untuk sembunyikan/tampilkan
+              </div>
+            </div>
 
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={timelineOrder}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="space-y-2">
-              {/* Show top 3 visible items first */}
-              {timelineOrder
-                .filter(id => !hiddenTimelines.has(id))
-                .slice(0, 3)
-                .map((id, index) => {
-                  const itemResult = results.items.find(r => r.item.id === id)
-                  if (!itemResult) return null
-                  return (
-                    <SortableTimelineItem
-                      key={id}
-                      itemResult={itemResult}
-                      index={index}
-                      isHidden={false}
-                      showVisibilityToggle={true}
-                      onToggleVisibility={() => onToggleTimelineVisibility(id)}
-                      onRemove={() => onRemoveCustomItem(id)}
-                      getItemEmoji={getItemEmoji}
-                      getSeverityColor={getSeverityColor}
-                      getSeverityEmoji={getSeverityEmoji}
-                      getSeverityLabel={getSeverityLabel}
-                      formatTimeMessage={formatTimeMessage}
-                    />
-                  )
-                })}
-
-              {/* Show "Show More" button if there are more items */}
-              {!showAllTimelines && timelineOrder.length > 3 && (
-                <button
-                  onClick={() => setShowAllTimelines(true)}
-                  className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Lihat {timelineOrder.length - 3} timeline lainnya...
-                </button>
-              )}
-
-              {/* Show remaining items if expanded */}
-              {showAllTimelines && (
-                <>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={timelineOrder}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-2">
+                  {/* Show top 3 visible items first */}
                   {timelineOrder
                     .filter(id => !hiddenTimelines.has(id))
-                    .slice(3)
+                    .slice(0, 3)
                     .map((id, index) => {
                       const itemResult = results.items.find(r => r.item.id === id)
                       if (!itemResult) return null
@@ -375,7 +478,7 @@ export default function Result({
                         <SortableTimelineItem
                           key={id}
                           itemResult={itemResult}
-                          index={index + 3}
+                          index={index}
                           isHidden={false}
                           showVisibilityToggle={true}
                           onToggleVisibility={() => onToggleTimelineVisibility(id)}
@@ -389,72 +492,114 @@ export default function Result({
                       )
                     })}
 
-                  {/* Hidden Items Section */}
-                  {hiddenTimelines.size > 0 && (
-                    <div className="mt-4">
-                      <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
-                        Hidden Items ({hiddenTimelines.size})
-                      </div>
-                      <div className="space-y-2 opacity-60">
-                        {timelineOrder
-                          .filter(id => hiddenTimelines.has(id))
-                          .map((id, index) => {
-                            const itemResult = results.items.find(r => r.item.id === id)
-                            if (!itemResult) return null
-                            return (
-                              <SortableTimelineItem
-                                key={id}
-                                itemResult={itemResult}
-                                index={index}
-                                isHidden={true}
-                                showVisibilityToggle={true}
-                                onToggleVisibility={() => onToggleTimelineVisibility(id)}
-                                onRemove={() => onRemoveCustomItem(id)}
-                                getItemEmoji={getItemEmoji}
-                                getSeverityColor={getSeverityColor}
-                                getSeverityEmoji={getSeverityEmoji}
-                                getSeverityLabel={getSeverityLabel}
-                                formatTimeMessage={formatTimeMessage}
-                              />
-                            )
-                          })}
-                      </div>
-                    </div>
+                  {/* Show "Show More" button if there are more items */}
+                  {!showAllTimelines && timelineOrder.length > 3 && (
+                    <button
+                      onClick={() => setShowAllTimelines(true)}
+                      className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors no-capture"
+                    >
+                      Lihat {timelineOrder.length - 3} timeline lainnya...
+                    </button>
                   )}
 
-                  <button
-                    onClick={() => setShowAllTimelines(false)}
-                    className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors mt-2"
-                  >
-                    Sembunyikan
-                  </button>
-                </>
+                  {/* Show remaining items if expanded */}
+                  {showAllTimelines && (
+                    <>
+                      {timelineOrder
+                        .filter(id => !hiddenTimelines.has(id))
+                        .slice(3)
+                        .map((id, index) => {
+                          const itemResult = results.items.find(r => r.item.id === id)
+                          if (!itemResult) return null
+                          return (
+                            <SortableTimelineItem
+                              key={id}
+                              itemResult={itemResult}
+                              index={index + 3}
+                              isHidden={false}
+                              showVisibilityToggle={true}
+                              onToggleVisibility={() => onToggleTimelineVisibility(id)}
+                              onRemove={() => onRemoveCustomItem(id)}
+                              getItemEmoji={getItemEmoji}
+                              getSeverityColor={getSeverityColor}
+                              getSeverityEmoji={getSeverityEmoji}
+                              getSeverityLabel={getSeverityLabel}
+                              formatTimeMessage={formatTimeMessage}
+                            />
+                          )
+                        })}
+
+                      {/* Hidden Items Section */}
+                      {hiddenTimelines.size > 0 && (
+                        <div className="mt-4 no-capture">
+                          <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
+                            Hidden Items ({hiddenTimelines.size})
+                          </div>
+                          <div className="space-y-2 opacity-60">
+                            {timelineOrder
+                              .filter(id => hiddenTimelines.has(id))
+                              .map((id, index) => {
+                                const itemResult = results.items.find(r => r.item.id === id)
+                                if (!itemResult) return null
+                                return (
+                                  <SortableTimelineItem
+                                    key={id}
+                                    itemResult={itemResult}
+                                    index={index}
+                                    isHidden={true}
+                                    showVisibilityToggle={true}
+                                    onToggleVisibility={() => onToggleTimelineVisibility(id)}
+                                    onRemove={() => onRemoveCustomItem(id)}
+                                    getItemEmoji={getItemEmoji}
+                                    getSeverityColor={getSeverityColor}
+                                    getSeverityEmoji={getSeverityEmoji}
+                                    getSeverityLabel={getSeverityLabel}
+                                    formatTimeMessage={formatTimeMessage}
+                                  />
+                                )
+                              })}
+                          </div>
+                        </div>
+                      )}
+
+                      <button
+                        onClick={() => setShowAllTimelines(false)}
+                        className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors mt-2 no-capture"
+                      >
+                        Sembunyikan
+                      </button>
+                    </>
+                  )}
+                </div>
+              </SortableContext>
+            </DndContext>
+          </div>
+
+          {/* Action Buttons - Horizontal & Compact */}
+          <div className="p-3 flex gap-2 no-capture">
+            <button
+              onClick={handleShareClick}
+              disabled={isSharing}
+              className="flex-1 py-2 bg-red-600 text-white rounded-lg font-semibold text-sm hover:bg-red-700 transition-all flex items-center justify-center gap-1 disabled:opacity-70 disabled:cursor-wait"
+            >
+              {isSharing ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                <Share2 className="w-4 h-4" />
               )}
-            </div>
-          </SortableContext>
-        </DndContext>
-      </div>
+              {isSharing ? 'Menyiapkan...' : 'Bagikan Hasil'}
+            </button>
 
-      {/* Action Buttons - Horizontal & Compact */}
-      <div className="p-3 flex gap-2">
-        <button
-          onClick={onShare}
-          className="flex-1 py-2 bg-red-600 text-white rounded-lg font-semibold text-sm hover:bg-red-700 transition-all flex items-center justify-center gap-1"
-        >
-          <Share2 className="w-4 h-4" />
-          Bagikan Hasil
-        </button>
-
-        <button
-          onClick={onBackToSelection}
-          className="flex-1 py-2 bg-white border border-gray-900 text-gray-900 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-1"
-        >
-          <RefreshCw className="w-4 h-4" />
-          Pilih Guru Lain
-        </button>
+            <button
+              onClick={onBackToSelection}
+              className="flex-1 py-2 bg-white border border-gray-900 text-gray-900 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-1"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Pilih Guru Lain
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-      </div >
-    </div >
   )
 }
