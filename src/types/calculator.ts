@@ -7,6 +7,7 @@ export interface TeacherProfile {
   status: string
   monthlySalary: number
   description: string
+  source?: string
 }
 
 export interface Item {

@@ -25,53 +25,58 @@ export const CONFIG = {
   teachers: [
     {
       id: "teacher-1",
-      title: "Guru SD Negeri",
-      location: "Semarang, Jawa Tengah",
+      title: "Guru SD Negeri (PNS)",
+      location: "Jakarta Selatan, DKI Jakarta",
       level: "SD",
-      experience: 2,
-      status: "PNS",
-      monthlySalary: 1900000,
-      description: "Guru sekolah dasar negeri dengan 2 tahun pengalaman"
+      experience: 5,
+      status: "PNS Gol III/a",
+      monthlySalary: 7500000,
+      description: "Guru PNS di Jakarta dengan tunjangan kinerja daerah (TKD)",
+      source: "https://www.detik.com/edu/sekolah/d-7130245/gaji-pns-guru-2024-naik-8-persen-ini-rincian-nominal-golongan-i-iv"
     },
     {
       id: "teacher-2",
-      title: "Guru SD Swasta",
-      location: "Jakarta Pusat, DKI Jakarta",
+      title: "Guru Honorer SD",
+      location: "Kab. Semarang, Jawa Tengah",
       level: "SD",
       experience: 3,
       status: "Honorer",
-      monthlySalary: 2800000,
-      description: "Guru sekolah dasar swasta dengan 3 tahun pengalaman"
+      monthlySalary: 500000,
+      description: "Guru honorer di sekolah dasar negeri kabupaten",
+      source: "https://dataindonesia.id/pendidikan/detail/survei-gaji-guru-honorer-di-bawah-rp2-juta-pada-2024"
     },
     {
       id: "teacher-3",
-      title: "Guru SMA Negeri",
-      location: "Surabaya, Jawa Timur",
+      title: "Guru Honorer SMA",
+      location: "Bandung, Jawa Barat",
       level: "SMA",
-      experience: 10,
-      status: "PNS",
-      monthlySalary: 4200000,
-      description: "Guru sekolah menengah atas negeri dengan 10 tahun pengalaman"
+      experience: 5,
+      status: "Honorer Provinsi",
+      monthlySalary: 2500000,
+      description: "Guru honorer tingkat SMA di bawah naungan provinsi",
+      source: "https://www.ayobandung.com/pendidikan/pr-7911964132/gaji-guru-honorer-sma-di-jawa-barat-2024-tembus-rp25-juta-tapi-ada-syaratnya"
     },
     {
       id: "teacher-4",
-      title: "Guru SMP Swasta",
-      location: "Bandung, Jawa Barat",
-      level: "SMP",
-      experience: 5,
-      status: "Honorer",
-      monthlySalary: 2100000,
-      description: "Guru sekolah menengah pertama swasta dengan 5 tahun pengalaman"
+      title: "Guru Honorer 3T",
+      location: "Kupang, NTT",
+      level: "SD",
+      experience: 2,
+      status: "Honorer Sekolah",
+      monthlySalary: 300000,
+      description: "Guru honorer di daerah terdepan, terluar, tertinggal",
+      source: "https://tirto.id/gaji-guru-honorer-sd-smp-sma-2024-dan-tunjangan-jika-diangkat-pppk-g3jQ"
     },
     {
       id: "teacher-5",
-      title: "Guru TK Negeri",
-      location: "Yogyakarta, DIY",
-      level: "TK",
-      experience: 7,
-      status: "PNS",
-      monthlySalary: 2500000,
-      description: "Guru taman kanak-kanak negeri dengan 7 tahun pengalaman"
+      title: "Guru PNS Senior",
+      location: "Jayapura, Papua",
+      level: "SMA",
+      experience: 15,
+      status: "PNS Gol IV",
+      monthlySalary: 6000000,
+      description: "Guru PNS senior dengan tunjangan kemahalan khusus Papua",
+      source: "https://www.klikpendidikan.id/news/35812039864/sri-mulyani-resmi-tetapkan-standar-gaji-honorer-di-papua-tembus-rp4-juta-per-bulan-segini-nominalnya"
     }
   ],
 

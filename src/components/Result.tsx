@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { ArrowLeft, Share2, RefreshCw, GripVertical, Eye, EyeOff, Download } from 'lucide-react'
-import html2canvas from 'html2canvas'
 import {
   DndContext,
   closestCenter,
@@ -18,10 +17,81 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import SortableTimelineItem from '@/components/SortableTimelineItem'
+import Toast, { ToastType } from '@/components/Toast'
 import { ComprehensiveResults } from '@/types/calculator'
 import { CONFIG } from '@/data/config'
 
 const { items } = CONFIG
+
+// Helper functions (outside component)
+const formatSalary = (amount: number) => {
+  const millions = amount / 1000000
+  return `Rp ${millions.toFixed(1)} juta`
+}
+
+const formatCurrency = (amount: number) => {
+  if (amount >= 1000000) {
+    const millions = amount / 1000000
+    return `Rp ${millions.toFixed(1)}jt`
+  } else if (amount >= 1000) {
+    const thousands = amount / 1000
+    return `Rp ${thousands.toFixed(0)}k`
+  }
+  return `Rp ${amount.toLocaleString('id-ID')}`
+}
+
+const getItemEmoji = (category: string, itemId?: string) => {
+  if (itemId?.startsWith('custom-')) return '⭐'
+
+  switch (category) {
+    case 'technology': return '📱'
+    case 'transportation': return '🏍️'
+    case 'housing': return '🏠'
+    case 'religious': return '🕋'
+    case 'education': return '📚'
+    case 'health': return '🏥'
+    case 'family': return '👨‍👩‍👧‍👦'
+    default: return '📦'
+  }
+}
+
+const formatTimeMessage = (months: number) => {
+  if (months === Infinity) {
+    return "TIDAK BISA MENABUNG 😔"
+  }
+
+  const years = Math.floor(months / 12)
+  const remainingMonths = months % 12
+
+  if (years >= 1) {
+    if (remainingMonths > 0) {
+      return `${years} TAHUN ${remainingMonths} BULAN`
+    }
+    return `${years} TAHUN`
+  }
+  return `${months} BULAN`
+}
+
+const getSeverityColor = (months: number) => {
+  if (months === Infinity) return 'text-red-700'
+  if (months >= 6) return 'text-red-600'
+  if (months >= 2) return 'text-amber-600'
+  return 'text-emerald-600'
+}
+
+const getSeverityEmoji = (months: number) => {
+  if (months === Infinity) return '🚫'
+  if (months >= 6) return '🔴'
+  if (months >= 2) return '🟡'
+  return '🟢'
+}
+
+const getSeverityLabel = (months: number) => {
+  if (months === Infinity) return 'Mustahil'
+  if (months >= 6) return 'Sangat menantang'
+  if (months >= 2) return 'Cukup menantang'
+  return 'Terjangkau'
+}
 
 interface ResultProps {
   results: ComprehensiveResults
@@ -76,134 +146,56 @@ export default function Result({
   onToggleTimelineVisibility,
   onShare
 }: ResultProps) {
-  const resultRef = useRef<HTMLDivElement>(null)
   const [isSharing, setIsSharing] = useState(false)
+  const [toast, setToast] = useState<{ message: string; type: ToastType; isVisible: boolean }>({
+    message: '',
+    type: 'info',
+    isVisible: false
+  })
 
-  // Indonesian currency formatting
-  const formatSalary = (amount: number) => {
-    const millions = amount / 1000000
-    return `Rp ${millions.toFixed(1)} juta`
-  }
-
-  // Format currency for items
-  const formatCurrency = (amount: number) => {
-    if (amount >= 1000000) {
-      const millions = amount / 1000000
-      return `Rp ${millions.toFixed(1)}jt`
-    } else if (amount >= 1000) {
-      const thousands = amount / 1000
-      return `Rp ${thousands.toFixed(0)}k`
-    }
-    return `Rp ${amount.toLocaleString('id-ID')}`
-  }
-
-  // Get item emoji
-  const getItemEmoji = (category: string, itemId?: string) => {
-    if (itemId?.startsWith('custom-')) return '⭐'
-
-    switch (category) {
-      case 'technology': return '📱'
-      case 'transportation': return '🏍️'
-      case 'housing': return '🏠'
-      case 'religious': return '🕋'
-      case 'education': return '📚'
-      case 'health': return '🏥'
-      case 'family': return '👨‍👩‍👧‍👦'
-      default: return '📦'
-    }
-  }
-
-  // Format time message
-  const formatTimeMessage = (months: number) => {
-    if (months === Infinity) {
-      return "TIDAK BISA MENABUNG 😔"
-    }
-
-    const years = Math.floor(months / 12)
-    const remainingMonths = months % 12
-
-    if (years >= 1) {
-      if (remainingMonths > 0) {
-        return `${years} TAHUN ${remainingMonths} BULAN`
-      }
-      return `${years} TAHUN`
-    }
-    return `${months} BULAN`
-  }
-
-  // Get severity color
-  const getSeverityColor = (months: number) => {
-    if (months === Infinity) return 'text-red-700'
-    if (months >= 6) return 'text-red-600'
-    if (months >= 2) return 'text-amber-600'
-    return 'text-emerald-600'
-  }
-
-  // Get severity emoji
-  const getSeverityEmoji = (months: number) => {
-    if (months === Infinity) return '🚫'
-    if (months >= 6) return '🔴'
-    if (months >= 2) return '🟡'
-    return '🟢'
-  }
-
-  // Get severity label
-  const getSeverityLabel = (months: number) => {
-    if (months === Infinity) return 'Mustahil'
-    if (months >= 6) return 'Sangat menantang'
-    if (months >= 2) return 'Cukup menantang'
-    return 'Terjangkau'
+  const showToast = (message: string, type: ToastType = 'info') => {
+    setToast({ message, type, isVisible: true })
   }
 
   const handleShareClick = async () => {
-    if (!resultRef.current) return
     setIsSharing(true)
 
-    try {
-      // Create a clone of the element to modify for screenshot
-      // We want to capture the whole thing but maybe hide buttons
-      const canvas = await html2canvas(resultRef.current, {
-        scale: 2, // Higher quality
-        backgroundColor: '#FDFBF7', // Match background
-        ignoreElements: (element) => {
-          // Ignore buttons during capture
-          // We can add a specific class 'no-capture' to elements we want to hide
-          return element.classList.contains('no-capture')
-        }
-      })
+    const title = 'GuruKita.id - Realita Gaji Guru'
+    const text = `⚠️ Cek realita gaji guru di Indonesia!
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) return
+👩‍🏫 ${results.teacher.level} di ${results.teacher.location}
+💰 Gaji: ${formatSalary(results.teacher.monthlySalary)}
+🆚
+📱 ${results.items[0].item.name}
 
-        const file = new File([blob], 'gurukita-result.png', { type: 'image/png' })
-        const shareData = {
-          title: 'GuruKita.id Result',
-          text: `Cek realita gaji guru di Indonesia! ${results.teacher.level} di ${results.teacher.location} vs ${results.items[0].item.name}. #GuruKita`,
-          files: [file]
-        }
+Butuh waktu ${results.items[0].years > 0 ? `${results.items[0].years} tahun ` : ''}${results.items[0].remainingMonths} bulan buat kebeli! 😱
 
-        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-          try {
-            await navigator.share(shareData)
-          } catch (err) {
-            console.error('Error sharing:', err)
-          }
-        } else {
-          // Fallback: Download image
-          const link = document.createElement('a')
-          link.download = 'gurukita-result.png'
-          link.href = canvas.toDataURL()
-          link.click()
-          alert('Gambar hasil telah diunduh! Silakan bagikan secara manual.')
-        }
-        setIsSharing(false)
-      }, 'image/png')
-    } catch (err) {
-      console.error('Error generating image:', err)
-      setIsSharing(false)
-      // Fallback to text share if image fails
-      onShare()
+Cek nasib guru lainnya di sini 👇
+#GuruKita #NasibGuru #RealitaPendidikan`
+
+    const url = window.location.href
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text,
+          url
+        })
+      } catch (err) {
+        console.error('Error sharing:', err)
+      }
+    } else {
+      // Fallback to clipboard
+      try {
+        await navigator.clipboard.writeText(`${text}\n${url}`)
+        showToast('Link & caption disalin!', 'success')
+      } catch (err) {
+        showToast('Gagal menyalin link', 'error')
+      }
     }
+
+    setIsSharing(false)
   }
 
   // Initialize drag and drop sensors
@@ -238,7 +230,14 @@ export default function Result({
 
   return (
     <div className="pb-12">
-      <div className="max-w-2xl mx-auto" ref={resultRef}>
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={() => setToast({ ...toast, isVisible: false })}
+      />
+
+      <div className="max-w-2xl mx-auto">
         {/* Shareable Summary - Seamless Editorial Style */}
         <div className="overflow-hidden">
           {/* Profile Header - Ultra Compact */}
@@ -263,7 +262,7 @@ export default function Result({
           </div>
 
           {/* Advanced Options Toggle */}
-          <div className="border-b border-gray-200 no-capture">
+          <div className="border-b border-gray-200">
             <button
               onClick={() => setShowLivingCostInput(!showLivingCostInput)}
               className="w-full px-4 py-3 flex items-center justify-between text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
@@ -284,7 +283,7 @@ export default function Result({
 
           {/* Advanced Options Content */}
           {showLivingCostInput && (
-            <div className="border-b border-gray-200 bg-gray-50 no-capture">
+            <div className="border-b border-gray-200 bg-gray-50">
               {/* Tab Navigation */}
               <div className="flex border-b border-gray-200">
                 <button
@@ -448,7 +447,7 @@ export default function Result({
 
           {/* Timeline Items - Draggable & Customizable */}
           <div className="p-3">
-            <div className="mb-2 text-center no-capture">
+            <div className="mb-2 text-center">
               <div className="text-xs font-bold text-gray-700 mb-1">
                 <strong>3 Timeline Utama</strong> (geser & pilih yang ditampilkan)
               </div>
@@ -496,7 +495,7 @@ export default function Result({
                   {!showAllTimelines && timelineOrder.length > 3 && (
                     <button
                       onClick={() => setShowAllTimelines(true)}
-                      className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors no-capture"
+                      className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                     >
                       Lihat {timelineOrder.length - 3} timeline lainnya...
                     </button>
@@ -531,7 +530,7 @@ export default function Result({
 
                       {/* Hidden Items Section */}
                       {hiddenTimelines.size > 0 && (
-                        <div className="mt-4 no-capture">
+                        <div className="mt-4">
                           <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
                             Hidden Items ({hiddenTimelines.size})
                           </div>
@@ -564,7 +563,7 @@ export default function Result({
 
                       <button
                         onClick={() => setShowAllTimelines(false)}
-                        className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors mt-2 no-capture"
+                        className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors mt-2"
                       >
                         Sembunyikan
                       </button>
@@ -576,26 +575,22 @@ export default function Result({
           </div>
 
           {/* Action Buttons - Horizontal & Compact */}
-          <div className="p-3 flex gap-2 no-capture">
+          <div className="p-3 flex gap-2">
             <button
               onClick={handleShareClick}
               disabled={isSharing}
-              className="flex-1 py-2 bg-red-600 text-white rounded-lg font-semibold text-sm hover:bg-red-700 transition-all flex items-center justify-center gap-1 disabled:opacity-70 disabled:cursor-wait"
+              className="flex-[2] py-3 bg-gray-900 text-white rounded-xl font-bold text-base hover:bg-gray-800 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-70"
             >
-              {isSharing ? (
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              ) : (
-                <Share2 className="w-4 h-4" />
-              )}
-              {isSharing ? 'Menyiapkan...' : 'Bagikan Hasil'}
+              <Share2 className="w-5 h-5" />
+              {isSharing ? 'Sharing...' : 'Bagikan Hasil'}
             </button>
 
             <button
               onClick={onBackToSelection}
-              className="flex-1 py-2 bg-white border border-gray-900 text-gray-900 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-1"
+              className="flex-1 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-bold text-base hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-2"
             >
-              <RefreshCw className="w-4 h-4" />
-              Pilih Guru Lain
+              <RefreshCw className="w-5 h-5" />
+              Ulang
             </button>
           </div>
         </div>
