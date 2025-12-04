@@ -18,11 +18,21 @@ interface GuruSelectionProps {
 export default function GuruSelection({ onTeacherSelect, showAllTeachers, setShowAllTeachers }: GuruSelectionProps) {
   // Sort teachers by salary and get 3 representative profiles
   const sortedTeachers = [...teachers].sort((a, b) => a.monthlySalary - b.monthlySalary)
-  const displayTeachers = showAllTeachers ? sortedTeachers : [
-    sortedTeachers[0], // Lowest salary
-    sortedTeachers[Math.floor(sortedTeachers.length / 2)], // Middle salary
-    sortedTeachers[sortedTeachers.length - 1] // Highest salary
-  ]
+
+  // Get representative profiles (Low, Mid, High)
+  const lowTeacher = sortedTeachers[0]
+  const midTeacher = sortedTeachers[Math.floor(sortedTeachers.length / 2)]
+  const highTeacher = sortedTeachers[sortedTeachers.length - 1]
+
+  const representativeTeachers = [lowTeacher, midTeacher, highTeacher]
+
+  // Get the rest of the teachers
+  const otherTeachers = sortedTeachers.filter(t => !representativeTeachers.includes(t))
+
+  // If showing all, append others to the bottom to maintain order of top 3
+  const displayTeachers = showAllTeachers
+    ? [...representativeTeachers, ...otherTeachers]
+    : representativeTeachers
 
   // Indonesian currency formatting
   const formatSalary = (amount: number) => {

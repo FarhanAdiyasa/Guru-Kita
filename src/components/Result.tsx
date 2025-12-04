@@ -118,6 +118,7 @@ interface ResultProps {
   onRemoveCustomItem: (itemId: string) => void
   onToggleTimelineVisibility: (itemId: string) => void
   onShare: () => void
+  onDragEnd: (event: DragEndEvent) => void
 }
 
 export default function Result({
@@ -144,7 +145,8 @@ export default function Result({
   onAddCustomItem,
   onRemoveCustomItem,
   onToggleTimelineVisibility,
-  onShare
+  onShare,
+  onDragEnd
 }: ResultProps) {
   const [isSharing, setIsSharing] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: ToastType; isVisible: boolean }>({
@@ -459,7 +461,7 @@ Cek nasib guru lainnya di sini 👇
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
+              onDragEnd={onDragEnd}
             >
               <SortableContext
                 items={timelineOrder}

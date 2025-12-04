@@ -72,6 +72,23 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
           {teacher.status}
         </span>
       </div>
+
+      {/* Source Link */}
+      {teacher.source && (
+        <div className="mt-4 text-center">
+          <a
+            href={teacher.source}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-gray-400 hover:text-emerald-600 hover:underline transition-colors flex items-center justify-center gap-1"
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            <span>🔗 Sumber Data</span>
+          </a>
+        </div>
+      )}
     </div>
   )
 }

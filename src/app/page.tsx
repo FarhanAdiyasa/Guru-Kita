@@ -84,6 +84,10 @@ export default function Home() {
   const handleBackToSelection = () => {
     setCurrentView('guru-selection')
     window.scrollTo({ top: 0, behavior: 'smooth' })
+    setTimeout(() => {
+      setResults(null)
+      setSelectedTeacher(null)
+    }, 1000)
   }
 
   const handleBackToHome = () => {
@@ -301,6 +305,7 @@ export default function Home() {
                 onRemoveCustomItem={handleRemoveCustomItem}
                 onToggleTimelineVisibility={toggleTimelineVisibility}
                 onShare={handleShare}
+                onDragEnd={handleDragEnd}
               />
             )}
           </div>
