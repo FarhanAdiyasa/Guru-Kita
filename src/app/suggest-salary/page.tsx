@@ -15,12 +15,32 @@ export default function SuggestSalaryPage() {
     })
     const [submitted, setSubmitted] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Simulate submission
-        setTimeout(() => {
-            setSubmitted(true)
-        }, 1000)
+        setIsSubmitting(true)
+
+        try {
+            const response = await fetch('/api/salary', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+
+            if (response.ok) {
+                setSubmitted(true)
+            } else {
+                alert('Gagal mengirim data. Silakan coba lagi.')
+            }
+        } catch (error) {
+            console.error('Error submitting salary data:', error)
+            alert('Terjadi kesalahan. Silakan coba lagi.')
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -176,10 +196,20 @@ export default function SuggestSalaryPage() {
 
                             <button
                                 type="submit"
-                                className="w-full py-4 bg-gray-900 text-white rounded-xl font-bold text-lg hover:bg-gray-800 transition-all transform hover:scale-[1.02] shadow-xl hover:shadow-2xl flex items-center justify-center gap-3"
+                                disabled={isSubmitting}
+                                className="w-full py-4 bg-gray-900 text-white rounded-xl font-bold text-lg hover:bg-gray-800 transition-all transform hover:scale-[1.02] shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                <PlusCircle className="w-5 h-5" />
-                                Kirim Data
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        Mengirim...
+                                    </>
+                                ) : (
+                                    <>
+                                        <PlusCircle className="w-5 h-5" />
+                                        Kirim Data
+                                    </>
+                                )}
                             </button>
                         </form>
                     )}
