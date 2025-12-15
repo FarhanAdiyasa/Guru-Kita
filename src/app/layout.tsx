@@ -14,7 +14,38 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "GuruKita - Platform Transparansi Gaji Guru Indonesia",
-  description: "Platform transparansi gaji guru Indonesia. Data real untuk perubahan nyata.",
+  description: "Berapa lama guru honorer harus menabung untuk beli rumah? Kalkulator realita gaji guru Indonesia. Data real untuk perubahan nyata.",
+  keywords: ["gaji guru", "guru honorer", "PNS guru", "kalkulator tabungan", "guru Indonesia", "transparansi gaji"],
+  authors: [{ name: "GuruKita" }],
+  creator: "GuruKita",
+  metadataBase: new URL("https://gurukita.id"),
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://gurukita.id",
+    siteName: "GuruKita",
+    title: "GuruKita - Berapa Lama Guru Harus Menabung?",
+    description: "Kalkulator realita gaji guru Indonesia. Lihat berapa tahun guru honorer harus menabung untuk beli rumah, motor, atau HP. 😢",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "GuruKita - Platform Transparansi Gaji Guru Indonesia",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GuruKita - Berapa Lama Guru Harus Menabung?",
+    description: "Kalkulator realita gaji guru Indonesia. Lihat berapa tahun guru honorer harus menabung untuk beli rumah. 😢",
+    images: ["/og-image.png"],
+    creator: "@gurukita_id",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

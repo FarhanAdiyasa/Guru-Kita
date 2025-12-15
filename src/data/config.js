@@ -24,325 +24,227 @@ export const CONFIG = {
   // Format: id, title, location, level, experience, status, monthlySalary
   teachers: [
     {
-      id: "pppk-dki",
-      title: "Guru PPPK Paruh Waktu",
-      location: "DKI Jakarta",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 5396761,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di DKI Jakarta tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "guru-sikka",
+      title: "Guru Honorer Pedalaman",
+      location: "Sikka, NTT (3T)",
+      level: "SD",
+      experience: 5,
+      status: "Honorer",
+      monthlySalary: 300000,
+      description: "Menembus hutan 6km setiap hari demi mengajar",
+      source: "https://www.youtube.com/watch?v=u8R2_X5It0Q"
     },
     {
-      id: "pppk-papua",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Papua",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 4285850,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Papua tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "guru-toilet",
+      title: "Guru Honorer",
+      location: "Pandeglang, Banten",
+      level: "SD",
+      experience: 15,
+      status: "Honorer",
+      monthlySalary: 350000,
+      description: "Terpaksa tinggal di toilet sekolah karena tidak mampu bayar kos",
+      source: "https://regional.kompas.com/read/2019/07/15/15243301/15-tahun-jadi-guru-honorer-ini-alasan-nining-tetap-bertahan-dan-tinggal-di"
     },
     {
-      id: "pppk-papua-tengah",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Papua Tengah",
-      level: "SD-SMA",
+      id: "guru-agama-jkt",
+      title: "Guru Agama Kristen",
+      location: "Duren Sawit, Jakarta",
+      level: "SD",
       experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 4285848,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Papua Tengah tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      status: "Honorer",
+      monthlySalary: 300000,
+      description: "Gaji sangat minim di tengah biaya hidup Jakarta yang tinggi",
+      source: "https://www.detik.com/edu/sekolah/d-7059354/masih-ada-guru-digaji-rp-300-ribu-di-jakarta-diduga-karena-ini"
     },
     {
-      id: "pppk-papua-pegunungan",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Papua Pegunungan",
-      level: "SD-SMA",
+      id: "guru-surabaya",
+      title: "Guru Honorer",
+      location: "Surabaya, Jatim",
+      level: "SD-SMP",
       experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 4285847,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Papua Pegunungan tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      status: "Honorer",
+      monthlySalary: 785000,
+      description: "Slip gaji viral, dibayar per jam pelajaran",
+      source: "https://jabar.tribunnews.com/2023/10/09/viral-gaji-guru-honorer-rp15000-per-satu-jam-pelajaran-begini-aturannya-menurut-undang-undang"
     },
     {
-      id: "pppk-papua-selatan",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Papua Selatan",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 4285850,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Papua Selatan tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "guru-bone",
+      title: "Guru Honorer",
+      location: "Bone, Sulsel",
+      level: "SD",
+      experience: 13,
+      status: "Honorer",
+      monthlySalary: 175000,
+      description: "Dipecat karena mengunggah slip gaji ke media sosial",
+      source: "https://www.bbc.com/indonesia/indonesia-56094473"
     },
     {
-      id: "pppk-sulut",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Sulawesi Utara",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3775425,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Sulawesi Utara tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "guru-tari",
+      title: "Guru Tari",
+      location: "Lumajang, Jatim",
+      level: "SD",
+      experience: 21,
+      status: "Honorer",
+      monthlySalary: 250000,
+      description: "Jual baju tari untuk menutupi kebutuhan hidup",
+      source: "https://www.youtube.com/watch?v=_yR_fP3CxqY"
     },
     {
-      id: "pppk-kaltara",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Kalimantan Utara",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3580160,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Kalimantan Utara tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "guru-bogor",
+      title: "Guru Honorer",
+      location: "Bogor, Jabar",
+      level: "SD",
+      experience: 36,
+      status: "Honorer",
+      monthlySalary: 250000,
+      description: "36 tahun mengabdi, gaji tetap Rp 250 ribu",
+      source: "https://www.youtube.com/watch?v=TVlO3QJroQ8"
     },
     {
-      id: "pppk-kaltim",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Kalimantan Timur",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3579313,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Kalimantan Timur tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      "id": "guru-bengkulu-tengah",
+      "title": "Guru Honorer",
+      "location": "Bengkulu Tengah, Bengkulu",
+      "level": "SD",
+      "experience": 10,
+      "status": "Honorer",
+      "monthlySalary": 300000,
+      "description": "Gaji Rp 300 ribu per bulan, dibayar setiap 3 bulan sekali",
+      "source": "https://bengkulu.tribunnews.com/2023/10/27/gaji-guru-honorer-di-bengkulu-tengah-hanya-rp-300-ribu-per-bulan-pgri-desak-pemkab-turun-tangan"
     },
+
+    // =================== GURU PPPK (Paruh Waktu) ===================
     {
-      id: "pppk-papua-barat",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Papua Barat",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3615000,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Papua Barat tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-sulsel",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Sulawesi Selatan",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3657527,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Sulawesi Selatan tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-kalsel",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Kalimantan Selatan",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3496195,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Kalimantan Selatan tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-kalteng",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Kalimantan Tengah",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3473621,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Kalimantan Tengah tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-malut",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Maluku Utara",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3408000,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Maluku Utara tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-sulbar",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Sulawesi Barat",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3104430,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Sulawesi Barat tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-sultra",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Sulawesi Tenggara",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3073551,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Sulawesi Tenggara tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-bali",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Bali",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2996561,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Bali tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-banten",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Banten",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2905119,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Banten tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-sulteng",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Sulawesi Tengah",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2915000,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Sulawesi Tengah tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-kalbar",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Kalimantan Barat",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2878286,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Kalimantan Barat tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-gorontalo",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Gorontalo",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3221731,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Gorontalo tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-maluku",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Maluku",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3141700,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Maluku tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-ntb",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Nusa Tenggara Barat",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2602931,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Nusa Tenggara Barat tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-ntt",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Nusa Tenggara Timur",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2328969,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Nusa Tenggara Timur tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-jatim",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Jawa Timur",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2305985,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Jawa Timur tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
-    },
-    {
-      id: "pppk-diy",
-      title: "Guru PPPK Paruh Waktu",
-      location: "DI Yogyakarta",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2264080,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di DI Yogyakarta tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "pppk-jabar",
+      title: "Guru PPPK",
+      location: "Jawa Barat",
+      level: "SMP",
+      experience: 3,
+      status: "PPPK",
+      monthlySalary: 4000000,
+      description: "UMP + tunjangan kinerja + tunjangan profesi (jika sertifikasi)",
+      source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
       id: "pppk-jateng",
-      title: "Guru PPPK Paruh Waktu",
+      title: "Guru PPPK",
       location: "Jawa Tengah",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2169349,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Jawa Tengah tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      level: "SD",
+      experience: 5,
+      status: "PPPK",
+      monthlySalary: 4200000,
+      description: "UMP + tunjangan kinerja variatif + tunjangan profesi",
+      source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
-      id: "pppk-jabar",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Jawa Barat",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 2191232,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Jawa Barat tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "pppk-jatim",
+      title: "Guru PPPK",
+      location: "Jawa Timur",
+      level: "SMA",
+      experience: 4,
+      status: "PPPK",
+      monthlySalary: 4500000,
+      description: "UMP Rp 2,3 juta + tunjangan kinerja + tunjangan profesi",
+      source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
-      id: "pppk-papua-barat-daya",
-      title: "Guru PPPK Paruh Waktu",
-      location: "Papua Barat Daya",
-      level: "SD-SMA",
-      experience: 1,
-      status: "PPPK Paruh Waktu",
-      monthlySalary: 3614000,
-      description: "Estimasi gaji Guru PPPK Paruh Waktu di Papua Barat Daya tahun 2025",
-      source: "https://kaltimtoday.co/bocoran-gaji-guru-pppk-paruh-waktu-2025-cek-besarannya-berdasarkan-wilayah"
+      id: "pppk-sulsel",
+      title: "Guru PPPK",
+      location: "Sulawesi Selatan",
+      level: "SMP",
+      experience: 6,
+      status: "PPPK",
+      monthlySalary: 5500000,
+      description: "UMP Rp 3,6 juta + tunjangan kinerja + tunjangan profesi",
+      source: "https://dealls.com/pengembangan-karir/gaji-pppk"
+    },
+    {
+      id: "pppk-dki",
+      title: "Guru PPPK",
+      location: "DKI Jakarta",
+      level: "SMA",
+      experience: 5,
+      status: "PPPK",
+      monthlySalary: 7000000,
+      description: "Golongan III/a + TKD + tunjangan profesi (total Rp 6-8 juta)",
+      source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
+    },
+
+    // =================== GURU PNS ===================
+    {
+      id: "pns-dki-junior",
+      title: "Guru PNS",
+      location: "DKI Jakarta",
+      level: "SMP",
+      experience: 5,
+      status: "PNS",
+      monthlySalary: 8000000,
+      description: "Golongan III + TKD + tunjangan profesi (guru junior)",
+      source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
+    },
+    {
+      id: "pns-dki-senior",
+      title: "Guru PNS Senior",
+      location: "DKI Jakarta",
+      level: "SMA",
+      experience: 20,
+      status: "PNS",
+      monthlySalary: 15000000,
+      description: "Golongan IV + TKD Rp 9-10 juta + tunjangan profesi + jabatan",
+      source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
     }
   ],
+
 
   // =================== ITEMS TO CALCULATE ===================
   // Format: id, name, category, price
   items: [
     {
-      id: "dp-rumah",
-      name: "DP Rumah Sederhana",
+      id: "rumah-prefab",
+      name: "Tiny Home Gaoshi",
       category: "housing",
-      price: 60000000,
-      description: "Uang muka untuk rumah sederhana type 36",
+      price: 250000000,
+      description: "Prefab Minimalis 35m², 2 Kamar (Viral di TikTok)",
       icon: "🏠"
+    },
+    {
+      id: "mobil-ev",
+      name: "Wuling Air EV",
+      category: "transportation",
+      price: 238000000,
+      description: "Mobil listrik compact 'Long Range' viral",
+      icon: "🚗"
+    },
+    {
+      id: "iphone",
+      name: "iPhone 17 Pro Max",
+      category: "technology",
+      price: 35000000,
+      description: "1TB Storage, Titanium Finish (Future Release)",
+      icon: "📱"
+    },
+    {
+      id: "motor-listrik",
+      name: "Polytron Fox-R",
+      category: "transportation",
+      price: 20500000,
+      description: "Motor listrik range 100km+, subsidi pemerintah",
+      icon: "🛵"
+    },
+    {
+      id: "ipad-pro",
+      name: "iPad Pro M4",
+      category: "technology",
+      price: 19499000,
+      description: "11-inch, 256GB WiFi, Chip M4",
+      icon: "🖊️"
+    },
+    {
+      id: "laptop-gaming",
+      name: "ASUS TUF A15",
+      category: "technology",
+      price: 15000000,
+      description: "Edisi 2025, RTX 4050 + Ryzen 7",
+      icon: "💻"
     },
     {
       id: "biaya-nikah",
@@ -353,60 +255,12 @@ export const CONFIG = {
       icon: "💒"
     },
     {
-      id: "iphone",
-      name: "iPhone 15 Pro",
-      category: "technology",
-      price: 20000000,
-      description: "iPhone 15 Pro 128GB",
-      icon: "📱"
-    },
-    {
-      id: "motor",
-      name: "Motor Bebek",
-      category: "transportation",
-      price: 18000000,
-      description: "Honda Beat atau Yamaha Mio",
-      icon: "🏍️"
-    },
-    {
-      id: "laptop",
-      name: "Laptop Kerja",
-      category: "technology",
-      price: 8000000,
-      description: "Laptop untuk menunjang pekerjaan",
-      icon: "💻"
-    },
-    {
       id: "kursus-master",
       name: "Kursus Master S2",
       category: "education",
       price: 25000000,
       description: "Biaya kuliah S2 1 semester",
       icon: "🎓"
-    },
-    {
-      id: "asuransi",
-      name: "Asuransi Kesehatan",
-      category: "health",
-      price: 3600000,
-      description: "Premi asuransi kesehatan 1 tahun",
-      icon: "🏥"
-    },
-    {
-      id: "buku-anak",
-      name: "Buku Pelajaran Anak",
-      category: "education",
-      price: 1500000,
-      description: "Buku dan alat tulis untuk 1 tahun",
-      icon: "📚"
-    },
-    {
-      id: "cek-darurat",
-      name: "Cek Darurat Rumah Sakit",
-      category: "health",
-      price: 2000000,
-      description: "Biaya cek darurat dan perawatan ringan",
-      icon: "🚑"
     },
     {
       id: "umroh",

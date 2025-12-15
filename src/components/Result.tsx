@@ -25,8 +25,12 @@ const { items } = CONFIG
 
 // Helper functions (outside component)
 const formatSalary = (amount: number) => {
-  const millions = amount / 1000000
-  return `Rp ${millions.toFixed(1)} juta`
+  if (amount >= 1000000) {
+    const millions = amount / 1000000
+    return `Rp ${millions.toFixed(1)} juta`
+  }
+  const thousands = amount / 1000
+  return `Rp ${thousands.toFixed(0)} ribu`
 }
 
 const formatCurrency = (amount: number) => {
@@ -243,7 +247,19 @@ Cek nasib guru lainnya di sini 👇
         {/* Shareable Summary - Seamless Editorial Style */}
         <div className="overflow-hidden">
           {/* Profile Header - Ultra Compact */}
-          <div className="p-4 text-center">
+          <div className="p-4 text-center relative">
+            <div className="absolute top-4 left-4">
+              <button
+                onClick={onBackToSelection}
+                className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors group"
+              >
+                <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
+                  <ArrowLeft className="w-4 h-4" />
+                </div>
+                <span className="font-bold text-sm tracking-tight hidden sm:inline">Kembali</span>
+              </button>
+            </div>
+
             <div className="inline-flex items-center justify-center p-2 bg-emerald-100 rounded-full mb-2">
               <span className="text-2xl">👤</span>
             </div>

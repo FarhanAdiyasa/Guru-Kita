@@ -4,16 +4,20 @@ import { useState, useEffect } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import Hero from '@/components/Hero'
 import GuruSelection from '@/components/GuruSelection'
+import ItemSelection from '@/components/ItemSelection'
+import SingleItemResult from '@/components/SingleItemResult'
 import Result from '@/components/Result'
-import { TeacherProfile, ComprehensiveResults } from '@/types/calculator'
+import Lore from '@/components/Lore'
+import { TeacherProfile, ComprehensiveResults, Item } from '@/types/calculator'
 import { calculateItemResults } from '@/lib/calculator-utils'
 import { CONFIG } from '@/data/config'
 
 const { items } = CONFIG
 
 export default function Home() {
-  const [currentView, setCurrentView] = useState<'home' | 'guru-selection' | 'result'>('home')
+  const [currentView, setCurrentView] = useState<'home' | 'lore' | 'guru-selection' | 'item-selection' | 'single-result' | 'result'>('home')
   const [selectedTeacher, setSelectedTeacher] = useState<TeacherProfile | null>(null)
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null)
   const [results, setResults] = useState<ComprehensiveResults | null>(null)
   const [calculating, setCalculating] = useState(false)
 
@@ -54,31 +58,46 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const handleLore = () => {
+    setCurrentView('lore')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const handleTeacherSelect = (teacher: TeacherProfile) => {
     setSelectedTeacher(teacher)
+    setCurrentView('item-selection')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleItemSelect = (item: Item) => {
+    setSelectedItem(item)
+    setCurrentView('single-result')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleShowAllResults = () => {
+    if (!selectedTeacher) return
+
     setCalculating(true)
     setCurrentView('result')
     window.scrollTo({ top: 0, behavior: 'smooth' })
 
-    // Simulate calculation
-    setTimeout(() => {
-      const itemResults = calculateItemResults(items, teacher, livingCosts)
-      // Find the item that takes the longest to save for (most shocking)
-      const mostShocking = itemResults.reduce((prev, current) =>
-        (current.months > prev.months) ? current : prev
-      )
+    const itemResults = calculateItemResults(items, selectedTeacher, livingCosts)
+    // Find the item that takes the longest to save for (most shocking)
+    const mostShocking = itemResults.reduce((prev, current) =>
+      (current.months > prev.months) ? current : prev
+    )
 
-      const comprehensiveResults: ComprehensiveResults = {
-        teacher,
-        items: itemResults,
-        mostShocking,
-        livingCosts,
-        adjustedMonthlySavings: itemResults[0]?.monthlySavings ?? 0
-      }
+    const comprehensiveResults: ComprehensiveResults = {
+      teacher: selectedTeacher,
+      items: itemResults,
+      mostShocking,
+      livingCosts,
+      adjustedMonthlySavings: itemResults[0]?.monthlySavings ?? 0
+    }
 
-      setResults(comprehensiveResults)
-      setCalculating(false)
-    }, 1500)
+    setResults(comprehensiveResults)
+    setCalculating(false)
   }
 
   const handleBackToSelection = () => {
@@ -87,12 +106,14 @@ export default function Home() {
     setTimeout(() => {
       setResults(null)
       setSelectedTeacher(null)
+      setSelectedItem(null)
     }, 1000)
   }
 
   const handleBackToHome = () => {
     setCurrentView('home')
     setSelectedTeacher(null)
+    setSelectedItem(null)
     setResults(null)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -256,14 +277,24 @@ export default function Home() {
             : 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
             }`}>
             <div className="flex items-center justify-center min-h-[600px]">
-              <Hero onTryNow={handleTryNow} />
+              <Hero onTryNow={handleTryNow} onLore={handleLore} />
             </div>
+          </div>
+
+          {/* Lore View */}
+          <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'lore'
+            ? 'relative z-10 translate-y-0 opacity-100'
+            : currentView === 'home'
+              ? 'absolute top-0 left-0 z-0 translate-y-full opacity-0 pointer-events-none'
+              : 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
+            }`}>
+            <Lore onBack={handleBackToHome} onTryNow={handleTryNow} />
           </div>
 
           {/* Guru Selection View */}
           <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'guru-selection'
             ? 'relative z-10 translate-y-0 opacity-100'
-            : currentView === 'home'
+            : currentView === 'home' || currentView === 'lore'
               ? 'absolute top-0 left-0 z-0 translate-y-full opacity-0 pointer-events-none'
               : 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
             }`}>
@@ -271,7 +302,44 @@ export default function Home() {
               onTeacherSelect={handleTeacherSelect}
               showAllTeachers={showAllTeachers}
               setShowAllTeachers={setShowAllTeachers}
+              onBack={handleBackToHome}
             />
+          </div>
+
+          {/* Item Selection View */}
+          <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'item-selection'
+            ? 'relative z-10 translate-y-0 opacity-100'
+            : currentView === 'guru-selection' || currentView === 'home' || currentView === 'lore'
+              ? 'absolute top-0 left-0 z-0 translate-y-full opacity-0 pointer-events-none'
+              : 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
+            }`}>
+            <ItemSelection
+              onItemSelect={handleItemSelect}
+              onBack={() => {
+                setCurrentView('guru-selection')
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            />
+          </div>
+
+          {/* Single Item Result View */}
+          <div className={`w-full transition-all duration-1000 ease-in-out ${currentView === 'single-result'
+            ? 'relative z-10 translate-y-0 opacity-100'
+            : currentView === 'result'
+              ? 'absolute top-0 left-0 z-0 -translate-y-full opacity-0 pointer-events-none'
+              : 'absolute top-0 left-0 z-0 translate-y-full opacity-0 pointer-events-none'
+            }`}>
+            {selectedTeacher && selectedItem && (
+              <SingleItemResult
+                teacher={selectedTeacher}
+                item={selectedItem}
+                onBack={() => {
+                  setCurrentView('item-selection')
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+                onShowAll={handleShowAllResults}
+              />
+            )}
           </div>
 
           {/* Result View */}
@@ -312,7 +380,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Floating Action Button (Up) - Only show when scrolled? Or always? */}
       {/* Floating Action Button (Up) - Only show when scrolled */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

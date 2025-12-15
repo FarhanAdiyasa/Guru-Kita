@@ -15,8 +15,12 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
 
   // Format salary in Indonesian style
   const formatSalary = (amount: number) => {
-    const millions = amount / 1000000
-    return `Rp ${millions.toFixed(1)} juta`
+    if (amount >= 1000000) {
+      const millions = amount / 1000000
+      return `Rp ${millions.toFixed(1)} juta`
+    }
+    const thousands = amount / 1000
+    return `Rp ${thousands.toFixed(0)} ribu`
   }
 
   return (
