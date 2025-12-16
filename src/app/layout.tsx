@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   keywords: ["gaji guru", "guru honorer", "PNS guru", "kalkulator tabungan", "guru Indonesia", "transparansi gaji"],
   authors: [{ name: "GuruKita" }],
   creator: "GuruKita",
-  metadataBase: new URL("https://gurukita.id"),
+  metadataBase: new URL("https://gurukita.farhanadiyasa.id"),
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://gurukita.id",
+    url: "https://gurukita.farhanadiyasa.id",
     siteName: "GuruKita",
     title: "GuruKita - Berapa Lama Guru Harus Menabung?",
     description: "Kalkulator realita gaji guru Indonesia. Lihat berapa tahun guru honorer harus menabung untuk beli rumah, motor, atau HP. 😢",
