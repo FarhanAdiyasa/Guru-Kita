@@ -2,43 +2,43 @@
 
 import { ExternalLink } from 'lucide-react'
 
-// Spectrum data with sources
+// Spectrum data with verified sources
 const SALARY_SPECTRUM = [
     {
         label: 'Guru Honorer',
-        salary: 'Rp 300rb',
-        subtext: 'Gaji di bawah UMR, tanpa jaminan',
-        timeForIphone: '10+ tahun',
+        salary: 'Rp 90rb-500rb',
+        subtext: 'Gaji dari dana BOS, tanpa jaminan',
+        timeForIphone: '6-30+ tahun',
         status: 'Honorer',
         source: 'BBC Indonesia',
         sourceUrl: 'https://www.bbc.com/indonesia/indonesia-56094473',
     },
     {
         label: 'Guru PPPK',
-        salary: 'Rp 4-7jt',
-        subtext: 'Kontrak pemerintah + tunjangan',
-        timeForIphone: '5-8 bulan',
+        salary: 'Rp 3,2-5,2jt',
+        subtext: 'Gaji pokok Gol IX (S1) berdasarkan Perpres 11/2024',
+        timeForIphone: '7-11 bulan',
         status: 'PPPK',
-        source: 'Dealls',
-        sourceUrl: 'https://dealls.com/pengembangan-karir/gaji-pppk',
+        source: 'Perpres 11/2024',
+        sourceUrl: 'https://peraturan.bpk.go.id/Details/276756/perpres-no-11-tahun-2024',
     },
     {
-        label: 'Guru PNS',
+        label: 'Guru PNS DKI',
         salary: 'Rp 8-15jt',
-        subtext: 'Golongan III-IV + TKD + tunjangan',
+        subtext: 'Gaji pokok + TKD + tunjangan profesi',
         timeForIphone: '2-4 bulan',
         status: 'PNS',
         source: 'Pikiran Rakyat',
-        sourceUrl: 'https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional',
+        sourceUrl: 'https://www.pikiran-rakyat.com/pendidikan/pr-017626215/berapa-gaji-guru-pns-2024-ini-rinciannya',
     },
     {
         label: 'Guru Singapura',
-        salary: 'Rp 46jt',
-        subtext: 'Dihargai setara profesional',
+        salary: 'Rp 45-55jt',
+        subtext: 'S$3.800-4.600/bulan untuk fresh graduate',
         timeForIphone: '< 1 bulan',
         status: 'Global',
-        source: 'MoE Singapore',
-        sourceUrl: 'https://www.moe.gov.sg/careers/become-teachers/salary-and-benefits',
+        source: 'MOE Singapore',
+        sourceUrl: 'https://www.moe.gov.sg/careers/become-teachers',
     },
 ]
 

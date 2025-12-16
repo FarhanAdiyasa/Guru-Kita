@@ -7,12 +7,13 @@ interface HeroProps {
   onLore: () => void
 }
 
-// Shock stats data with sources
+// Shock stats data with verified sources
 const SHOCK_STATS = [
-  { value: '529.770', label: 'guru honorer di Indonesia', source: 'VOI, 2024' },
-  { value: '74%', label: 'digaji di bawah UMR', source: 'Kompasiana' },
-  { value: '20,5%', label: 'menerima < Rp 500rb/bulan', source: 'Kompas' },
+  { value: '704.503', label: 'guru honorer tercatat (2022)', source: 'Kemendikbud' },
+  { value: '770.134', label: 'guru diangkat PPPK (2024)', source: 'BKN' },
+  { value: 'Rp 90rb', label: 'gaji terendah guru honorer/bulan', source: 'BBC Indonesia' },
 ]
+
 
 export default function Hero({ onTryNow, onLore }: HeroProps) {
   const [activeStatIndex, setActiveStatIndex] = useState(0)
