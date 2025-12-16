@@ -4,6 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # Disable Turbopack for production (more stable)
+  NEXT_TURBOPACK = "false"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
