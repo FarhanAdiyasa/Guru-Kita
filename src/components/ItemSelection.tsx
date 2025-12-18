@@ -50,8 +50,11 @@ export default function ItemSelection({ onItemSelect, onBack }: ItemSelectionPro
                         <h3 className="font-bold text-gray-900 mb-1 group-hover:text-emerald-700 transition-colors">
                             {item.name}
                         </h3>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(item.price)}
+                        <p className={`text-xs font-bold uppercase tracking-wider ${item.category === 'special' ? 'text-emerald-600' : 'text-gray-400'}`}>
+                            {item.category === 'special'
+                                ? 'LIHAT SEMUA KALKULASI'
+                                : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(item.price)
+                            }
                         </p>
                     </button>
                 ))}

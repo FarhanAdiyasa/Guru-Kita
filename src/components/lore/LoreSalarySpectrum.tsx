@@ -6,26 +6,26 @@ import { ExternalLink } from 'lucide-react'
 const SALARY_SPECTRUM = [
     {
         label: 'Guru Honorer',
-        salary: 'Rp 90rb-500rb',
-        subtext: 'Gaji dari dana BOS, tanpa jaminan',
-        timeForIphone: '6-30+ tahun',
+        salary: 'Rp 300rb',
+        subtext: 'Rata-rata (Range: Rp 90rb - 500rb)',
+        timeForIphone: '10+ tahun',
         status: 'Honorer',
         source: 'BBC Indonesia',
         sourceUrl: 'https://www.bbc.com/indonesia/indonesia-56094473',
     },
     {
         label: 'Guru PPPK',
-        salary: 'Rp 3,2-5,2jt',
-        subtext: 'Gaji pokok Gol IX (S1) berdasarkan Perpres 11/2024',
+        salary: 'Rp 3,2jt+',
+        subtext: 'Gaji Pokok Gol IX (S1)',
         timeForIphone: '7-11 bulan',
         status: 'PPPK',
         source: 'Perpres 11/2024',
         sourceUrl: 'https://peraturan.bpk.go.id/Details/276756/perpres-no-11-tahun-2024',
     },
     {
-        label: 'Guru PNS DKI',
-        salary: 'Rp 8-15jt',
-        subtext: 'Gaji pokok + TKD + tunjangan profesi',
+        label: 'Guru PNS',
+        salary: 'Rp 8jt+',
+        subtext: 'Gaji Pokok + Tunjangan',
         timeForIphone: '2-4 bulan',
         status: 'PNS',
         source: 'Pikiran Rakyat',
@@ -33,14 +33,15 @@ const SALARY_SPECTRUM = [
     },
     {
         label: 'Guru Singapura',
-        salary: 'Rp 45-55jt',
-        subtext: 'S$3.800-4.600/bulan untuk fresh graduate',
+        salary: 'Rp 45jt+',
+        subtext: 'Fresh Graduate (S$ 3.800)',
         timeForIphone: '< 1 bulan',
         status: 'Global',
         source: 'MOE Singapore',
         sourceUrl: 'https://www.moe.gov.sg/careers/become-teachers',
     },
 ]
+
 
 // Status badge colors matching TeacherProfileCard
 const getStatusBadgeClass = (status: string) => {

@@ -260,11 +260,8 @@ Cek nasib guru lainnya di sini 👇
               </button>
             </div>
 
-            <div className="inline-flex items-center justify-center p-2 bg-emerald-100 rounded-full mb-2">
-              <span className="text-2xl">👤</span>
-            </div>
 
-            <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">
+            <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1 mt-12">
               {results.teacher.level} • {results.teacher.location}
             </h2>
 

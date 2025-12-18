@@ -12,7 +12,11 @@ import { TeacherProfile, ComprehensiveResults, Item } from '@/types/calculator'
 import { calculateItemResults } from '@/lib/calculator-utils'
 import { CONFIG } from '@/data/config'
 
-const { items } = CONFIG
+const { items: configItems } = CONFIG
+
+// Filter out special items (like "Check All") for calculator logic
+const items = configItems.filter(item => item.id !== 'all-items')
+
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<'home' | 'lore' | 'guru-selection' | 'item-selection' | 'single-result' | 'result'>('home')
@@ -70,6 +74,10 @@ export default function Home() {
   }
 
   const handleItemSelect = (item: Item) => {
+    if (item.id === 'all-items') {
+      handleShowAllResults()
+      return
+    }
     setSelectedItem(item)
     setCurrentView('single-result')
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -82,7 +90,10 @@ export default function Home() {
     setCurrentView('result')
     window.scrollTo({ top: 0, behavior: 'smooth' })
 
-    const itemResults = calculateItemResults(items, selectedTeacher, livingCosts)
+    // Filter out the "all-items" special item from calculation
+    const calculatableItems = items.filter(i => i.id !== 'all-items')
+    const itemResults = calculateItemResults(calculatableItems, selectedTeacher, livingCosts)
+
     // Find the item that takes the longest to save for (most shocking)
     const mostShocking = itemResults.reduce((prev, current) =>
       (current.months > prev.months) ? current : prev

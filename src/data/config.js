@@ -223,14 +223,6 @@ export const CONFIG = {
       icon: "📱"
     },
     {
-      id: "motor-listrik",
-      name: "Polytron Fox-R",
-      category: "transportation",
-      price: 20500000,
-      description: "Motor listrik range 100km+, subsidi pemerintah",
-      icon: "🛵"
-    },
-    {
       id: "ipad-pro",
       name: "iPad Pro M4",
       category: "technology",
@@ -255,20 +247,20 @@ export const CONFIG = {
       icon: "💒"
     },
     {
-      id: "kursus-master",
-      name: "Kursus Master S2",
-      category: "education",
-      price: 25000000,
-      description: "Biaya kuliah S2 1 semester",
-      icon: "🎓"
-    },
-    {
       id: "umroh",
       name: "Paket Umroh",
       category: "religious",
       price: 25000000,
       description: "Paket umroh 12 hari",
       icon: "🕋"
+    },
+    {
+      id: "all-items",
+      name: "Langsung Cek Semuanya",
+      category: "special",
+      price: 0,
+      description: "Lihat kalkulasi untuk semua barang sekaligus",
+      icon: "⚡"
     }
   ],
 
