@@ -1,91 +1,194 @@
-# Guru Kita 🇮🇩
+# GuruKita
 
-**Guru Kita** adalah aplikasi interaktif yang dirancang untuk meningkatkan kesadaran tentang realitas finansial guru di Indonesia. Aplikasi ini membantu pengguna memvisualisasikan tantangan ekonomi yang dihadapi guru melalui kalkulator tabungan dan simulasi biaya hidup yang realistis.
+A web-based calculator that visualizes how long Indonesian teachers must save to afford common purchases, based on real salary data.
 
-![Guru Kita Banner](/public/banner.png) 
-*(Note: Add a screenshot or banner here if available)*
+## Table of Contents
 
-## 🌟 Fitur Utama
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Running the Application](#running-the-application)
+- [Scripts](#scripts)
+- [Project Structure](#project-structure)
+- [API Overview](#api-overview)
+- [Contributing](#contributing)
+- [License](#license)
 
--   **Pilih Profil Guru**: Bandingkan berbagai tingkat pendapatan guru (Honorer, PNS Golongan Rendah, PNS Senior) untuk melihat perbedaan daya beli.
--   **Kalkulator Tabungan**: Hitung berapa lama seorang guru harus menabung untuk membeli barang impian (Rumah, Kendaraan, Gadget, Ibadah).
--   **Reality Check Mode**: Masukkan biaya hidup bulanan untuk melihat sisa tabungan yang realistis (atau minus!).
--   **Timeline Visual**: Drag-and-drop item impian untuk memprioritaskan target tabungan.
--   **Analisis Keterjangkauan**: Indikator visual (warna & emoji) yang menunjukkan apakah suatu barang "Terjangkau", "Menantang", atau "Mustahil".
+## Features
 
-## 🛠️ Teknologi
+- Teacher profile selection with real salary data from various Indonesian regions
+- Savings calculator for multiple item categories (housing, vehicles, electronics, etc.)
+- Reality check mode with living cost adjustments
+- Drag-and-drop timeline for prioritizing savings goals
+- Responsive design optimized for mobile sharing
+- Feedback and salary suggestion forms with external integrations
 
-Project ini dibangun menggunakan teknologi web modern:
+## Tech Stack
 
--   **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
--   **Language**: [TypeScript](https://www.typescriptlang.org/)
--   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
--   **Icons**: [Lucide React](https://lucide.dev/)
--   **Interactivity**: [dnd-kit](https://dndkit.com/) (untuk fitur drag & drop)
--   **Database**: [Supabase](https://supabase.com/) (Optional/Integration ready)
+| Category | Technology |
+|----------|------------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS 4 |
+| UI Components | Lucide React (icons) |
+| Drag & Drop | dnd-kit |
+| Database | Supabase (optional) |
+| Email | Nodemailer |
+| Deployment | Netlify |
 
-## 🚀 Cara Menjalankan
+## Prerequisites
 
-Ikuti langkah-langkah ini untuk menjalankan project di komputer lokal Anda:
+- Node.js 20 or higher
+- npm, yarn, or pnpm
+- Git
 
-1.  **Clone Repository**
-    ```bash
-    git clone https://github.com/FarhanAdiyasa/Guru-Kita.git
-    cd guru-kita
-    ```
+## Installation
 
-2.  **Install Dependencies**
-    ```bash
-    npm install
-    # atau
-    yarn install
-    # atau
-    pnpm install
-    ```
+```bash
+git clone https://github.com/FarhanAdiyasa/Guru-Kita.git
+cd Guru-Kita
+npm install
+```
 
-3.  **Setup Environment Variables**
-    Salin file contoh konfigurasi:
-    ```bash
-    cp .env.local.example .env.local
-    ```
-    Isi variable yang diperlukan di file `.env.local` (jika menggunakan fitur yang membutuhkan backend/database).
+## Environment Variables
 
-4.  **Jalankan Development Server**
-    ```bash
-    npm run dev
-    ```
+Copy the example file and configure:
 
-5.  **Buka Aplikasi**
-    Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
+```bash
+cp .env.local.example .env.local
+```
 
-## 📂 Struktur Project
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | No |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key | No |
+| `GOOGLE_SHEET_SCRIPT_URL` | Google Apps Script URL for feedback form | No |
+
+The application runs without external services. Supabase and Google Sheets integrations are optional for data persistence.
+
+## Running the Application
+
+### Development
+
+```bash
+npm run dev
+```
+
+Opens at `http://localhost:3000`.
+
+### Production Build
+
+```bash
+npm run build
+npm start
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Create production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+
+## Project Structure
 
 ```
 src/
-├── app/              # Next.js App Router pages
-├── components/       # Reusable React components
-│   ├── GuruSelection.tsx    # Halaman pemilihan profil guru
-│   ├── Result.tsx           # Halaman hasil kalkulasi & timeline
-│   ├── TeacherProfileCard.tsx # Komponen kartu profil
-│   └── ...
-├── data/             # Static data & configuration
-├── types/            # TypeScript definitions
-└── ...
+├── app/
+│   ├── api/
+│   │   ├── feedback/       # POST endpoint for feedback form
+│   │   └── salary/         # POST endpoint for salary suggestions
+│   ├── feedback/           # Feedback page
+│   ├── suggest-salary/     # Salary suggestion page
+│   ├── layout.tsx          # Root layout with metadata
+│   ├── page.tsx            # Main calculator page
+│   └── globals.css
+├── components/
+│   ├── GuruSelection.tsx   # Teacher profile selector
+│   ├── ItemSelection.tsx   # Purchase item selector
+│   ├── Result.tsx          # Calculation results with timeline
+│   ├── SingleItemResult.tsx
+│   ├── SortableTimelineItem.tsx
+│   ├── ShareModal.tsx
+│   └── lore/               # Educational context components
+├── data/
+│   ├── config.js           # All configurable data (teachers, items, settings)
+│   └── lore.ts             # Story content for teacher profiles
+├── lib/
+│   ├── calculator-utils.ts # Calculation logic
+│   └── supabase.ts         # Supabase client
+└── types/
+    └── calculator.ts       # TypeScript definitions
 ```
 
-## 🤝 Kontribusi
+## API Overview
 
-Kontribusi sangat diterima! Silakan buat *Issue* untuk mendiskusikan fitur baru atau *Pull Request* untuk perbaikan bug.
+### POST /api/feedback
 
-1.  Fork repository ini
-2.  Buat branch fitur Anda (`git checkout -b fitur-keren`)
-3.  Commit perubahan Anda (`git commit -m 'Menambahkan fitur keren'`)
-4.  Push ke branch (`git push origin fitur-keren`)
-5.  Buat Pull Request
+Submits user feedback to Google Sheets.
 
-## 📄 Lisensi
+Request body:
+```json
+{
+  "name": "string (optional)",
+  "email": "string (optional)",
+  "rating": "number (required)",
+  "message": "string (required)"
+}
+```
 
-Project ini dilisensikan di bawah [MIT License](LICENSE).
+### POST /api/salary
 
----
-*Dibuat dengan ❤️ untuk pendidikan Indonesia.*
+Submits teacher salary data suggestions.
+
+Request body:
+```json
+{
+  "location": "string",
+  "level": "string",
+  "status": "string",
+  "salary": "number",
+  "source": "string (optional)"
+}
+```
+
+## Data Configuration
+
+All teacher profiles, purchasable items, and calculator settings are defined in `src/data/config.js`. To add or modify data:
+
+1. Open `src/data/config.js`
+2. Edit the relevant section (`teachers`, `items`, `comparisons`, etc.)
+3. Follow the existing object structure
+
+Example teacher entry:
+```javascript
+{
+  id: "unique-id",
+  title: "Guru Honorer",
+  location: "City, Province",
+  level: "SD/SMP/SMA",
+  experience: 5,
+  status: "Honorer/PPPK/PNS",
+  monthlySalary: 300000,
+  description: "Brief description",
+  source: "https://source-url.com"
+}
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/add-new-region`)
+3. Commit changes (`git commit -m "Add teacher data for new region"`)
+4. Push to branch (`git push origin feature/add-new-region`)
+5. Open a Pull Request
+
+For salary data contributions, include the source URL for verification.
+
+## License
+
+MIT
