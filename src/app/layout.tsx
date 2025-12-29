@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,11 +19,11 @@ export const metadata: Metadata = {
   keywords: ["gaji guru", "guru honorer", "PNS guru", "kalkulator tabungan", "guru Indonesia", "transparansi gaji"],
   authors: [{ name: "GuruKita" }],
   creator: "GuruKita",
-  metadataBase: new URL("https://gurukita.farhanadiyasa.id"),
+  metadataBase: new URL("https://gurukita.farhan-adiyasa.site"),
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://gurukita.farhanadiyasa.id",
+    url: "https://gurukita.farhan-adiyasa.site",
     siteName: "GuruKita",
     title: "GuruKita - Berapa Lama Guru Harus Menabung?",
     description: "Kalkulator realita gaji guru Indonesia. Lihat berapa tahun guru honorer harus menabung untuk beli rumah, motor, atau HP. 😢",
@@ -59,7 +60,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
