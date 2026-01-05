@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, Share2, RefreshCw, GripVertical, Eye, EyeOff, Download } from 'lucide-react'
+import { ArrowLeft, Share2, RefreshCw } from 'lucide-react'
 import {
   DndContext,
   closestCenter,
@@ -18,12 +18,10 @@ import {
 } from '@dnd-kit/sortable'
 import SortableTimelineItem from '@/components/SortableTimelineItem'
 import Toast, { ToastType } from '@/components/Toast'
+import ShareModal from '@/components/ShareModal'
 import { ComprehensiveResults } from '@/types/calculator'
-import { CONFIG } from '@/data/config'
 
-const { items } = CONFIG
-
-// Helper functions (outside component)
+// Helper functions
 const formatSalary = (amount: number) => {
   if (amount >= 1000000) {
     const millions = amount / 1000000
@@ -31,17 +29,6 @@ const formatSalary = (amount: number) => {
   }
   const thousands = amount / 1000
   return `Rp ${thousands.toFixed(0)} ribu`
-}
-
-const formatCurrency = (amount: number) => {
-  if (amount >= 1000000) {
-    const millions = amount / 1000000
-    return `Rp ${millions.toFixed(1)}jt`
-  } else if (amount >= 1000) {
-    const thousands = amount / 1000
-    return `Rp ${thousands.toFixed(0)}k`
-  }
-  return `Rp ${amount.toLocaleString('id-ID')}`
 }
 
 const getItemEmoji = (category: string, itemId?: string) => {
@@ -152,20 +139,22 @@ export default function Result({
   onShare,
   onDragEnd
 }: ResultProps) {
-  const [isSharing, setIsSharing] = useState(false)
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: ToastType; isVisible: boolean }>({
     message: '',
     type: 'info',
     isVisible: false
   })
 
-  const showToast = (message: string, type: ToastType = 'info') => {
-    setToast({ message, type, isVisible: true })
-  }
+  // Initialize drag and drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
 
-  const handleShareClick = async () => {
-    setIsSharing(true)
-
+  const getShareContent = () => {
     const title = 'GuruKita.id - Realita Gaji Guru'
     const text = `⚠️ Cek realita gaji guru di Indonesia!
 
@@ -179,43 +168,7 @@ Butuh waktu ${results.items[0].years > 0 ? `${results.items[0].years} tahun ` : 
 Cek nasib guru lainnya di sini 👇
 #GuruKita #NasibGuru #RealitaPendidikan`
 
-    const url = window.location.href
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title,
-          text,
-          url
-        })
-      } catch (err) {
-        console.error('Error sharing:', err)
-      }
-    } else {
-      // Fallback to clipboard
-      try {
-        await navigator.clipboard.writeText(`${text}\n${url}`)
-        showToast('Link & caption disalin!', 'success')
-      } catch (err) {
-        showToast('Gagal menyalin link', 'error')
-      }
-    }
-
-    setIsSharing(false)
-  }
-
-  // Initialize drag and drop sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  )
-
-  // Handle drag end event
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
-    console.log('Drag end event:', event)
+    return { title, text, url: typeof window !== 'undefined' ? window.location.href : '' }
   }
 
   if (calculating) {
@@ -236,6 +189,12 @@ Cek nasib guru lainnya di sini 👇
 
   return (
     <div className="pb-12">
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        {...getShareContent()}
+      />
+
       <Toast
         message={toast.message}
         type={toast.type}
@@ -244,9 +203,8 @@ Cek nasib guru lainnya di sini 👇
       />
 
       <div className="max-w-2xl mx-auto">
-        {/* Shareable Summary - Seamless Editorial Style */}
         <div className="overflow-hidden">
-          {/* Profile Header - Ultra Compact */}
+          {/* Profile Header */}
           <div className="p-4 text-center relative">
             <div className="absolute top-4 left-4">
               <button
@@ -259,7 +217,6 @@ Cek nasib guru lainnya di sini 👇
                 <span className="font-bold text-sm tracking-tight hidden sm:inline">Kembali</span>
               </button>
             </div>
-
 
             <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1 mt-12">
               {results.teacher.level} • {results.teacher.location}
@@ -299,7 +256,6 @@ Cek nasib guru lainnya di sini 👇
           {/* Advanced Options Content */}
           {showLivingCostInput && (
             <div className="border-b border-gray-200 bg-gray-50">
-              {/* Tab Navigation */}
               <div className="flex border-b border-gray-200">
                 <button
                   onClick={() => setActiveTab('reality')}
@@ -325,10 +281,8 @@ Cek nasib guru lainnya di sini 👇
                 </button>
               </div>
 
-              {/* Tab Content */}
               <div className="p-4">
                 {activeTab === 'reality' ? (
-                  /* Reality Check Tab */
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="font-bold text-gray-900">
@@ -397,7 +351,6 @@ Cek nasib guru lainnya di sini 👇
                     )}
                   </div>
                 ) : (
-                  /* Custom Item Tab */
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="font-bold text-gray-900">
@@ -451,7 +404,7 @@ Cek nasib guru lainnya di sini 👇
                         }}
                         className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm"
                       >
-                        Clear
+                        Hapus
                       </button>
                     </div>
                   </div>
@@ -460,7 +413,6 @@ Cek nasib guru lainnya di sini 👇
             </div>
           )}
 
-          {/* Timeline Items - Draggable & Customizable */}
           <div className="p-3">
             <div className="mb-2 text-center">
               <div className="text-xs font-bold text-gray-700 mb-1">
@@ -481,7 +433,6 @@ Cek nasib guru lainnya di sini 👇
                 strategy={verticalListSortingStrategy}
               >
                 <div className="space-y-2">
-                  {/* Show top 3 visible items first */}
                   {timelineOrder
                     .filter(id => !hiddenTimelines.has(id))
                     .slice(0, 3)
@@ -506,7 +457,6 @@ Cek nasib guru lainnya di sini 👇
                       )
                     })}
 
-                  {/* Show "Show More" button if there are more items */}
                   {!showAllTimelines && timelineOrder.length > 3 && (
                     <button
                       onClick={() => setShowAllTimelines(true)}
@@ -516,7 +466,6 @@ Cek nasib guru lainnya di sini 👇
                     </button>
                   )}
 
-                  {/* Show remaining items if expanded */}
                   {showAllTimelines && (
                     <>
                       {timelineOrder
@@ -543,11 +492,10 @@ Cek nasib guru lainnya di sini 👇
                           )
                         })}
 
-                      {/* Hidden Items Section */}
                       {hiddenTimelines.size > 0 && (
                         <div className="mt-4">
                           <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
-                            Hidden Items ({hiddenTimelines.size})
+                            Item Tersembunyi ({hiddenTimelines.size})
                           </div>
                           <div className="space-y-2 opacity-60">
                             {timelineOrder
@@ -589,15 +537,13 @@ Cek nasib guru lainnya di sini 👇
             </DndContext>
           </div>
 
-          {/* Action Buttons - Horizontal & Compact */}
           <div className="p-3 flex gap-2">
             <button
-              onClick={handleShareClick}
-              disabled={isSharing}
-              className="flex-[2] py-3 bg-gray-900 text-white rounded-xl font-bold text-base hover:bg-gray-800 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-70"
+              onClick={() => setIsShareModalOpen(true)}
+              className="flex-[2] py-3 bg-gray-900 text-white rounded-xl font-bold text-base hover:bg-gray-800 transition-all flex items-center justify-center gap-2 shadow-lg"
             >
               <Share2 className="w-5 h-5" />
-              {isSharing ? 'Sharing...' : 'Bagikan Hasil'}
+              Bagikan Hasil
             </button>
 
             <button

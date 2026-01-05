@@ -23,6 +23,7 @@ export const CONFIG = {
   // =================== TEACHER PROFILES ===================
   // Format: id, title, location, level, experience, status, monthlySalary
   teachers: [
+    // --- HONORER DAERAH & 3T ---
     {
       id: "guru-sikka",
       title: "Guru Honorer Pedalaman",
@@ -35,6 +36,52 @@ export const CONFIG = {
       source: "https://www.youtube.com/watch?v=u8R2_X5It0Q"
     },
     {
+      id: "guru-papua",
+      title: "Guru Honorer Pegunungan",
+      location: "Papua Pegunungan",
+      level: "SD",
+      experience: 3,
+      status: "Honorer",
+      monthlySalary: 500000,
+      description: "Biaya hidup sangat tinggi (bensin 50rb/liter), gaji dirapel per 3 bulan",
+      source: "https://www.kompas.id/baca/humaniora/2023/11/24/nasib-guru-honorer-di-pedalaman-papua"
+    },
+    {
+      id: "guru-bone",
+      title: "Guru Honorer Viral",
+      location: "Bone, Sulsel",
+      level: "SD",
+      experience: 13,
+      status: "Honorer",
+      monthlySalary: 175000,
+      description: "Dipecat karena mengunggah slip gaji ke media sosial",
+      source: "https://www.bbc.com/indonesia/indonesia-56094473"
+    },
+    {
+      id: "guru-medan",
+      title: "Guru Honorer Sekolah",
+      location: "Medan, Sumatera Utara",
+      level: "SMP",
+      experience: 8,
+      status: "Honorer",
+      monthlySalary: 450000,
+      description: "Hanya digaji dari dana BOS, sering telat cair",
+      source: "https://medan.tribunnews.com/2023/11/25/kisah-pilu-guru-honorer-di-medan-gaji-kecil-dituntut-administrasi-rumit"
+    },
+    {
+      id: "guru-bengkulu-tengah",
+      title: "Guru Honorer",
+      location: "Bengkulu Tengah",
+      level: "SD",
+      experience: 10,
+      status: "Honorer",
+      monthlySalary: 300000,
+      description: "Gaji Rp 300 ribu per bulan, dibayar setiap 3 bulan sekali",
+      source: "https://bengkulu.tribunnews.com/2023/10/27/gaji-guru-honorer-di-bengkulu-tengah-hanya-rp-300-ribu-per-bulan-pgri-desak-pemkab-turun-tangan"
+    },
+
+    // --- HONORER JAWA ---
+    {
       id: "guru-toilet",
       title: "Guru Honorer",
       location: "Pandeglang, Banten",
@@ -46,52 +93,8 @@ export const CONFIG = {
       source: "https://regional.kompas.com/read/2019/07/15/15243301/15-tahun-jadi-guru-honorer-ini-alasan-nining-tetap-bertahan-dan-tinggal-di"
     },
     {
-      id: "guru-agama-jkt",
-      title: "Guru Agama Kristen",
-      location: "Duren Sawit, Jakarta",
-      level: "SD",
-      experience: 1,
-      status: "Honorer",
-      monthlySalary: 300000,
-      description: "Gaji sangat minim di tengah biaya hidup Jakarta yang tinggi",
-      source: "https://www.detik.com/edu/sekolah/d-7059354/masih-ada-guru-digaji-rp-300-ribu-di-jakarta-diduga-karena-ini"
-    },
-    {
-      id: "guru-surabaya",
-      title: "Guru Honorer",
-      location: "Surabaya, Jatim",
-      level: "SD-SMP",
-      experience: 1,
-      status: "Honorer",
-      monthlySalary: 785000,
-      description: "Slip gaji viral, dibayar per jam pelajaran",
-      source: "https://jabar.tribunnews.com/2023/10/09/viral-gaji-guru-honorer-rp15000-per-satu-jam-pelajaran-begini-aturannya-menurut-undang-undang"
-    },
-    {
-      id: "guru-bone",
-      title: "Guru Honorer",
-      location: "Bone, Sulsel",
-      level: "SD",
-      experience: 13,
-      status: "Honorer",
-      monthlySalary: 175000,
-      description: "Dipecat karena mengunggah slip gaji ke media sosial",
-      source: "https://www.bbc.com/indonesia/indonesia-56094473"
-    },
-    {
-      id: "guru-tari",
-      title: "Guru Tari",
-      location: "Lumajang, Jatim",
-      level: "SD",
-      experience: 21,
-      status: "Honorer",
-      monthlySalary: 250000,
-      description: "Jual baju tari untuk menutupi kebutuhan hidup",
-      source: "https://www.youtube.com/watch?v=_yR_fP3CxqY"
-    },
-    {
       id: "guru-bogor",
-      title: "Guru Honorer",
+      title: "Guru Honorer Senior",
       location: "Bogor, Jabar",
       level: "SD",
       experience: 36,
@@ -101,18 +104,29 @@ export const CONFIG = {
       source: "https://www.youtube.com/watch?v=TVlO3QJroQ8"
     },
     {
-      "id": "guru-bengkulu-tengah",
-      "title": "Guru Honorer",
-      "location": "Bengkulu Tengah, Bengkulu",
-      "level": "SD",
-      "experience": 10,
-      "status": "Honorer",
-      "monthlySalary": 300000,
-      "description": "Gaji Rp 300 ribu per bulan, dibayar setiap 3 bulan sekali",
-      "source": "https://bengkulu.tribunnews.com/2023/10/27/gaji-guru-honorer-di-bengkulu-tengah-hanya-rp-300-ribu-per-bulan-pgri-desak-pemkab-turun-tangan"
+      id: "guru-surabaya",
+      title: "Guru Honorer Jam-jaman",
+      location: "Surabaya, Jatim",
+      level: "SD-SMP",
+      experience: 1,
+      status: "Honorer",
+      monthlySalary: 785000,
+      description: "Dibayar berdasarkan jam mengajar, tidak ada jam = tidak ada gaji",
+      source: "https://jabar.tribunnews.com/2023/10/09/viral-gaji-guru-honorer-rp15000-per-satu-jam-pelajaran-begini-aturannya-menurut-undang-undang"
+    },
+    {
+      id: "guru-agama-jkt",
+      title: "Guru Agama Honorer",
+      location: "Jakarta Timur",
+      level: "SD",
+      experience: 2,
+      status: "Honorer",
+      monthlySalary: 300000,
+      description: "Gaji sangat minim di tengah biaya hidup Jakarta yang tinggi",
+      source: "https://www.detik.com/edu/sekolah/d-7059354/masih-ada-guru-digaji-rp-300-ribu-di-jakarta-diduga-karena-ini"
     },
 
-    // =================== GURU PPPK (Paruh Waktu) ===================
+    // --- PPPK (ASN) ---
     {
       id: "pppk-jabar",
       title: "Guru PPPK",
@@ -120,30 +134,8 @@ export const CONFIG = {
       level: "SMP",
       experience: 3,
       status: "PPPK",
-      monthlySalary: 4000000,
-      description: "UMP + tunjangan kinerja + tunjangan profesi (jika sertifikasi)",
-      source: "https://dealls.com/pengembangan-karir/gaji-pppk"
-    },
-    {
-      id: "pppk-jateng",
-      title: "Guru PPPK",
-      location: "Jawa Tengah",
-      level: "SD",
-      experience: 5,
-      status: "PPPK",
-      monthlySalary: 4200000,
-      description: "UMP + tunjangan kinerja variatif + tunjangan profesi",
-      source: "https://dealls.com/pengembangan-karir/gaji-pppk"
-    },
-    {
-      id: "pppk-jatim",
-      title: "Guru PPPK",
-      location: "Jawa Timur",
-      level: "SMA",
-      experience: 4,
-      status: "PPPK",
-      monthlySalary: 4500000,
-      description: "UMP Rp 2,3 juta + tunjangan kinerja + tunjangan profesi",
+      monthlySalary: 3800000,
+      description: "Setelah potong pajak & BPJS dari gaji pokok + tunjangan",
       source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
@@ -153,44 +145,44 @@ export const CONFIG = {
       level: "SMP",
       experience: 6,
       status: "PPPK",
-      monthlySalary: 5500000,
-      description: "UMP Rp 3,6 juta + tunjangan kinerja + tunjangan profesi",
+      monthlySalary: 4200000,
+      description: "Gaji lebih stabil dibanding honorer, namun kontrak terbatas",
       source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
       id: "pppk-dki",
-      title: "Guru PPPK",
+      title: "Guru PPPK Jakarta",
       location: "DKI Jakarta",
       level: "SMA",
       experience: 5,
       status: "PPPK",
-      monthlySalary: 7000000,
-      description: "Golongan III/a + TKD + tunjangan profesi (total Rp 6-8 juta)",
+      monthlySalary: 6800000,
+      description: "Termasuk TKD Daerah yang tinggi dibanding provinsi lain",
       source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
     },
 
-    // =================== GURU PNS ===================
-    {
-      id: "pns-dki-junior",
-      title: "Guru PNS",
-      location: "DKI Jakarta",
-      level: "SMP",
-      experience: 5,
-      status: "PNS",
-      monthlySalary: 8000000,
-      description: "Golongan III + TKD + tunjangan profesi (guru junior)",
-      source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
-    },
+    // --- PNS & SWASTA ---
     {
       id: "pns-dki-senior",
-      title: "Guru PNS Senior",
+      title: "Guru PNS Senior (IV/a)",
       location: "DKI Jakarta",
       level: "SMA",
       experience: 20,
       status: "PNS",
-      monthlySalary: 15000000,
-      description: "Golongan IV + TKD Rp 9-10 juta + tunjangan profesi + jabatan",
+      monthlySalary: 14500000,
+      description: "Gapok + TKD + Sertifikasi + Jabatan (Tier Tertinggi)",
       source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
+    },
+    {
+      id: "guru-inter",
+      title: "Guru International School",
+      location: "Jakarta Selatan",
+      level: "SMA",
+      experience: 8,
+      status: "Swasta",
+      monthlySalary: 18000000,
+      description: "Sekolah internasional kurikulum Cambridge/IB",
+      source: "https://www.cnbcindonesia.com/news/20230502130541-4-434002/intip-gaji-guru-sekolah-internasional-di-jakarta-bisa-puluhan-juta"
     }
   ],
 
@@ -198,62 +190,101 @@ export const CONFIG = {
   // =================== ITEMS TO CALCULATE ===================
   // Format: id, name, category, price
   items: [
+    // --- KEBUTUHAN DASAR & KERJA ---
     {
-      id: "rumah-prefab",
-      name: "Tiny Home Gaoshi",
-      category: "housing",
-      price: 250000000,
-      description: "Prefab Minimalis 35m², 2 Kamar (Viral di TikTok)",
-      icon: "🏠"
-    },
-    {
-      id: "mobil-ev",
-      name: "Wuling Air EV",
-      category: "transportation",
-      price: 238000000,
-      description: "Mobil listrik compact 'Long Range' viral",
-      icon: "🚗"
-    },
-    {
-      id: "iphone",
-      name: "iPhone 17 Pro Max",
+      id: "laptop-guru",
+      name: "Laptop Kerja (Entry)",
       category: "technology",
-      price: 35000000,
-      description: "1TB Storage, Titanium Finish (Future Release)",
-      icon: "📱"
-    },
-    {
-      id: "ipad-pro",
-      name: "iPad Pro M4",
-      category: "technology",
-      price: 19499000,
-      description: "11-inch, 256GB WiFi, Chip M4",
-      icon: "🖊️"
-    },
-    {
-      id: "laptop-gaming",
-      name: "ASUS TUF A15",
-      category: "technology",
-      price: 15000000,
-      description: "Edisi 2025, RTX 4050 + Ryzen 7",
+      price: 5500000,
+      description: "Laptop spek minimum untuk administrasi & mengajar (Core i3)",
       icon: "💻"
     },
     {
-      id: "biaya-nikah",
-      name: "Biaya Pernikahan",
-      category: "family",
-      price: 50000000,
-      description: "Biaya resepsi pernikahan sederhana",
-      icon: "💒"
+      id: "motor-beat",
+      name: "Honda Beat 2024",
+      category: "transportation",
+      price: 18500000,
+      description: "Kendaraan sejuta umat untuk operasional mengajar",
+      icon: "🛵"
     },
     {
+      id: "ppg-mandiri",
+      name: "Biaya PPG Mandiri",
+      category: "education",
+      price: 17000000,
+      description: "Pendidikan Profesi Guru (agar dapat sertifikasi)",
+      icon: "🎓"
+    },
+    {
+      id: "kost-jakarta",
+      name: "Sewa Kos Jakarta (1 Thn)",
+      category: "housing",
+      price: 24000000,
+      description: "Kos standar AC di Jakarta (2jt/bulan)",
+      icon: "🏠"
+    },
+
+    // --- DREAM ITEMS (MID) ---
+    {
       id: "umroh",
-      name: "Paket Umroh",
+      name: "Paket Umroh Hemat",
       category: "religious",
-      price: 25000000,
-      description: "Paket umroh 12 hari",
+      price: 28500000,
+      description: "Paket standar 9 hari (Update Hrg 2024)",
       icon: "🕋"
     },
+    {
+      id: "iphone-15",
+      name: "iPhone 15 (128GB)",
+      category: "technology",
+      price: 16499000,
+      description: "HP standar gaya hidup masa kini",
+      icon: "📱"
+    },
+    {
+      id: "biaya-nikah",
+      name: "Resepsi Nikah Sederhana",
+      category: "family",
+      price: 60000000,
+      description: "Biaya katering & dekorasi venue sederhana",
+      icon: "💍"
+    },
+
+    // --- DREAM ITEMS (HIGH) ---
+    {
+      id: "rumah-subsidi",
+      name: "Rumah Subsidi (BTN)",
+      category: "housing",
+      price: 185000000,
+      description: "Rumah tapak tipe 30/60 program pemerintah (Jabodetabek)",
+      icon: "🏡"
+    },
+    {
+      id: "mobil-lcgc",
+      name: "Toyota Calya G",
+      category: "transportation",
+      price: 190000000,
+      description: "Mobil keluarga 7-seater paling terjangkau",
+      icon: "🚗"
+    },
+    {
+      id: "haji-plus",
+      name: "Haji Plus (ONH)",
+      category: "religious",
+      price: 165000000,
+      description: "Masa tunggu lebih singkat (5-7 tahun)",
+      icon: "🕌"
+    },
+    {
+      id: "iphone-15-promax",
+      name: "iPhone 15 Pro Max",
+      category: "technology",
+      price: 24999000,
+      description: "HP Flagship tertinggi saat ini",
+      icon: "📲"
+    },
+
+    // --- SPECIAL ---
     {
       id: "all-items",
       name: "Langsung Cek Semuanya",
@@ -269,18 +300,18 @@ export const CONFIG = {
   comparisons: {
     softwareEngineer: {
       name: "Software Engineer",
-      monthlySalary: 15000000,
-      monthsForIphone: 3
+      monthlySalary: 18000000,
+      monthsForIphone: 1
     },
     doctor: {
-      name: "Dokter",
-      monthlySalary: 12000000,
-      monthsForIphone: 4
+      name: "Dokter Umum (RS)",
+      monthlySalary: 15000000,
+      monthsForIphone: 2
     },
-    accountant: {
-      name: "Akuntan",
-      monthlySalary: 8000000,
-      monthsForIphone: 6
+    bumn: {
+      name: "Staf BUMN (Entry)",
+      monthlySalary: 9000000,
+      monthsForIphone: 3
     }
   },
 

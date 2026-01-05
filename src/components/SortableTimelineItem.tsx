@@ -4,9 +4,10 @@ import { GripVertical, Eye, EyeOff } from 'lucide-react'
 import {
   useSortable,
 } from '@dnd-kit/sortable'
+import { ItemResult } from '@/types/calculator'
 
 interface SortableTimelineItemProps {
-  itemResult: any
+  itemResult: ItemResult
   index: number
   isHidden: boolean
   showVisibilityToggle: boolean

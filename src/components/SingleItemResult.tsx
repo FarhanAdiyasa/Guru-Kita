@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { TeacherProfile, Item, ItemResult } from '@/types/calculator'
 import { calculateItemResults } from '@/lib/calculator-utils'
 import { ArrowLeft, Share2, Info } from 'lucide-react'
+import ShareModal from '@/components/ShareModal'
 
 interface SingleItemResultProps {
     teacher: TeacherProfile
@@ -16,6 +17,7 @@ export default function SingleItemResult({ teacher, item, onBack, onShowAll }: S
     const [livingCosts, setLivingCosts] = useState(0)
     const [result, setResult] = useState<ItemResult | null>(null)
     const [showLivingCostInput, setShowLivingCostInput] = useState(false)
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false)
 
     useEffect(() => {
         const results = calculateItemResults([item], teacher, livingCosts)
@@ -32,26 +34,29 @@ export default function SingleItemResult({ teacher, item, onBack, onShowAll }: S
         }).format(amount)
     }
 
-    const handleShare = async () => {
-        const text = `Seorang ${teacher.title} butuh ${result.message} untuk beli ${item.name}! Cek realitanya di GuruKita.id 😢`
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'GuruKita.id - Realita Gaji Guru',
-                    text: text,
-                    url: window.location.href
-                })
-            } catch (err) {
-                console.error('Error sharing:', err)
-            }
-        } else {
-            navigator.clipboard.writeText(`${text} ${window.location.href}`)
-            alert('Link berhasil disalin!')
+    const getShareContent = () => {
+        const text = `Seorang ${teacher.level} di ${teacher.location} butuh ${result.message} untuk beli ${item.name}! 
+
+💰 Gaji: ${formatCurrency(teacher.monthlySalary)}
+📱 Harga Barang: ${formatCurrency(item.price)}
+
+Cek realitanya di GuruKita.id 😢`
+
+        return {
+            title: 'GuruKita.id - Realita Gaji Guru',
+            text,
+            url: typeof window !== 'undefined' ? window.location.href : ''
         }
     }
 
     return (
         <div className="w-full max-w-2xl mx-auto">
+            <ShareModal
+                isOpen={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
+                {...getShareContent()}
+            />
+
             {/* Navigation */}
             <div className="flex items-center justify-between mb-8">
                 <button
@@ -127,7 +132,7 @@ export default function SingleItemResult({ teacher, item, onBack, onShowAll }: S
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button
-                            onClick={handleShare}
+                            onClick={() => setIsShareModalOpen(true)}
                             className="flex-1 py-4 px-6 bg-emerald-50 text-emerald-700 rounded-xl font-bold hover:bg-emerald-100 transition-all flex items-center justify-center gap-2"
                         >
                             <Share2 className="w-5 h-5" />
