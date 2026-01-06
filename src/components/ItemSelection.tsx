@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Item } from '@/types/calculator'
 import { CONFIG } from '@/data/config'
 import { ArrowLeft } from 'lucide-react'
@@ -10,6 +11,7 @@ interface ItemSelectionProps {
 }
 
 export default function ItemSelection({ onItemSelect, onBack }: ItemSelectionProps) {
+    const t = useTranslations();
     const { items } = CONFIG
 
     return (
@@ -23,15 +25,15 @@ export default function ItemSelection({ onItemSelect, onBack }: ItemSelectionPro
                     <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
                         <ArrowLeft className="w-4 h-4" />
                     </div>
-                    <span className="font-bold text-sm tracking-tight">Kembali</span>
+                    <span className="font-bold text-sm tracking-tight">{t('Common.back')}</span>
                 </button>
 
                 <div className="text-center">
                     <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
-                        Mau Beli Apa?
+                        {t('ItemSelection.title')}
                     </h2>
                     <p className="text-gray-500 font-medium max-w-xl mx-auto leading-relaxed">
-                        Pilih barang impian untuk melihat estimasi waktu menabung berdasarkan gaji guru yang dipilih.
+                        {t('ItemSelection.subtitle')}
                     </p>
                 </div>
             </div>
@@ -48,11 +50,11 @@ export default function ItemSelection({ onItemSelect, onBack }: ItemSelectionPro
                             {item.icon}
                         </div>
                         <h3 className="font-bold text-gray-900 mb-1 group-hover:text-emerald-700 transition-colors">
-                            {item.name}
+                            {t(`Data.Items.${item.id}.name`)}
                         </h3>
                         <p className={`text-xs font-bold uppercase tracking-wider ${item.category === 'special' ? 'text-emerald-600' : 'text-gray-400'}`}>
                             {item.category === 'special'
-                                ? 'LIHAT SEMUA KALKULASI'
+                                ? t('ItemSelection.seeAllCalculation')
                                 : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(item.price)
                             }
                         </p>

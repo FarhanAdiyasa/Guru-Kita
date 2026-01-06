@@ -6,7 +6,6 @@ export interface TeacherProfile {
   experience: number
   status: string
   monthlySalary: number
-  description: string
   source?: string
 }
 
@@ -15,7 +14,6 @@ export interface Item {
   name: string
   price: number
   category: string
-  description: string
   icon: string
 }
 

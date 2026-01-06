@@ -1,10 +1,14 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 interface LoreHeaderProps {
     onBack: () => void
 }
 
 export default function LoreHeader({ onBack }: LoreHeaderProps) {
+    const t = useTranslations()
+
     return (
         <>
             {/* Navigation */}
@@ -17,17 +21,17 @@ export default function LoreHeader({ onBack }: LoreHeaderProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                 </div>
-                <span className="font-bold text-base">Kembali</span>
+                <span className="font-bold text-base">{t('Common.back')}</span>
             </button>
 
             {/* Header - Bold & Editorial */}
             <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <h2 className="text-5xl sm:text-7xl font-black text-gray-900 mb-8 leading-tight">
-                    Kenapa Ini <span className="text-red-600">Penting?</span>
+                    {t('Lore.header.titleStart')} <span className="text-red-600">{t('Lore.header.titleEnd')}</span>
                 </h2>
                 <p className="text-xl sm:text-2xl text-gray-600 font-medium max-w-3xl mx-auto leading-relaxed">
-                    Ini bukan soal beberapa guru yang kurang beruntung.
-                    <br />Ini adalah <span className="text-gray-900 font-bold">krisis sistemik</span>.
+                    {t('Lore.header.subtitleStart')}
+                    <br />{t('Lore.header.subtitleEnd')}
                 </p>
             </div>
 

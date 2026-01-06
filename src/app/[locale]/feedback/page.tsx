@@ -3,8 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Send } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
+import Toast, { ToastType } from '@/components/Toast'
 
 export default function FeedbackPage() {
+    const t = useTranslations()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -13,8 +17,16 @@ export default function FeedbackPage() {
         rating: 5
     })
     const [submitted, setSubmitted] = useState(false)
-
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [toast, setToast] = useState<{ isVisible: boolean; message: string; type: ToastType }>({
+        isVisible: false,
+        message: '',
+        type: 'info'
+    })
+
+    const showToast = (message: string, type: ToastType) => {
+        setToast({ isVisible: true, message, type })
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -33,11 +45,11 @@ export default function FeedbackPage() {
             if (response.ok) {
                 setSubmitted(true)
             } else {
-                alert(data.error || 'Gagal mengirim feedback. Silakan coba lagi.')
+                showToast(data.error || 'Gagal mengirim feedback. Silakan coba lagi.', 'error')
             }
         } catch (error) {
             console.error('Error submitting feedback:', error)
-            alert('Terjadi kesalahan. Silakan coba lagi.')
+            showToast('Terjadi kesalahan. Silakan coba lagi.', 'error')
         } finally {
             setIsSubmitting(false)
         }
@@ -52,19 +64,19 @@ export default function FeedbackPage() {
                         <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
-                        <span className="font-bold text-sm tracking-tight">Kembali</span>
+                        <span className="font-bold text-sm tracking-tight">{t('Common.back')}</span>
                     </Link>
-                    <div className="font-black text-gray-900 tracking-tight">Feedback</div>
+                    <div className="font-black text-gray-900 tracking-tight">{t('Feedback.title')}</div>
                 </div>
             </header>
 
             <main className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
                 <div className="text-center mb-10">
                     <h1 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3 tracking-tight">
-                        Kirim Masukan
+                        {t('Feedback.header.title')}
                     </h1>
                     <p className="text-gray-500 font-medium max-w-md mx-auto leading-relaxed">
-                        Bantu kami meningkatkan <span className="text-emerald-600 font-bold">GuruKita.id</span> dengan saran dan masukan berharga Anda.
+                        {t('Feedback.header.subtitleStart')} <span className="text-emerald-600 font-bold">GuruKita.id</span> {t('Feedback.header.subtitleEnd')}
                     </p>
                 </div>
 
@@ -74,15 +86,15 @@ export default function FeedbackPage() {
                             <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
                                 <Send className="w-10 h-10 text-emerald-600" />
                             </div>
-                            <h2 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">Terima Kasih!</h2>
+                            <h2 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">{t('Feedback.success.title')}</h2>
                             <p className="text-gray-500 font-medium mb-8">
-                                Masukan Anda telah kami terima dan sangat berarti bagi pengembangan platform ini.
+                                {t('Feedback.success.message')}
                             </p>
                             <Link
                                 href="/"
                                 className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                             >
-                                Kembali ke Beranda
+                                {t('Feedback.success.backButton')}
                             </Link>
                         </div>
                     ) : (
@@ -90,7 +102,7 @@ export default function FeedbackPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="name" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Nama (Opsional)
+                                        {t('Feedback.form.name')}
                                     </label>
                                     <input
                                         type="text"
@@ -98,13 +110,13 @@ export default function FeedbackPage() {
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Nama Anda"
+                                        placeholder={t('Feedback.form.namePlaceholder')}
                                     />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label htmlFor="email" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Email (Opsional)
+                                        {t('Feedback.form.email')}
                                     </label>
                                     <input
                                         type="email"
@@ -112,13 +124,13 @@ export default function FeedbackPage() {
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="email@contoh.com"
+                                        placeholder={t('Feedback.form.emailPlaceholder')}
                                     />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label htmlFor="category" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Kategori Masukan <span className="text-red-500">*</span>
+                                        {t('Feedback.form.category')} <span className="text-red-500">*</span>
                                     </label>
                                     <select
                                         id="category"
@@ -126,17 +138,17 @@ export default function FeedbackPage() {
                                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors"
                                     >
-                                        <option value="Saran">Saran Fitur</option>
-                                        <option value="Bug">Lapor Masalah (Bug)</option>
-                                        <option value="Apresiasi">Apresiasi</option>
-                                        <option value="Lainnya">Lainnya</option>
+                                        <option value="Saran">{t('Feedback.form.categoryOptions.Saran')}</option>
+                                        <option value="Bug">{t('Feedback.form.categoryOptions.Bug')}</option>
+                                        <option value="Apresiasi">{t('Feedback.form.categoryOptions.Apresiasi')}</option>
+                                        <option value="Lainnya">{t('Feedback.form.categoryOptions.Lainnya')}</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
                                 <label htmlFor="rating" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                    Rating Pengalaman
+                                    {t('Feedback.form.rating')}
                                 </label>
                                 <div className="flex flex-col gap-3 p-4 bg-white border-2 border-gray-100 rounded-xl">
                                     <div className="flex gap-3 justify-center sm:justify-start">
@@ -153,18 +165,18 @@ export default function FeedbackPage() {
                                         ))}
                                     </div>
                                     <div className="text-[10px] font-bold text-gray-400 uppercase text-center sm:text-left transition-all">
-                                        {formData.rating === 1 && "⚠️ Sangat Kurang"}
-                                        {formData.rating === 2 && "🙁 Kurang"}
-                                        {formData.rating === 3 && "😐 Cukup"}
-                                        {formData.rating === 4 && "😊 Baik"}
-                                        {formData.rating === 5 && "✨ Sangat Baik"}
+                                        {formData.rating === 1 && t('Feedback.form.ratingLabels.1')}
+                                        {formData.rating === 2 && t('Feedback.form.ratingLabels.2')}
+                                        {formData.rating === 3 && t('Feedback.form.ratingLabels.3')}
+                                        {formData.rating === 4 && t('Feedback.form.ratingLabels.4')}
+                                        {formData.rating === 5 && t('Feedback.form.ratingLabels.5')}
                                     </div>
                                 </div>
                             </div>
 
                             <div className="space-y-2">
                                 <label htmlFor="message" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                    Pesan <span className="text-red-500">*</span>
+                                    {t('Feedback.form.message')} <span className="text-red-500">*</span>
                                 </label>
                                 <textarea
                                     id="message"
@@ -173,7 +185,7 @@ export default function FeedbackPage() {
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                     className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300 resize-none"
-                                    placeholder="Ceritakan pengalaman atau saran Anda..."
+                                    placeholder={t('Feedback.form.messagePlaceholder')}
                                 />
                             </div>
 
@@ -185,18 +197,24 @@ export default function FeedbackPage() {
                                 {isSubmitting ? (
                                     <>
                                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Mengirim...
+                                        {t('Feedback.form.sending')}
                                     </>
                                 ) : (
                                     <>
                                         <Send className="w-5 h-5" />
-                                        Kirim Masukan
+                                        {t('Feedback.form.submit')}
                                     </>
                                 )}
                             </button>
                         </form>
                     )}
                 </div>
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    isVisible={toast.isVisible}
+                    onClose={() => setToast({ ...toast, isVisible: false })}
+                />
             </main>
         </div>
     )

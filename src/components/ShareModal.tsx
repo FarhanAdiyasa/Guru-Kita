@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { useTranslations } from 'next-intl'
 import { X, Link as LinkIcon, Check, MessageCircle, Twitter } from 'lucide-react'
 
 interface ShareModalProps {
@@ -13,6 +14,7 @@ interface ShareModalProps {
 }
 
 export default function ShareModal({ isOpen, onClose, title, text, url }: ShareModalProps) {
+    const t = useTranslations()
     const [copied, setCopied] = useState(false)
     const [mounted, setMounted] = useState(false)
 
@@ -63,7 +65,7 @@ export default function ShareModal({ isOpen, onClose, title, text, url }: ShareM
             {/* Modal Content */}
             <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl transform transition-all scale-100 p-6 animate-in zoom-in-95 duration-200">
                 <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-xl font-bold text-gray-900">Bagikan Hasil</h3>
+                    <h3 className="text-xl font-bold text-gray-900">{t('ShareModal.title')}</h3>
                     <button
                         onClick={onClose}
                         className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -76,7 +78,7 @@ export default function ShareModal({ isOpen, onClose, title, text, url }: ShareM
                 <div className="grid grid-cols-2 gap-3 mb-6">
                     <button
                         onClick={handleWhatsApp}
-                        aria-label="Bagikan ke WhatsApp"
+                        aria-label="Share to WhatsApp"
                         className="flex items-center justify-center gap-2 p-4 bg-[#25D366]/10 text-[#25D366] rounded-xl hover:bg-[#25D366]/20 transition-colors font-bold"
                     >
                         <MessageCircle className="w-5 h-5" aria-hidden="true" />
@@ -84,7 +86,7 @@ export default function ShareModal({ isOpen, onClose, title, text, url }: ShareM
                     </button>
                     <button
                         onClick={handleTwitter}
-                        aria-label="Bagikan ke Twitter atau X"
+                        aria-label="Share to Twitter"
                         className="flex items-center justify-center gap-2 p-4 bg-black/5 text-black rounded-xl hover:bg-black/10 transition-colors font-bold"
                     >
                         <Twitter className="w-5 h-5" aria-hidden="true" />
@@ -95,7 +97,7 @@ export default function ShareModal({ isOpen, onClose, title, text, url }: ShareM
                 {/* Copy Link Section */}
                 <div className="relative">
                     <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                        Salin Link Manual
+                        {t('ShareModal.copyManual')}
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-gray-50 border border-gray-200 rounded-xl">
                         <div className="p-2 bg-white rounded-lg shadow-sm">
@@ -109,13 +111,13 @@ export default function ShareModal({ isOpen, onClose, title, text, url }: ShareM
                         />
                         <button
                             onClick={handleCopy}
-                            aria-label={copied ? "Link berhasil disalin" : "Salin link ke clipboard"}
+                            aria-label={copied ? "Link Copied" : "Copy Link"}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${copied
                                 ? 'bg-emerald-500 text-white shadow-emerald-200'
                                 : 'bg-gray-900 text-white hover:bg-gray-800 shadow-xl'
                                 }`}
                         >
-                            {copied ? <><Check className="w-4 h-4" /> Tersalin!</> : 'Salin'}
+                            {copied ? <><Check className="w-4 h-4" /> {t('ShareModal.copied')}</> : t('ShareModal.copy')}
                         </button>
                     </div>
                 </div>

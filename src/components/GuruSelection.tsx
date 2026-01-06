@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Calculator, ArrowLeft } from 'lucide-react'
 import TeacherProfileCard from '@/components/TeacherProfileCard'
 import { TeacherProfile } from '@/types/calculator'
@@ -11,34 +12,33 @@ const { teachers } = CONFIG
 // Define status types
 type TeacherStatus = 'Honorer' | 'PPPK' | 'PNS' | 'Semua'
 
-const STATUS_CONFIG = {
+const STATUS_KEYS = {
+  Semua: 'all',
+  Honorer: 'honorer',
+  PPPK: 'pppk',
+  PNS: 'pns'
+} as const;
+
+const STATUS_CONFIG_UI = {
   Semua: {
-    label: 'Semua Guru',
     color: 'gray',
     bgColor: 'bg-gray-100',
     activeColor: 'bg-gray-900 text-white',
-    description: 'Semua status kepegawaian'
   },
   Honorer: {
-    label: 'Honorer',
     color: 'red',
     bgColor: 'bg-red-50',
     activeColor: 'bg-red-600 text-white',
-    description: 'Gaji di bawah UMR, tanpa jaminan'
   },
   PPPK: {
-    label: 'PPPK',
     color: 'amber',
     bgColor: 'bg-amber-50',
     activeColor: 'bg-amber-600 text-white',
-    description: 'Pegawai kontrak pemerintah'
   },
   PNS: {
-    label: 'PNS',
     color: 'blue',
     bgColor: 'bg-blue-50',
     activeColor: 'bg-blue-600 text-white',
-    description: 'Pegawai Negeri Sipil'
   }
 }
 
@@ -50,6 +50,7 @@ interface GuruSelectionProps {
 }
 
 export default function GuruSelection({ onTeacherSelect, showAllTeachers, setShowAllTeachers, onBack }: GuruSelectionProps) {
+  const t = useTranslations();
   const [activeStatus, setActiveStatus] = useState<TeacherStatus>('Semua')
 
   // Filter teachers by status
@@ -83,7 +84,7 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
             <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
               <ArrowLeft className="w-4 h-4" />
             </div>
-            <span className="font-bold text-sm tracking-tight">Kembali</span>
+            <span className="font-bold text-sm tracking-tight">{t('Common.back')}</span>
           </button>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
@@ -93,7 +94,7 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
               </div>
               <div className="text-left">
                 <h1 className="text-2xl font-bold text-gray-900 leading-tight sm:text-3xl">
-                  Berapa lama guru harus nabung?
+                  {t('GuruSelection.headerTitle')}
                 </h1>
               </div>
             </div>
@@ -104,13 +105,14 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
       {/* Profile Selection Grid */}
       <div className="p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Pilih Profil Guru</h2>
-          <p className="text-gray-600 mb-6">Klik profil guru untuk melihat analisis keterjangkauan mereka</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('GuruSelection.selectProfileTitle')}</h2>
+          <p className="text-gray-600 mb-6">{t('GuruSelection.selectProfileSubtitle')}</p>
 
           {/* Status Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-4">
-            {(Object.keys(STATUS_CONFIG) as TeacherStatus[]).map((status) => {
-              const config = STATUS_CONFIG[status]
+            {(Object.keys(STATUS_KEYS) as TeacherStatus[]).map((status) => {
+              const configUI = STATUS_CONFIG_UI[status];
+              const key = STATUS_KEYS[status];
               const isActive = activeStatus === status
               const count = statusCounts[status]
 
@@ -124,12 +126,12 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
                   className={`
                     px-4 py-2 rounded-full font-bold text-sm transition-all
                     ${isActive
-                      ? config.activeColor
-                      : `${config.bgColor} text-gray-700 hover:opacity-80`
+                      ? configUI.activeColor
+                      : `${configUI.bgColor} text-gray-700 hover:opacity-80`
                     }
                   `}
                 >
-                  {config.label} ({count})
+                  {t(`GuruSelection.filters.${key}`)} ({count})
                 </button>
               )
             })}
@@ -137,7 +139,7 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
 
           {/* Status Description */}
           <p className="text-sm text-gray-500">
-            {STATUS_CONFIG[activeStatus].description}
+            {t(`GuruSelection.filters.${STATUS_KEYS[activeStatus]}Desc`)}
           </p>
         </div>
 
@@ -156,7 +158,7 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
         {/* Empty State */}
         {displayTeachers.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">Tidak ada data guru untuk status ini.</p>
+            <p className="text-gray-500">{t('GuruSelection.noData')}</p>
           </div>
         )}
 
@@ -167,7 +169,7 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
               onClick={() => setShowAllTeachers(true)}
               className="inline-flex items-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-emerald-400 hover:text-emerald-600 transition-colors font-medium"
             >
-              <span>+ Lihat {sortedTeachers.length - 6} Profil Lainnya</span>
+              <span>{t('GuruSelection.showMore', { count: sortedTeachers.length - 6 })}</span>
             </button>
           </div>
         )}
@@ -178,7 +180,7 @@ export default function GuruSelection({ onTeacherSelect, showAllTeachers, setSho
               onClick={() => setShowAllTeachers(false)}
               className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors font-medium"
             >
-              <span>- Tampilkan Sedikit</span>
+              <span>{t('GuruSelection.showLess')}</span>
             </button>
           </div>
         )}

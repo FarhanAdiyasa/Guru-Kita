@@ -3,12 +3,15 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { arrayMove } from '@dnd-kit/sortable'
+import { useTranslations } from 'next-intl'
 import Hero from '@/components/Hero'
 import GuruSelection from '@/components/GuruSelection'
 import ItemSelection from '@/components/ItemSelection'
 import SingleItemResult from '@/components/SingleItemResult'
 import Result from '@/components/Result'
 import Lore from '@/components/Lore'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import Toast, { ToastType } from '@/components/Toast'
 import { TeacherProfile, ComprehensiveResults, Item } from '@/types/calculator'
 import { calculateItemResults } from '@/lib/calculator-utils'
 import { CONFIG } from '@/data/config'
@@ -20,11 +23,18 @@ const items = configItems.filter(item => item.id !== 'all-items')
 
 
 export default function HomeClient() {
+  const t = useTranslations();
   const [currentView, setCurrentView] = useState<'home' | 'lore' | 'guru-selection' | 'item-selection' | 'single-result' | 'result'>('home')
   const [selectedTeacher, setSelectedTeacher] = useState<TeacherProfile | null>(null)
   const [selectedItem, setSelectedItem] = useState<Item | null>(null)
   const [results, setResults] = useState<ComprehensiveResults | null>(null)
   const [calculating, setCalculating] = useState(false)
+
+  const [toast, setToast] = useState<{ isVisible: boolean; message: string; type: ToastType }>({
+    isVisible: false,
+    message: '',
+    type: 'info'
+  })
 
   // State for Result component
   const [showAllTimelines, setShowAllTimelines] = useState(false)
@@ -43,6 +53,10 @@ export default function HomeClient() {
   useEffect(() => {
     setTimelineOrder(items.map(i => i.id))
   }, [])
+
+  const showToast = (message: string, type: ToastType) => {
+    setToast({ isVisible: true, message, type })
+  }
 
   // Handle URL State Hydration (Deep Linking)
   useEffect(() => {
@@ -297,7 +311,8 @@ export default function HomeClient() {
   const handleShare = async () => {
     if (!results) return
 
-    const text = `Cek berapa lama guru honorer harus menabung untuk beli ${results.items[0].item.name} di GuruKita.id! 😢`
+    const itemName = t(`Data.Items.${results.items[0].item.id}.name`);
+    const text = t('Result.shareText', { item: itemName });
 
     if (navigator.share) {
       try {
@@ -312,7 +327,7 @@ export default function HomeClient() {
     } else {
       // Fallback to clipboard
       navigator.clipboard.writeText(`${text} ${window.location.href}`)
-      alert('Link berhasil disalin!')
+      showToast('Link berhasil disalin!', 'success')
     }
   }
 
@@ -341,21 +356,23 @@ export default function HomeClient() {
             </div>
             <div>
               <h1 className="text-xl font-black text-gray-900 tracking-tight leading-none">
-                GuruKita<span className="text-emerald-600">.id</span>
+                {t('Hero.title')}<span className="text-emerald-600">.id</span>
               </h1>
               <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
-                Suara Guru Indonesia
+                {t('Common.footer')}
               </p>
             </div>
           </div>
 
           <nav className="flex items-center gap-4">
             <Link href="/feedback" className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all">
-              Feedback
+              {t('Common.feedback')}
             </Link>
             <Link href="/suggest-salary" className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all">
-              Input Gaji
+              {t('Common.inputSalary')}
             </Link>
+            <div className="h-4 w-px bg-gray-300 mx-1"></div>
+            <LanguageSwitcher />
           </nav>
         </div>
       </header>
@@ -484,6 +501,13 @@ export default function HomeClient() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
       </button>
+
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={() => setToast({ ...toast, isVisible: false })}
+      />
 
     </div>
   )

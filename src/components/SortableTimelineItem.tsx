@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { GripVertical, Eye, EyeOff } from 'lucide-react'
 import {
   useSortable,
@@ -33,6 +34,7 @@ export default function SortableTimelineItem({
   getSeverityLabel,
   formatTimeMessage
 }: SortableTimelineItemProps) {
+  const t = useTranslations()
   const {
     attributes,
     listeners,
@@ -51,10 +53,10 @@ export default function SortableTimelineItem({
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) {
       const millions = amount / 1000000
-      return `Rp ${millions.toFixed(1)}jt`
+      return `Rp ${millions.toFixed(1)}${t('Common.millionShort')}`
     } else if (amount >= 1000) {
       const thousands = amount / 1000
-      return `Rp ${thousands.toFixed(0)}k`
+      return `Rp ${thousands.toFixed(0)}${t('Common.thousandShort')}`
     }
     return `Rp ${amount.toLocaleString('id-ID')}`
   }
@@ -80,7 +82,7 @@ export default function SortableTimelineItem({
         <button
           onClick={onToggleVisibility}
           className="mr-2 text-gray-400 hover:text-gray-600 transition-colors"
-          title={isHidden ? "Tampilkan" : "Sembunyikan"}
+          title={isHidden ? t('Common.show') : t('Common.hide')}
         >
           {isHidden ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
         </button>
@@ -91,7 +93,7 @@ export default function SortableTimelineItem({
         <span className="text-xl">{getItemEmoji(itemResult.item.category, itemResult.item.id)}</span>
         <div>
           <div className="font-semibold text-sm text-gray-900">
-            {itemResult.item.name}
+            {itemResult.item.name || t(`Data.Items.${itemResult.item.id}.name`)}
           </div>
           <div className="text-xs text-gray-600">
             {formatCurrency(itemResult.item.price)}
@@ -115,7 +117,7 @@ export default function SortableTimelineItem({
           onClick={onRemove}
           className="ml-2 text-xs text-red-600 hover:text-red-800 font-medium"
         >
-          Hapus
+          {t('Common.delete')}
         </button>
       )}
     </div>

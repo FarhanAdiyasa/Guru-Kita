@@ -10,7 +10,6 @@ import {
   DragEndEvent,
 } from '@dnd-kit/core'
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -33,6 +32,7 @@ import {
   Plus
 } from 'lucide-react'
 import type { TeacherProfile, Item, ItemResult } from '@/types/calculator'
+import { useTranslations } from 'next-intl'
 
 interface GuruSectionProps {
   results: {
@@ -87,6 +87,7 @@ function SortableItemResult({
   getSeverityLabel: (months: number) => string
   formatTimeMessage: (months: number) => string
 }) {
+  const t = useTranslations()
   const {
     attributes,
     listeners,
@@ -100,6 +101,15 @@ function SortableItemResult({
     transition,
   }
 
+  // Dynamic description
+  const description = itemResult.item.id.startsWith('custom-')
+    ? 'Custom Item'
+    : t(`Data.Items.${itemResult.item.id}.description`)
+
+  const itemName = itemResult.item.id.startsWith('custom-')
+    ? itemResult.item.name
+    : t(`Data.Items.${itemResult.item.id}.name`)
+
   if (isHidden) {
     return (
       <div
@@ -111,9 +121,9 @@ function SortableItemResult({
       >
         <div className="text-gray-400 cursor-move">⋮⋮</div>
         <span className="text-gray-500 line-through">
-          {getItemEmoji(itemResult.item.category, itemResult.item.id)} {itemResult.item.name}
+          {getItemEmoji(itemResult.item.category, itemResult.item.id)} {itemName}
         </span>
-        <span className="text-gray-400 text-sm ml-auto">Sembunyikan</span>
+        <span className="text-gray-400 text-sm ml-auto">{t('Common.hide')}</span>
       </div>
     )
   }
@@ -122,10 +132,9 @@ function SortableItemResult({
     <div
       ref={setNodeRef}
       style={style}
-      className={`bg-white rounded-xl border-2 shadow-md hover:shadow-lg transition-all cursor-move ${
-        itemResult.months >= 6 ? 'border-red-200' :
-        itemResult.months >= 2 ? 'border-orange-200' : 'border-green-200'
-      }`}
+      className={`bg-white rounded-xl border-2 shadow-md hover:shadow-lg transition-all cursor-move ${itemResult.months >= 6 ? 'border-red-200' :
+          itemResult.months >= 2 ? 'border-orange-200' : 'border-green-200'
+        }`}
       {...attributes}
       {...listeners}
     >
@@ -139,7 +148,7 @@ function SortableItemResult({
           {/* Item Details */}
           <div className="flex-grow">
             <div className="flex items-start justify-between mb-2">
-              <h4 className="font-bold text-lg text-gray-900">{itemResult.item.name}</h4>
+              <h4 className="font-bold text-lg text-gray-900">{itemName}</h4>
               {showVisibilityToggle && (
                 <button
                   onClick={(e) => {
@@ -153,7 +162,7 @@ function SortableItemResult({
               )}
             </div>
 
-            <p className="text-sm text-gray-600 mb-3">{itemResult.item.description}</p>
+            <p className="text-sm text-gray-600 mb-3">{description}</p>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -183,7 +192,7 @@ function SortableItemResult({
                 className="mt-2 flex items-center gap-1 text-xs text-red-600 hover:text-red-800"
               >
                 <Trash2 className="w-3 h-3" />
-                Hapus item custom
+                {t('Common.delete')}
               </button>
             )}
           </div>
@@ -213,6 +222,7 @@ export default function GuruSection({
   formatSalary,
   onRemoveCustomItem
 }: GuruSectionProps) {
+  const t = useTranslations()
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -230,6 +240,15 @@ export default function GuruSection({
     ? timelineOrder.map(itemId => results.items.find(item => item.item.id === itemId)).filter(Boolean) as ItemResult[]
     : visibleItems.slice(0, 3)
 
+  // Most shocking
+  const shockingItemName = results.mostShocking.item.id.startsWith('custom-')
+    ? results.mostShocking.item.name
+    : t(`Data.Items.${results.mostShocking.item.id}.name`)
+
+  const shockingDescription = results.mostShocking.item.id.startsWith('custom-')
+    ? 'Custom Item'
+    : t(`Data.Items.${results.mostShocking.item.id}.description`)
+
   return (
     <section
       id="results-section"
@@ -241,14 +260,17 @@ export default function GuruSection({
           <div className="inline-flex items-center gap-3 mb-4">
             <Calculator className="w-8 h-8 text-red-600" />
             <h2 className="text-3xl font-bold text-gray-900">
-              Hasil Analisis: {results.teacher.title}
+              {t('Result.header')}
             </h2>
           </div>
+          <h3 className="text-xl font-bold mb-2">
+            {t(`Data.Teachers.${results.teacher.id}.title`)}
+          </h3>
           <p className="text-xl text-gray-600 mb-2">
-            Gaji: {formatSalary(results.teacher.monthlySalary)}/bulan
+            {t('Result.salary', { amount: formatSalary(results.teacher.monthlySalary) })}
           </p>
           <p className="text-gray-500">
-            {results.teacher.location} • {results.teacher.experience} tahun • {results.teacher.status}
+            {t(`Data.Teachers.${results.teacher.id}.location`)} • {t('Result.yearsExp', { count: results.teacher.experience })} • {results.teacher.status}
           </p>
         </div>
 
@@ -258,14 +280,16 @@ export default function GuruSection({
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-6 h-6 text-yellow-600" />
               <span className="font-bold text-yellow-900 text-lg">
-                {showLivingCostInput ? '💸 Real Check: Berapa yang bisa ditabung?' : '⚠️ Ini gaji KOTOR, belum dipotong apapun!'}
+                {showLivingCostInput
+                  ? t('Result.livingCostToggle.active')
+                  : t('Result.livingCostToggle.inactive')}
               </span>
             </div>
             <button
               onClick={onToggleLivingCostInput}
               className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 text-yellow-800 rounded-lg font-bold transition-colors"
             >
-              {showLivingCostInput ? 'Tutup' : 'Cek realitas →'}
+              {showLivingCostInput ? t('Common.hide') : t('Result.livingCostToggle.button')}
             </button>
           </div>
 
@@ -274,29 +298,29 @@ export default function GuruSection({
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white p-4 rounded-lg border-2 border-yellow-400">
                   <div className="text-center">
-                    <div className="text-sm font-bold text-green-700 mb-1">Gaji Bersih</div>
+                    <div className="text-sm font-bold text-green-700 mb-1">{t('Result.netSalary')}</div>
                     <div className="text-2xl font-black text-green-600">
                       {formatSalary(results.adjustedMonthlySavings || 0)}
                     </div>
                     <div className="text-xs text-gray-500">
-                      Sisa setelah {formatSalary(livingCosts)} biaya hidup
+                      {t('Result.remainingAfter', { amount: formatSalary(livingCosts) })}
                     </div>
                   </div>
                 </div>
                 <div className="bg-white p-4 rounded-lg border-2 border-yellow-400">
                   <div className="text-center">
-                    <div className="text-sm font-bold text-red-700 mb-1">Biaya Hidup</div>
+                    <div className="text-sm font-bold text-red-700 mb-1">{t('Result.monthlyExpensesLabel')}</div>
                     <div className="text-2xl font-black text-red-600">
                       {formatSalary(livingCosts)}
                     </div>
-                    <div className="text-xs text-gray-500">Makan + Kos + Transport</div>
+                    <div className="text-xs text-gray-500">{t('Result.expensesSubtext')}</div>
                   </div>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-gray-800 mb-2">
-                  Biaya hidup per bulan:
+                  {t('Result.monthlyExpensesInput')}
                 </label>
                 <input
                   type="number"
@@ -308,7 +332,7 @@ export default function GuruSection({
                   max={results.teacher.monthlySalary}
                 />
                 <div className="text-xs text-gray-600 mt-1">
-                  Tips: Mulai dari Rp 1.500.000 untuk hidup sederhana
+                  {t('Result.tips')}
                 </div>
               </div>
 
@@ -317,19 +341,19 @@ export default function GuruSection({
                   onClick={() => onLivingCostsChange(1500000)}
                   className="px-3 py-2 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded-lg font-bold text-sm"
                 >
-                  Makan sederhana (Rp 1.5jt)
+                  {t('Result.quickOptions.simple')}
                 </button>
                 <button
                   onClick={() => onLivingCostsChange(2500000)}
                   className="px-3 py-2 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded-lg font-bold text-sm"
                 >
-                  Makan lumayan (Rp 2.5jt)
+                  {t('Result.quickOptions.moderate')}
                 </button>
               </div>
 
               {livingCosts >= results.teacher.monthlySalary && (
                 <div className="bg-red-100 border-2 border-red-300 rounded-lg p-3 text-center">
-                  <div className="text-red-800 font-bold">💀 GAJIAN HABIS BUAT MAKAN DOANK!</div>
+                  <div className="text-red-800 font-bold">{t('Result.bankruptcyAlert')}</div>
                 </div>
               )}
             </div>
@@ -341,16 +365,16 @@ export default function GuruSection({
           <div className="flex items-center gap-2 mb-4">
             <div className="text-3xl">{getSeverityEmoji(results.mostShocking.months)}</div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">💔 Paling Menyedihkan:</h3>
-              <p className="text-gray-600">Butuh <span className="font-bold">{formatTimeMessage(results.mostShocking.months)}</span> untuk beli:</p>
+              <h3 className="text-xl font-bold text-gray-900">{t('Result.mostShocking.title')}</h3>
+              <p className="text-gray-600">{t('Result.mostShocking.need')} <span className="font-bold">{formatTimeMessage(results.mostShocking.months)}</span> {t('Result.mostShocking.toBuy')}</p>
             </div>
           </div>
           <div className="bg-red-50 rounded-lg p-4">
             <div className="flex items-center gap-3">
               <span className="text-4xl">{getItemEmoji(results.mostShocking.item.category, results.mostShocking.item.id)}</span>
               <div>
-                <h4 className="font-bold text-lg">{results.mostShocking.item.name}</h4>
-                <p className="text-gray-600 text-sm">{results.mostShocking.item.description}</p>
+                <h4 className="font-bold text-lg">{shockingItemName}</h4>
+                <p className="text-gray-600 text-sm">{shockingDescription}</p>
                 <p className="text-2xl font-bold text-red-600 mt-1">
                   {results.mostShocking.item.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                 </p>
@@ -364,10 +388,10 @@ export default function GuruSection({
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
               <Calendar className="w-6 h-6 text-red-600" />
-              Timeline Berapa Lama Nabung
+              {t('Result.timelineTitle')}
             </h3>
             <div className="text-sm text-gray-600">
-              {showAllTimelines ? 'Semua items' : '3 items terlama'} • Seret untuk urutkan
+              {showAllTimelines ? t('Result.allCheck') : t('Result.limitedCheck')} • {t('Result.dragToOrder')}
             </div>
           </div>
 
@@ -407,7 +431,7 @@ export default function GuruSection({
                 onClick={onToggleShowAll}
                 className="px-6 py-3 bg-red-100 hover:bg-red-200 text-red-800 rounded-lg font-bold transition-colors"
               >
-                {showAllTimelines ? 'Tampilkan 3 terlama' : `Lihat ${results.items.length - 3} items lainnya`}
+                {showAllTimelines ? t('Result.showLess') : t('Result.showMore', { count: results.items.length - 3 })}
               </button>
             </div>
           )}

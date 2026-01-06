@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { TeacherProfile, Item, ItemResult } from '@/types/calculator'
 import { calculateItemResults } from '@/lib/calculator-utils'
 import { ArrowLeft, Share2, Info } from 'lucide-react'
@@ -14,6 +15,7 @@ interface SingleItemResultProps {
 }
 
 export default function SingleItemResult({ teacher, item, onBack, onShowAll }: SingleItemResultProps) {
+    const t = useTranslations();
     const [livingCosts, setLivingCosts] = useState(0)
     const [result, setResult] = useState<ItemResult | null>(null)
     const [showLivingCostInput, setShowLivingCostInput] = useState(false)
@@ -34,13 +36,33 @@ export default function SingleItemResult({ teacher, item, onBack, onShowAll }: S
         }).format(amount)
     }
 
+    const formatTimeMessage = (months: number) => {
+        if (months === Infinity) {
+            return t('Result.time.impossible')
+        }
+
+        const years = Math.floor(months / 12)
+        const remainingMonths = months % 12
+
+        if (years >= 1) {
+            if (remainingMonths > 0) {
+                return `${years} ${t('Result.time.year')} ${remainingMonths} ${t('Result.time.month')}`
+            }
+            return `${years} ${t('Result.time.year')}`
+        }
+        return `${months} ${t('Result.time.month')}`
+    }
+
     const getShareContent = () => {
-        const text = `Seorang ${teacher.level} di ${teacher.location} butuh ${result.message} untuk beli ${item.name}! 
-
-💰 Gaji: ${formatCurrency(teacher.monthlySalary)}
-📱 Harga Barang: ${formatCurrency(item.price)}
-
-Cek realitanya di GuruKita.id 😢`
+        const itemName = t(`Data.Items.${item.id}.name`);
+        const text = t('Result.shareContentSingle', {
+            level: teacher.level,
+            location: t(`Data.Teachers.${teacher.id}.location`),
+            time: result.years > 0 ? `${result.years} ${t('Result.time.year')} ` : `${result.remainingMonths} ${t('Result.time.month')}`,
+            salary: formatCurrency(teacher.monthlySalary),
+            item: itemName,
+            price: formatCurrency(item.price)
+        });
 
         return {
             title: 'GuruKita.id - Realita Gaji Guru',
@@ -66,7 +88,7 @@ Cek realitanya di GuruKita.id 😢`
                     <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
                         <ArrowLeft className="w-4 h-4" />
                     </div>
-                    <span className="font-bold text-sm tracking-tight">Kembali</span>
+                    <span className="font-bold text-sm tracking-tight">{t('Common.back')}</span>
                 </button>
             </div>
 
@@ -78,7 +100,7 @@ Cek realitanya di GuruKita.id 😢`
                     </div>
 
                     <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-2 tracking-tight">
-                        {item.name}
+                        {t(`Data.Items.${item.id}.name`)}
                     </h2>
                     <p className="text-gray-500 font-medium mb-8">
                         {formatCurrency(item.price)}
@@ -86,13 +108,13 @@ Cek realitanya di GuruKita.id 😢`
 
                     <div className="py-8 border-t border-b border-gray-100 mb-8">
                         <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">
-                            Estimasi Waktu Menabung
+                            {t('Result.estimatedSavingTime')}
                         </p>
                         <div className="text-5xl sm:text-6xl font-black text-emerald-600 tracking-tight leading-none mb-2">
-                            {result.message}
+                            {formatTimeMessage(result.months)}
                         </div>
                         <p className="text-gray-500 font-medium">
-                            dengan gaji {formatCurrency(teacher.monthlySalary)}/bulan
+                            {t('Result.withSalary', { amount: formatCurrency(teacher.monthlySalary) })}
                         </p>
                     </div>
 
@@ -103,13 +125,13 @@ Cek realitanya di GuruKita.id 😢`
                             className="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
                         >
                             <Info className="w-4 h-4" />
-                            {showLivingCostInput ? 'Sembunyikan Pengeluaran' : 'Tambah Pengeluaran Bulanan?'}
+                            {showLivingCostInput ? t('Result.hideExpenses') : t('Result.addExpenses')}
                         </button>
 
                         {showLivingCostInput && (
                             <div className="mt-4 p-4 bg-gray-50 rounded-xl animate-in fade-in slide-in-from-top-2 duration-200">
                                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 text-left">
-                                    Pengeluaran Bulanan (Makan, Kost, dll)
+                                    {t('Result.monthlyExpenses')}
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-bold">
@@ -124,7 +146,7 @@ Cek realitanya di GuruKita.id 😢`
                                     />
                                 </div>
                                 <p className="text-xs text-gray-400 mt-2 text-left">
-                                    Sisa tabungan: <span className="font-bold text-gray-600">{formatCurrency(result.monthlySavings)}/bulan</span>
+                                    {t('Result.remainingSavings')} <span className="font-bold text-gray-600">{formatCurrency(result.monthlySavings)}/{t('Common.perMonth')}</span>
                                 </p>
                             </div>
                         )}
@@ -136,13 +158,13 @@ Cek realitanya di GuruKita.id 😢`
                             className="flex-1 py-4 px-6 bg-emerald-50 text-emerald-700 rounded-xl font-bold hover:bg-emerald-100 transition-all flex items-center justify-center gap-2"
                         >
                             <Share2 className="w-5 h-5" />
-                            Bagikan
+                            {t('Common.share')}
                         </button>
                         <button
                             onClick={onShowAll}
                             className="flex-1 py-4 px-6 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                         >
-                            Lihat Semua Barang
+                            {t('ItemSelection.seeAllCalculation')}
                         </button>
                     </div>
                 </div>

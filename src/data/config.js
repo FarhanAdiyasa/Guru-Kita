@@ -32,7 +32,6 @@ export const CONFIG = {
       experience: 5,
       status: "Honorer",
       monthlySalary: 300000,
-      description: "Menembus hutan 6km setiap hari demi mengajar",
       source: "https://www.youtube.com/watch?v=u8R2_X5It0Q"
     },
     {
@@ -43,7 +42,6 @@ export const CONFIG = {
       experience: 3,
       status: "Honorer",
       monthlySalary: 500000,
-      description: "Biaya hidup sangat tinggi (bensin 50rb/liter), gaji dirapel per 3 bulan",
       source: "https://www.kompas.id/baca/humaniora/2023/11/24/nasib-guru-honorer-di-pedalaman-papua"
     },
     {
@@ -54,7 +52,6 @@ export const CONFIG = {
       experience: 13,
       status: "Honorer",
       monthlySalary: 175000,
-      description: "Dipecat karena mengunggah slip gaji ke media sosial",
       source: "https://www.bbc.com/indonesia/indonesia-56094473"
     },
     {
@@ -65,7 +62,6 @@ export const CONFIG = {
       experience: 8,
       status: "Honorer",
       monthlySalary: 450000,
-      description: "Hanya digaji dari dana BOS, sering telat cair",
       source: "https://medan.tribunnews.com/2023/11/25/kisah-pilu-guru-honorer-di-medan-gaji-kecil-dituntut-administrasi-rumit"
     },
     {
@@ -76,7 +72,6 @@ export const CONFIG = {
       experience: 10,
       status: "Honorer",
       monthlySalary: 300000,
-      description: "Gaji Rp 300 ribu per bulan, dibayar setiap 3 bulan sekali",
       source: "https://bengkulu.tribunnews.com/2023/10/27/gaji-guru-honorer-di-bengkulu-tengah-hanya-rp-300-ribu-per-bulan-pgri-desak-pemkab-turun-tangan"
     },
 
@@ -89,7 +84,6 @@ export const CONFIG = {
       experience: 15,
       status: "Honorer",
       monthlySalary: 350000,
-      description: "Terpaksa tinggal di toilet sekolah karena tidak mampu bayar kos",
       source: "https://regional.kompas.com/read/2019/07/15/15243301/15-tahun-jadi-guru-honorer-ini-alasan-nining-tetap-bertahan-dan-tinggal-di"
     },
     {
@@ -100,7 +94,6 @@ export const CONFIG = {
       experience: 36,
       status: "Honorer",
       monthlySalary: 250000,
-      description: "36 tahun mengabdi, gaji tetap Rp 250 ribu",
       source: "https://www.youtube.com/watch?v=TVlO3QJroQ8"
     },
     {
@@ -111,7 +104,6 @@ export const CONFIG = {
       experience: 1,
       status: "Honorer",
       monthlySalary: 785000,
-      description: "Dibayar berdasarkan jam mengajar, tidak ada jam = tidak ada gaji",
       source: "https://jabar.tribunnews.com/2023/10/09/viral-gaji-guru-honorer-rp15000-per-satu-jam-pelajaran-begini-aturannya-menurut-undang-undang"
     },
     {
@@ -122,7 +114,6 @@ export const CONFIG = {
       experience: 2,
       status: "Honorer",
       monthlySalary: 300000,
-      description: "Gaji sangat minim di tengah biaya hidup Jakarta yang tinggi",
       source: "https://www.detik.com/edu/sekolah/d-7059354/masih-ada-guru-digaji-rp-300-ribu-di-jakarta-diduga-karena-ini"
     },
 
@@ -135,7 +126,6 @@ export const CONFIG = {
       experience: 3,
       status: "PPPK",
       monthlySalary: 3800000,
-      description: "Setelah potong pajak & BPJS dari gaji pokok + tunjangan",
       source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
@@ -146,7 +136,6 @@ export const CONFIG = {
       experience: 6,
       status: "PPPK",
       monthlySalary: 4200000,
-      description: "Gaji lebih stabil dibanding honorer, namun kontrak terbatas",
       source: "https://dealls.com/pengembangan-karir/gaji-pppk"
     },
     {
@@ -157,7 +146,6 @@ export const CONFIG = {
       experience: 5,
       status: "PPPK",
       monthlySalary: 6800000,
-      description: "Termasuk TKD Daerah yang tinggi dibanding provinsi lain",
       source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
     },
 
@@ -170,7 +158,6 @@ export const CONFIG = {
       experience: 20,
       status: "PNS",
       monthlySalary: 14500000,
-      description: "Gapok + TKD + Sertifikasi + Jabatan (Tier Tertinggi)",
       source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
     },
     {
@@ -181,8 +168,7 @@ export const CONFIG = {
       experience: 8,
       status: "Swasta",
       monthlySalary: 18000000,
-      description: "Sekolah internasional kurikulum Cambridge/IB",
-      source: "https://www.cnbcindonesia.com/news/20230502130541-4-434002/intip-gaji-guru-sekolah-internasional-di-jakarta-bisa-puluhan-juta"
+      source: "https://pina.id/artikel/keuangan/gaji-guru-di-indonesia-berapa-sih-standarnya"
     }
   ],
 
@@ -196,7 +182,6 @@ export const CONFIG = {
       name: "Laptop Kerja (Entry)",
       category: "technology",
       price: 5500000,
-      description: "Laptop spek minimum untuk administrasi & mengajar (Core i3)",
       icon: "💻"
     },
     {
@@ -204,7 +189,6 @@ export const CONFIG = {
       name: "Honda Beat 2024",
       category: "transportation",
       price: 18500000,
-      description: "Kendaraan sejuta umat untuk operasional mengajar",
       icon: "🛵"
     },
     {
@@ -212,7 +196,6 @@ export const CONFIG = {
       name: "Biaya PPG Mandiri",
       category: "education",
       price: 17000000,
-      description: "Pendidikan Profesi Guru (agar dapat sertifikasi)",
       icon: "🎓"
     },
     {
@@ -220,7 +203,6 @@ export const CONFIG = {
       name: "Sewa Kos Jakarta (1 Thn)",
       category: "housing",
       price: 24000000,
-      description: "Kos standar AC di Jakarta (2jt/bulan)",
       icon: "🏠"
     },
 
@@ -230,7 +212,6 @@ export const CONFIG = {
       name: "Paket Umroh Hemat",
       category: "religious",
       price: 28500000,
-      description: "Paket standar 9 hari (Update Hrg 2024)",
       icon: "🕋"
     },
     {
@@ -238,7 +219,6 @@ export const CONFIG = {
       name: "iPhone 15 (128GB)",
       category: "technology",
       price: 16499000,
-      description: "HP standar gaya hidup masa kini",
       icon: "📱"
     },
     {
@@ -246,7 +226,6 @@ export const CONFIG = {
       name: "Resepsi Nikah Sederhana",
       category: "family",
       price: 60000000,
-      description: "Biaya katering & dekorasi venue sederhana",
       icon: "💍"
     },
 
@@ -256,7 +235,6 @@ export const CONFIG = {
       name: "Rumah Subsidi (BTN)",
       category: "housing",
       price: 185000000,
-      description: "Rumah tapak tipe 30/60 program pemerintah (Jabodetabek)",
       icon: "🏡"
     },
     {
@@ -264,7 +242,6 @@ export const CONFIG = {
       name: "Toyota Calya G",
       category: "transportation",
       price: 190000000,
-      description: "Mobil keluarga 7-seater paling terjangkau",
       icon: "🚗"
     },
     {
@@ -272,7 +249,6 @@ export const CONFIG = {
       name: "Haji Plus (ONH)",
       category: "religious",
       price: 165000000,
-      description: "Masa tunggu lebih singkat (5-7 tahun)",
       icon: "🕌"
     },
     {
@@ -280,7 +256,6 @@ export const CONFIG = {
       name: "iPhone 15 Pro Max",
       category: "technology",
       price: 24999000,
-      description: "HP Flagship tertinggi saat ini",
       icon: "📲"
     },
 
@@ -290,7 +265,6 @@ export const CONFIG = {
       name: "Langsung Cek Semuanya",
       category: "special",
       price: 0,
-      description: "Lihat kalkulasi untuk semua barang sekaligus",
       icon: "⚡"
     }
   ],
@@ -317,14 +291,11 @@ export const CONFIG = {
 
   // =================== CALCULATOR SETTINGS ===================
   calculator: {
-    // Asumsi perhitungan
-    assumptions: "Perhitungan mengasumsikan guru nabung 100% gaji (tanpa makan, listrik, dll)",
-
     // Warna dan emoji untuk severity
     severity: {
-      red: { months: 6, emoji: "🔴", label: "Sangat menantang" },
-      amber: { months: 2, emoji: "🟡", label: "Cukup menantang" },
-      green: { months: 0, emoji: "🟢", label: "Terjangkau" }
+      red: { months: 6, emoji: "🔴" },
+      amber: { months: 2, emoji: "🟡" },
+      green: { months: 0, emoji: "🟢" }
     }
   },
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { ArrowLeft, Share2, RefreshCw } from 'lucide-react'
 import {
   DndContext,
@@ -22,14 +23,7 @@ import ShareModal from '@/components/ShareModal'
 import { ComprehensiveResults } from '@/types/calculator'
 
 // Helper functions
-const formatSalary = (amount: number) => {
-  if (amount >= 1000000) {
-    const millions = amount / 1000000
-    return `Rp ${millions.toFixed(1)} juta`
-  }
-  const thousands = amount / 1000
-  return `Rp ${thousands.toFixed(0)} ribu`
-}
+
 
 const getItemEmoji = (category: string, itemId?: string) => {
   if (itemId?.startsWith('custom-')) return '⭐'
@@ -46,23 +40,6 @@ const getItemEmoji = (category: string, itemId?: string) => {
   }
 }
 
-const formatTimeMessage = (months: number) => {
-  if (months === Infinity) {
-    return "TIDAK BISA MENABUNG 😔"
-  }
-
-  const years = Math.floor(months / 12)
-  const remainingMonths = months % 12
-
-  if (years >= 1) {
-    if (remainingMonths > 0) {
-      return `${years} TAHUN ${remainingMonths} BULAN`
-    }
-    return `${years} TAHUN`
-  }
-  return `${months} BULAN`
-}
-
 const getSeverityColor = (months: number) => {
   if (months === Infinity) return 'text-red-700'
   if (months >= 6) return 'text-red-600'
@@ -75,13 +52,6 @@ const getSeverityEmoji = (months: number) => {
   if (months >= 6) return '🔴'
   if (months >= 2) return '🟡'
   return '🟢'
-}
-
-const getSeverityLabel = (months: number) => {
-  if (months === Infinity) return 'Mustahil'
-  if (months >= 6) return 'Sangat menantang'
-  if (months >= 2) return 'Cukup menantang'
-  return 'Terjangkau'
 }
 
 interface ResultProps {
@@ -139,6 +109,7 @@ export default function Result({
   onShare,
   onDragEnd
 }: ResultProps) {
+  const t = useTranslations();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: ToastType; isVisible: boolean }>({
     message: '',
@@ -154,19 +125,49 @@ export default function Result({
     })
   )
 
+  const formatSalary = (amount: number) => {
+    if (amount >= 1000000) {
+      const millions = amount / 1000000
+      return `Rp ${millions.toFixed(1)} ${t('Common.million')}`
+    }
+    const thousands = amount / 1000
+    return `Rp ${thousands.toFixed(0)} ${t('Common.thousand')}`
+  }
+
+  const formatTimeMessage = (months: number) => {
+    if (months === Infinity) {
+      return t('Result.time.impossible')
+    }
+
+    const years = Math.floor(months / 12)
+    const remainingMonths = months % 12
+
+    if (years >= 1) {
+      if (remainingMonths > 0) {
+        return `${years} ${t('Result.time.year')} ${remainingMonths} ${t('Result.time.month')}`
+      }
+      return `${years} ${t('Result.time.year')}`
+    }
+    return `${months} ${t('Result.time.month')}`
+  }
+
+  const getSeverityLabel = (months: number) => {
+    if (months === Infinity) return t('Result.severity.impossible')
+    if (months >= 6) return t('Result.severity.veryChallenging')
+    if (months >= 2) return t('Result.severity.challenging')
+    return t('Result.severity.affordable')
+  }
+
   const getShareContent = () => {
     const title = 'GuruKita.id - Realita Gaji Guru'
-    const text = `⚠️ Cek realita gaji guru di Indonesia!
-
-👩‍🏫 ${results.teacher.level} di ${results.teacher.location}
-💰 Gaji: ${formatSalary(results.teacher.monthlySalary)}
-🆚
-📱 ${results.items[0].item.name}
-
-Butuh waktu ${results.items[0].years > 0 ? `${results.items[0].years} tahun ` : ''}${results.items[0].remainingMonths} bulan buat kebeli! 😱
-
-Cek nasib guru lainnya di sini 👇
-#GuruKita #NasibGuru #RealitaPendidikan`
+    const itemName = t(`Data.Items.${results.items[0].item.id}.name`);
+    const text = t('Result.shareContent', {
+      level: results.teacher.level,
+      location: t(`Data.Teachers.${results.teacher.id}.location`),
+      salary: formatSalary(results.teacher.monthlySalary),
+      item: itemName,
+      time: results.items[0].years > 0 ? `${results.items[0].years} ${t('Result.time.year')} ` : `${results.items[0].remainingMonths} ${t('Result.time.month')}`
+    });
 
     return { title, text, url: typeof window !== 'undefined' ? window.location.href : '' }
   }
@@ -177,10 +178,10 @@ Cek nasib guru lainnya di sini 👇
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <div className="text-2xl font-bold text-gray-900 mb-2">
-            Menghitung hasil analisis...
+            {t('Result.calculating')}
           </div>
           <div className="text-lg text-gray-600">
-            Sabar ya, lagi ngitung berapa lama guru harus nabung 💸
+            {t('Result.calculatingDesc')}
           </div>
         </div>
       </div>
@@ -214,12 +215,12 @@ Cek nasib guru lainnya di sini 👇
                 <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
-                <span className="font-bold text-sm tracking-tight hidden sm:inline">Kembali</span>
+                <span className="font-bold text-sm tracking-tight hidden sm:inline">{t('Common.back')}</span>
               </button>
             </div>
 
             <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1 mt-12">
-              {results.teacher.level} • {results.teacher.location}
+              Guru {results.teacher.level} • {t(`Data.Teachers.${results.teacher.id}.location`)}
             </h2>
 
             <div className="text-3xl sm:text-4xl font-black text-gray-900 mb-1 tracking-tight">
@@ -227,7 +228,7 @@ Cek nasib guru lainnya di sini 👇
             </div>
 
             <div className="text-sm text-gray-500 font-medium">
-              {results.teacher.experience} tahun pengalaman • {results.teacher.status}
+              {results.teacher.experience} {t('Common.yearsExp')} • {results.teacher.status}
             </div>
 
             <div className="w-12 h-1 bg-red-600 mx-auto mt-3 rounded-full"></div>
@@ -240,7 +241,7 @@ Cek nasib guru lainnya di sini 👇
               className="w-full px-4 py-3 flex items-center justify-between text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center gap-2">
-                <span className="font-medium">Opsi Lanjutan</span>
+                <span className="font-medium">{t('Result.advancedOptions')}</span>
               </div>
               <svg
                 className={`w-4 h-4 transition-transform ${showLivingCostInput ? 'rotate-180' : ''}`}
@@ -265,7 +266,7 @@ Cek nasib guru lainnya di sini 👇
                     }`}
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <span>Pengeluaran Bulanan</span>
+                    <span>{t('Result.monthlyExpenses')}</span>
                   </div>
                 </button>
                 <button
@@ -276,7 +277,7 @@ Cek nasib guru lainnya di sini 👇
                     }`}
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <span>Barang Impian</span>
+                    <span>{t('Result.dreamItems')}</span>
                   </div>
                 </button>
               </div>
@@ -286,20 +287,20 @@ Cek nasib guru lainnya di sini 👇
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="font-bold text-gray-900">
-                        Hitung Sisa Gaji
+                        {t('Result.calcRemainingSalary')}
                       </span>
                     </div>
 
                     <div className="bg-white rounded-lg p-3 border border-yellow-200">
                       <div className="grid grid-cols-2 gap-3">
                         <div className="text-center">
-                          <div className="text-xs font-bold text-gray-600 uppercase tracking-wide">Gaji Kotor</div>
+                          <div className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t('Result.grossSalary')}</div>
                           <div className="text-lg font-black text-emerald-600">
                             {formatSalary(results.teacher.monthlySalary)}
                           </div>
                         </div>
                         <div className="text-center">
-                          <div className="text-xs font-bold text-gray-600 uppercase tracking-wide">Bisa Nabung</div>
+                          <div className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t('Result.canSave')}</div>
                           <div className={`text-lg font-black ${(results.adjustedMonthlySavings || 0) > 0 ? 'text-emerald-600' : 'text-red-600'}`}>
                             {(results.adjustedMonthlySavings || 0) > 0 ? formatSalary(results.adjustedMonthlySavings || 0) : 'Rp 0 😭'}
                           </div>
@@ -309,7 +310,7 @@ Cek nasib guru lainnya di sini 👇
 
                     <div>
                       <div className="text-sm font-medium text-gray-700 mb-2">
-                        Pengeluaran per bulan:
+                        {t('Result.expensesPerMonth')}
                       </div>
                       <div className="relative">
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
@@ -346,7 +347,7 @@ Cek nasib guru lainnya di sini 👇
 
                     {livingCosts >= results.teacher.monthlySalary && (
                       <div className="bg-red-100 border border-red-300 rounded-lg p-2 text-center">
-                        <div className="text-red-800 font-bold text-sm">💸 Gaji habis untuk hidup!</div>
+                        <div className="text-red-800 font-bold text-sm">{t('Result.salaryExhausted')}</div>
                       </div>
                     )}
                   </div>
@@ -354,25 +355,25 @@ Cek nasib guru lainnya di sini 👇
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="font-bold text-gray-900">
-                        Tambah Barang Impian
+                        {t('Result.addDreamItem')}
                       </span>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Nama Barang:
+                        {t('Result.itemName')}
                       </label>
                       <input
                         type="text"
                         value={customItemName}
                         onChange={(e) => setCustomItemName(e.target.value)}
                         className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 focus:border-purple-500"
-                        placeholder="Contoh: Kamera baru, Motor bekas"
+                        placeholder={t('Result.itemNamePlaceholder')}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Harga:
+                        {t('ItemSelection.price')}:
                       </label>
                       <div className="relative">
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
@@ -395,7 +396,7 @@ Cek nasib guru lainnya di sini 👇
                         disabled={!customItemName.trim() || !customItemPrice.trim() || Number(customItemPrice) <= 0}
                         className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm"
                       >
-                        + Tambah Barang
+                        {t('Result.addItem')}
                       </button>
                       <button
                         onClick={() => {
@@ -404,7 +405,7 @@ Cek nasib guru lainnya di sini 👇
                         }}
                         className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm"
                       >
-                        Hapus
+                        {t('Common.delete')}
                       </button>
                     </div>
                   </div>
@@ -416,10 +417,7 @@ Cek nasib guru lainnya di sini 👇
           <div className="p-3">
             <div className="mb-2 text-center">
               <div className="text-xs font-bold text-gray-700 mb-1">
-                <strong>3 Timeline Utama</strong> (geser & pilih yang ditampilkan)
-              </div>
-              <div className="text-xs text-gray-500">
-                Seret untuk urutkan • Klik mata untuk sembunyikan/tampilkan
+                <strong>{t('Result.mainTimelines')}</strong> ({t('Result.dragToOrder')})
               </div>
             </div>
 
@@ -462,7 +460,7 @@ Cek nasib guru lainnya di sini 👇
                       onClick={() => setShowAllTimelines(true)}
                       className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                     >
-                      Lihat {timelineOrder.length - 3} timeline lainnya...
+                      {t('Result.seeMoreTimelines', { count: timelineOrder.length - 3 })}
                     </button>
                   )}
 
@@ -495,7 +493,7 @@ Cek nasib guru lainnya di sini 👇
                       {hiddenTimelines.size > 0 && (
                         <div className="mt-4">
                           <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
-                            Item Tersembunyi ({hiddenTimelines.size})
+                            {t('Result.hiddenItems')} ({hiddenTimelines.size})
                           </div>
                           <div className="space-y-2 opacity-60">
                             {timelineOrder
@@ -528,7 +526,7 @@ Cek nasib guru lainnya di sini 👇
                         onClick={() => setShowAllTimelines(false)}
                         className="w-full py-2 text-xs text-gray-500 hover:text-gray-700 font-medium border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition-colors mt-2"
                       >
-                        Sembunyikan
+                        {t('Common.hide')}
                       </button>
                     </>
                   )}
@@ -543,7 +541,7 @@ Cek nasib guru lainnya di sini 👇
               className="flex-[2] py-3 bg-gray-900 text-white rounded-xl font-bold text-base hover:bg-gray-800 transition-all flex items-center justify-center gap-2 shadow-lg"
             >
               <Share2 className="w-5 h-5" />
-              Bagikan Hasil
+              {t('Result.shareResults')}
             </button>
 
             <button
@@ -551,7 +549,7 @@ Cek nasib guru lainnya di sini 👇
               className="flex-1 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-bold text-base hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-2"
             >
               <RefreshCw className="w-5 h-5" />
-              Ulang
+              {t('Common.reset')}
             </button>
           </div>
         </div>

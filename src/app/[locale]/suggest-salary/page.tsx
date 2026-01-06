@@ -3,8 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, PlusCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
+import Toast, { ToastType } from '@/components/Toast'
 
 export default function SuggestSalaryPage() {
+    const t = useTranslations()
     const [formData, setFormData] = useState({
         jobTitle: '',
         location: '',
@@ -15,8 +19,16 @@ export default function SuggestSalaryPage() {
         source: ''
     })
     const [submitted, setSubmitted] = useState(false)
-
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [toast, setToast] = useState<{ isVisible: boolean; message: string; type: ToastType }>({
+        isVisible: false,
+        message: '',
+        type: 'info'
+    })
+
+    const showToast = (message: string, type: ToastType) => {
+        setToast({ isVisible: true, message, type })
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -35,11 +47,11 @@ export default function SuggestSalaryPage() {
             if (response.ok) {
                 setSubmitted(true)
             } else {
-                alert(data.error || 'Gagal mengirim data. Silakan coba lagi.')
+                showToast(data.error || 'Gagal mengirim data. Silakan coba lagi.', 'error')
             }
         } catch (error) {
             console.error('Error submitting salary data:', error)
-            alert('Terjadi kesalahan. Silakan coba lagi.')
+            showToast('Terjadi kesalahan. Silakan coba lagi.', 'error')
         } finally {
             setIsSubmitting(false)
         }
@@ -54,19 +66,19 @@ export default function SuggestSalaryPage() {
                         <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all border border-gray-100">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
-                        <span className="font-bold text-sm tracking-tight">Kembali</span>
+                        <span className="font-bold text-sm tracking-tight">{t('Common.back')}</span>
                     </Link>
-                    <div className="font-black text-gray-900 tracking-tight">Input Gaji Baru</div>
+                    <div className="font-black text-gray-900 tracking-tight">{t('SuggestSalary.navTitle')}</div>
                 </div>
             </header>
 
             <main className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
                 <div className="text-center mb-10">
                     <h1 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3 tracking-tight">
-                        Kontribusi Data Gaji
+                        {t('SuggestSalary.header.title')}
                     </h1>
                     <p className="text-gray-500 font-medium max-w-md mx-auto leading-relaxed">
-                        Bantu kami melengkapi database gaji guru di Indonesia agar lebih <span className="text-emerald-600 font-bold">akurat dan transparan</span>.
+                        {t('SuggestSalary.header.subtitleStart')} <span className="text-emerald-600 font-bold">{t('SuggestSalary.header.subtitleEnd')}</span>.
                     </p>
                 </div>
 
@@ -76,15 +88,15 @@ export default function SuggestSalaryPage() {
                             <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
                                 <PlusCircle className="w-10 h-10 text-emerald-600" />
                             </div>
-                            <h2 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">Data Terkirim!</h2>
+                            <h2 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">{t('SuggestSalary.success.title')}</h2>
                             <p className="text-gray-500 font-medium mb-8">
-                                Terima kasih telah berkontribusi untuk transparansi gaji guru di Indonesia.
+                                {t('SuggestSalary.success.message')}
                             </p>
                             <Link
                                 href="/"
                                 className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                             >
-                                Kembali ke Beranda
+                                {t('SuggestSalary.success.backButton')}
                             </Link>
                         </div>
                     ) : (
@@ -92,7 +104,7 @@ export default function SuggestSalaryPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="jobTitle" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Posisi / Jabatan <span className="text-red-500">*</span>
+                                        {t('SuggestSalary.form.jobTitle')} <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -101,13 +113,13 @@ export default function SuggestSalaryPage() {
                                         value={formData.jobTitle}
                                         onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Contoh: Guru SD Kelas 1"
+                                        placeholder={t('SuggestSalary.form.jobTitlePlaceholder')}
                                     />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label htmlFor="location" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Provinsi & Kota/Kab <span className="text-red-500">*</span>
+                                        {t('SuggestSalary.form.location')} <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -116,14 +128,14 @@ export default function SuggestSalaryPage() {
                                         value={formData.location}
                                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Contoh: Jawa Barat, Bandung"
+                                        placeholder={t('SuggestSalary.form.locationPlaceholder')}
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
                                 <label htmlFor="salary" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                    Gaji Bulanan (Rp) <span className="text-red-500">*</span>
+                                    {t('SuggestSalary.form.salary')} <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-bold">
@@ -144,7 +156,7 @@ export default function SuggestSalaryPage() {
                                             });
                                         }}
                                         className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Contoh: 3.000.000"
+                                        placeholder={t('SuggestSalary.form.salaryPlaceholder')}
                                     />
                                 </div>
                             </div>
@@ -152,7 +164,7 @@ export default function SuggestSalaryPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="status" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Status Kepegawaian
+                                        {t('SuggestSalary.form.status')}
                                     </label>
                                     <div className="relative">
                                         <select
@@ -161,11 +173,11 @@ export default function SuggestSalaryPage() {
                                             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                                             className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors appearance-none"
                                         >
-                                            <option value="Honorer">Honorer</option>
-                                            <option value="PNS">PNS</option>
-                                            <option value="PPPK">PPPK</option>
-                                            <option value="Swasta">Guru Swasta</option>
-                                            <option value="Lainnya">Lainnya</option>
+                                            <option value="Honorer">{t('SuggestSalary.form.statusOptions.Honorer')}</option>
+                                            <option value="PNS">{t('SuggestSalary.form.statusOptions.PNS')}</option>
+                                            <option value="PPPK">{t('SuggestSalary.form.statusOptions.PPPK')}</option>
+                                            <option value="Swasta">{t('SuggestSalary.form.statusOptions.Swasta')}</option>
+                                            <option value="Lainnya">{t('SuggestSalary.form.statusOptions.Lainnya')}</option>
                                         </select>
                                         <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
                                             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,7 +189,7 @@ export default function SuggestSalaryPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="experience" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Pengalaman (Tahun)
+                                        {t('SuggestSalary.form.experience')}
                                     </label>
                                     <input
                                         type="number"
@@ -185,14 +197,14 @@ export default function SuggestSalaryPage() {
                                         value={formData.experience}
                                         onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Contoh: 5"
+                                        placeholder={t('SuggestSalary.form.experiencePlaceholder')}
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
                                 <label htmlFor="source" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                    Sumber Data (Opsional)
+                                    {t('SuggestSalary.form.source')}
                                 </label>
                                 <input
                                     type="text"
@@ -200,7 +212,7 @@ export default function SuggestSalaryPage() {
                                     value={formData.source}
                                     onChange={(e) => setFormData({ ...formData, source: e.target.value })}
                                     className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                    placeholder="Link berita / dokumen pendukung"
+                                    placeholder={t('SuggestSalary.form.sourcePlaceholder')}
                                 />
                             </div>
 
@@ -212,18 +224,24 @@ export default function SuggestSalaryPage() {
                                 {isSubmitting ? (
                                     <>
                                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Mengirim...
+                                        {t('SuggestSalary.form.sending')}
                                     </>
                                 ) : (
                                     <>
                                         <PlusCircle className="w-5 h-5" />
-                                        Kirim Data
+                                        {t('SuggestSalary.form.submit')}
                                     </>
                                 )}
                             </button>
                         </form>
                     )}
                 </div>
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    isVisible={toast.isVisible}
+                    onClose={() => setToast({ ...toast, isVisible: false })}
+                />
             </main>
         </div>
     )

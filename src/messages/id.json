@@ -1,0 +1,461 @@
+{
+    "Common": {
+        "back": "Kembali",
+        "loading": "Memuat...",
+        "share": "Bagikan",
+        "tryNow": "Coba Sekarang",
+        "whyImportant": "Kenapa Penting?",
+        "readMore": "Baca Selengkapnya",
+        "feedback": "Feedback",
+        "inputSalary": "Input Gaji",
+        "footer": "Suara Guru Indonesia",
+        "yearsExp": "tahun pengalaman",
+        "perMonth": "per bulan",
+        "sourceLink": "Sumber Data",
+        "selectProfile": "Pilih profil",
+        "delete": "Hapus",
+        "hide": "Sembunyikan",
+        "reset": "Ulang",
+        "million": "juta",
+        "thousand": "ribu",
+        "show": "Tampilkan",
+        "millionShort": "jt",
+        "thousandShort": "rb"
+    },
+    "Hero": {
+        "title": "GuruKita",
+        "shockStats": {
+            "honorerCount": "guru honorer tercatat (2022)",
+            "honorerCountValue": "704.503",
+            "pppkCount": "guru diangkat PPPK (2024)",
+            "pppkCountValue": "770.134",
+            "lowestSalary": "gaji terendah guru honorer/bulan",
+            "lowestSalaryValue": "Rp 90rb",
+            "honorerCountSource": "Kemendikbud",
+            "pppkCountSource": "BKN",
+            "lowestSalarySource": "BBC Indonesia"
+        },
+        "mainQuestion": {
+            "prefix": "Guru butuh",
+            "highlight": "berapa tahun",
+            "suffix": "buat iPhone?"
+        },
+        "subtitle": "Jawabannya akan mengejutkan kamu"
+    },
+    "GuruSelection": {
+        "headerTitle": "Berapa lama guru harus nabung?",
+        "selectProfileTitle": "Pilih Profil Guru",
+        "selectProfileSubtitle": "Klik profil guru untuk melihat analisis keterjangkauan mereka",
+        "noData": "Tidak ada data guru untuk status ini.",
+        "showMore": "+ Lihat {count} Profil Lainnya",
+        "showLess": "- Tampilkan Sedikit",
+        "filters": {
+            "all": "Semua Guru",
+            "honorer": "Honorer",
+            "pppk": "PPPK",
+            "pns": "PNS",
+            "allDesc": "Semua status kepegawaian",
+            "honorerDesc": "Gaji di bawah UMR, tanpa jaminan",
+            "pppkDesc": "Pegawai kontrak pemerintah",
+            "pnsDesc": "Pegawai Negeri Sipil"
+        }
+    },
+    "ItemSelection": {
+        "title": "Pilih Target Barang",
+        "subtitle": "Apa yang ingin dibeli?",
+        "customItem": "Barang Custom",
+        "price": "Harga",
+        "searchPlaceholder": "Cari barang...",
+        "seeAllCalculation": "LIHAT SEMUA KALKULASI"
+    },
+    "Result": {
+        "title": "Hasil Perhitungan",
+        "time": {
+            "year": "tahun",
+            "month": "bulan",
+            "impossible": "Tidak bisa menabung 😔"
+        },
+        "savingDuration": "Menabung selama",
+        "months": "bulan",
+        "years": "tahun",
+        "cannotSave": "Tidak bisa menabung 😔",
+        "shareText": "Cek berapa lama guru honorer harus menabung untuk beli {item} di GuruKita.id! 😢",
+        "realityCheck": "Realita",
+        "custom": "Custom",
+        "livingCost": "Biaya Hidup",
+        "monthlySavings": "Tabungan per Bulan",
+        "salary": "Gaji",
+        "itemPrice": "Harga Barang",
+        "calculating": "Menghitung hasil analisis...",
+        "calculatingDesc": "Sabar ya, lagi ngitung berapa lama guru harus nabung 💸",
+        "advancedOptions": "Opsi Lanjutan",
+        "monthlyExpenses": "Pengeluaran Bulanan",
+        "dreamItems": "Barang Impian",
+        "calcRemainingSalary": "Hitung Sisa Gaji",
+        "grossSalary": "Gaji Kotor",
+        "canSave": "Bisa Nabung",
+        "expensesPerMonth": "Pengeluaran per bulan:",
+        "salaryExhausted": "💸 Gaji habis untuk hidup!",
+        "addDreamItem": "Tambah Barang Impian",
+        "itemName": "Nama Barang:",
+        "itemNamePlaceholder": "Contoh: Kamera baru, Motor bekas",
+        "addItem": "+ Tambah Barang",
+        "mainTimelines": "3 Timeline Utama",
+        "dragToOrder": "Seret untuk urutkan • Klik mata untuk sembunyikan/tampilkan",
+        "seeMoreTimelines": "Lihat {count} timeline lainnya...",
+        "hiddenItems": "Item Tersembunyi",
+        "shareResults": "Bagikan Hasil",
+        "estimatedSavingTime": "Estimasi Waktu Menabung",
+        "withSalary": "dengan gaji {amount}/bulan",
+        "hideExpenses": "Sembunyikan Pengeluaran",
+        "addExpenses": "Tambah Pengeluaran Bulanan?",
+        "remainingSavings": "Sisa tabungan:",
+        "shareContent": "⚠️ Cek realita gaji guru di Indonesia!\n\n👩‍🏫 {level} di {location}\n💰 Gaji: {salary}\n🆚\n📱 {item}\n\nButuh {time} buat beli! 😱\n\nCek nasib guru lain disini 👇\n#GuruKita #NasibGuru #RealitaPendidikan",
+        "shareContentSingle": "Seorang {level} di {location} butuh {time} buat beli {item}!\n\n💰 Gaji: {salary}\n📱 Harga: {price}\n\nCek realitanya di GuruKita.id 😢",
+        "severity": {
+            "impossible": "Mustahil",
+            "veryChallenging": "Sangat Berat",
+            "challenging": "Berat",
+            "affordable": "Terjangkau"
+        }
+    },
+    "ShareModal": {
+        "title": "Bagikan Hasil",
+        "copyManual": "Salin Link Manual",
+        "copied": "Tersalin!",
+        "copy": "Salin"
+    },
+    "Data": {
+        "Teachers": {
+            "guru-sikka": {
+                "title": "Guru Honorer Pedalaman",
+                "description": "Menembus hutan 6km setiap hari demi mengajar",
+                "location": "Sikka, NTT"
+            },
+            "guru-papua": {
+                "title": "Guru Honorer Pegunungan",
+                "description": "Biaya hidup sangat tinggi (bensin 50rb/liter), gaji dirapel per 3 bulan",
+                "location": "Pegunungan Papua"
+            },
+            "guru-bone": {
+                "title": "Guru Honorer Viral",
+                "description": "Dipecat karena mengunggah slip gaji ke media sosial",
+                "location": "Bone, Sulsel"
+            },
+            "guru-medan": {
+                "title": "Guru Honorer Sekolah",
+                "description": "Hanya digaji dari dana BOS, sering telat cair",
+                "location": "Medan, Sumut"
+            },
+            "guru-bengkulu-tengah": {
+                "title": "Guru Honorer",
+                "description": "Gaji Rp 300 ribu per bulan, dibayar setiap 3 bulan sekali",
+                "location": "Bengkulu Tengah"
+            },
+            "guru-toilet": {
+                "title": "Guru Honorer",
+                "description": "Terpaksa tinggal di toilet sekolah karena tidak mampu bayar kos",
+                "location": "Pandeglang, Banten"
+            },
+            "guru-bogor": {
+                "title": "Guru Honorer Senior",
+                "description": "36 tahun mengabdi, gaji tetap Rp 250 ribu",
+                "location": "Bogor, Jabar"
+            },
+            "guru-surabaya": {
+                "title": "Guru Honorer Jam-jaman",
+                "description": "Dibayar berdasarkan jam mengajar, tidak ada jam = tidak ada gaji",
+                "location": "Surabaya, Jatim"
+            },
+            "guru-agama-jkt": {
+                "title": "Guru Agama Honorer",
+                "description": "Gaji sangat minim di tengah biaya hidup Jakarta yang tinggi",
+                "location": "Jakarta"
+            },
+            "pppk-jabar": {
+                "title": "Guru PPPK",
+                "description": "Setelah potong pajak & BPJS dari gaji pokok + tunjangan",
+                "location": "Jawa Barat"
+            },
+            "pppk-sulsel": {
+                "title": "Guru PPPK",
+                "description": "Gaji lebih stabil dibanding honorer, namun kontrak terbatas",
+                "location": "Sulsel"
+            },
+            "pppk-dki": {
+                "title": "Guru PPPK Jakarta",
+                "description": "Termasuk TKD Daerah yang tinggi dibanding provinsi lain",
+                "location": "Jakarta"
+            },
+            "pns-dki-senior": {
+                "title": "Guru PNS Senior (IV/a)",
+                "description": "Gapok + TKD + Sertifikasi + Jabatan (Tier Tertinggi)",
+                "location": "Jakarta"
+            },
+            "guru-inter": {
+                "title": "Guru International School",
+                "description": "Sekolah internasional kurikulum Cambridge/IB",
+                "location": "Jakarta"
+            }
+        },
+        "Items": {
+            "laptop-guru": {
+                "name": "Laptop Kerja (Entry)",
+                "description": "Laptop spek minimum untuk administrasi & mengajar (Core i3)"
+            },
+            "motor-beat": {
+                "name": "Honda Beat 2024",
+                "description": "Kendaraan sejuta umat untuk operasional mengajar"
+            },
+            "ppg-mandiri": {
+                "name": "Biaya PPG Mandiri",
+                "description": "Pendidikan Profesi Guru (agar dapat sertifikasi)"
+            },
+            "kost-jakarta": {
+                "name": "Sewa Kos Jakarta (1 Thn)",
+                "description": "Kos standar AC di Jakarta (2jt/bulan)"
+            },
+            "umroh": {
+                "name": "Paket Umroh Hemat",
+                "description": "Paket standar 9 hari (Update Hrg 2024)"
+            },
+            "iphone-15": {
+                "name": "iPhone 15 (128GB)",
+                "description": "HP standar gaya hidup masa kini"
+            },
+            "biaya-nikah": {
+                "name": "Resepsi Nikah Sederhana",
+                "description": "Biaya katering & dekorasi venue sederhana"
+            },
+            "rumah-subsidi": {
+                "name": "Rumah Subsidi (BTN)",
+                "description": "Rumah tapak tipe 30/60 program pemerintah (Jabodetabek)"
+            },
+            "mobil-lcgc": {
+                "name": "Toyota Calya G",
+                "description": "Mobil keluarga 7-seater paling terjangkau"
+            },
+            "haji-plus": {
+                "name": "Haji Plus (ONH)",
+                "description": "Masa tunggu lebih singkat (5-7 tahun)"
+            },
+            "iphone-15-promax": {
+                "name": "iPhone 15 Pro Max",
+                "description": "HP Flagship tertinggi saat ini"
+            },
+            "all-items": {
+                "name": "Langsung Cek Semuanya",
+                "description": "Lihat kalkulasi untuk semua barang sekaligus"
+            }
+        }
+    },
+    "Lore": {
+        "header": {
+            "titleStart": "Kenapa Ini",
+            "titleEnd": "Penting?",
+            "subtitleStart": "Ini bukan soal beberapa guru yang kurang beruntung.",
+            "subtitleEnd": "Ini adalah krisis sistemik."
+        },
+        "cta": {
+            "quote": "\"Tapi kalau gurunya digaji 2,8 juta, betul jelek. Mendingan kerja di Amazon. Yang pintar-pintar betul enggak mau di sana. Guru akan menentukan masa depan kita.\"",
+            "author": "Purbaya Yudi Sadewa",
+            "role": "Menteri Keuangan RI, 2024",
+            "button": "Coba Kalkulator"
+        },
+        "quote": {
+            "text": "\"Kalau kita gaji seorang guru Rp 10 juta sebulan, saya yakin yang tadinya mau kerja di Gojek, di Google, di Amazon—mereka bakal belok ngajar.\"",
+            "author": "Gita Wirjawan",
+            "role": "Investor & Mantan Menteri Perdagangan"
+        },
+        "salarySpectrum": {
+            "title": "Bandingkan Sendiri",
+            "subtitle": "Spektrum gaji guru: dari yang paling rendah ke standar global",
+            "perMonth": "per bulan",
+            "source": "Sumber",
+            "honorer": {
+                "label": "Guru Honorer",
+                "subtext": "Rata-rata (Range: Rp 90rb - 500rb)",
+                "status": "Honorer",
+                "salary": "Rp 300rb",
+                "time": "10+ tahun",
+                "sourceName": "BBC Indonesia"
+            },
+            "pppk": {
+                "label": "Guru PPPK",
+                "subtext": "Gaji Pokok Gol IX (S1)",
+                "status": "PPPK",
+                "salary": "Rp 3,2jt+",
+                "time": "7-11 bulan",
+                "sourceName": "Perpres 11/2024"
+            },
+            "pns": {
+                "label": "Guru PNS",
+                "subtext": "Gaji Pokok + Tunjangan",
+                "status": "PNS",
+                "salary": "Rp 8jt+",
+                "time": "2-4 bulan",
+                "sourceName": "Pikiran Rakyat"
+            },
+            "singapore": {
+                "label": "Guru Singapura",
+                "subtext": "Fresh Graduate (S$ 3.800)",
+                "status": "Global",
+                "salary": "Rp 45jt+",
+                "time": "< 1 bulan",
+                "sourceName": "MOE Singapura"
+            }
+        },
+        "twoCrises": {
+            "emergency": {
+                "title": "Krisis Darurat",
+                "subtitle": "Guru Honorer",
+                "points": {
+                    "0": "529.770 guru tanpa gaji layak",
+                    "1": "Di bawah UMR, di bawah garis kemiskinan",
+                    "2": "Bisa dipecat kapan saja tanpa perlindungan"
+                }
+            },
+            "structural": {
+                "title": "Krisis Struktural",
+                "subtitle": "Semua Guru Indonesia",
+                "points": {
+                    "0": "Dibayar jauh lebih rendah dari profesi lain",
+                    "1": "Dibayar jauh lebih rendah dari guru negara tetangga",
+                    "2": "Mengajar generasi masa depan, diberi upah masa lalu"
+                }
+            },
+            "footer": {
+                "part1": "Akar masalahnya sama:",
+                "part2": "Indonesia tidak memprioritaskan pendidikan."
+            }
+        },
+        "stories": {
+            "titleStart": "Di Balik",
+            "titleEnd": "Angka",
+            "subtitle": "Wajah-wajah nyata di balik statistik.",
+            "source": "Sumber",
+            "items": {
+                "ervina-ntt": {
+                    "title": "6 Kilometer Menembus Hutan",
+                    "role": "Guru Honorer SD",
+                    "location": "Sikka, NTT",
+                    "salary": "Rp 300.000/bulan",
+                    "story": "Setiap pagi, Ervina menembus hutan dan jalan terjal sejauh 6 km. Lututnya sering gemetar di tanjakan, tapi ia terus berjalan karena sekolah di dusun terpencil itu tak punya guru lain.",
+                    "quote": "Saya capek, lutut sering gemetar... tapi kalau saya tidak datang, anak-anak di sini tidak punya guru.",
+                    "sideHustle": "Bertani ubi untuk makan sehari-hari"
+                },
+                "nining-banten": {
+                    "title": "Tinggal di Toilet Sekolah",
+                    "role": "Guru Honorer SD",
+                    "location": "Pandeglang, Banten",
+                    "salary": "Rp 350.000/3 bulan",
+                    "story": "Setelah rumahnya roboh, Nining dan keluarganya tinggal di bekas toilet sekolah. Tempat orang membuang kotoran disulap jadi tempat istirahat dan membesarkan anak.",
+                    "quote": "Kadang saya malu kalau murid tahu gurunya tinggal di samping WC. Tapi kalau berhenti, siapa yang biayai anak saya?",
+                    "sideHustle": "Mengandalkan suami kerja serabutan"
+                },
+                "alvi-sukabumi": {
+                    "title": "Pulang Mengajar Jadi Pemulung",
+                    "role": "Guru Honorer MTs",
+                    "location": "Sukabumi, Jawa Barat",
+                    "salary": "Sangat Minim",
+                    "story": "36 tahun mengabdi. Pagi menulis di papan tulis, sore memungut botol plastik. Murid-muridnya sering mencium tangannya saat ia sedang memulung sampah.",
+                    "quote": "Pagi saya menulis nama murid. Sore saya menulis harga botol bekas. Saya ingin murid saya punya pekerjaan lebih baik dari gurunya.",
+                    "sideHustle": "Pemulung barang bekas"
+                },
+                "ribut-lumajang": {
+                    "title": "Menyewakan Baju Tari",
+                    "role": "Guru Tari",
+                    "location": "Lumajang, Jawa Timur",
+                    "salary": "Rp 250.000/bulan",
+                    "story": "21 tahun mengabdi, menempuh 18 km setiap hari. Gajinya habis untuk bensin. Ia bertahan hidup dengan menyewakan kostum tari jahitannya sendiri.",
+                    "quote": "Setiap ingin berhenti, saya ingat wajah anak-anak menari di panggung. Bensin mungkin habis, tapi bangga saya tidak.",
+                    "sideHustle": "Sewa kostum & konten kreator"
+                }
+            }
+        }
+    },
+    "Feedback": {
+        "title": "Feedback",
+        "header": {
+            "title": "Kirim Masukan",
+            "subtitleStart": "Bantu kami meningkatkan",
+            "subtitleEnd": "dengan saran dan masukan berharga Anda."
+        },
+        "success": {
+            "title": "Terima Kasih!",
+            "message": "Masukan Anda telah kami terima dan sangat berarti bagi pengembangan platform ini.",
+            "backButton": "Kembali ke Beranda"
+        },
+        "form": {
+            "name": "Nama (Opsional)",
+            "namePlaceholder": "Nama Anda",
+            "email": "Email (Opsional)",
+            "emailPlaceholder": "email@contoh.com",
+            "category": "Kategori Masukan",
+            "categoryOptions": {
+                "Saran": "Saran Fitur",
+                "Bug": "Lapor Masalah (Bug)",
+                "Apresiasi": "Apresiasi",
+                "Lainnya": "Lainnya"
+            },
+            "rating": "Rating Pengalaman",
+            "ratingLabels": {
+                "1": "⚠️ Sangat Kurang",
+                "2": "🙁 Kurang",
+                "3": "😐 Cukup",
+                "4": "😊 Baik",
+                "5": "✨ Sangat Baik"
+            },
+            "message": "Pesan",
+            "messagePlaceholder": "Ceritakan pengalaman atau saran Anda...",
+            "submit": "Kirim Masukan",
+            "sending": "Mengirim..."
+        }
+    },
+    "SuggestSalary": {
+        "navTitle": "Input Gaji Baru",
+        "header": {
+            "title": "Kontribusi Data Gaji",
+            "subtitleStart": "Bantu kami melengkapi database gaji guru di Indonesia agar lebih",
+            "subtitleEnd": "akurat dan transparan"
+        },
+        "success": {
+            "title": "Data Terkirim!",
+            "message": "Terima kasih telah berkontribusi untuk transparansi gaji guru di Indonesia.",
+            "backButton": "Kembali ke Beranda"
+        },
+        "form": {
+            "jobTitle": "Posisi / Jabatan",
+            "jobTitlePlaceholder": "Contoh: Guru SD Kelas 1",
+            "location": "Provinsi & Kota/Kab",
+            "locationPlaceholder": "Contoh: Jawa Barat, Bandung",
+            "salary": "Gaji Bulanan (Rp)",
+            "salaryPlaceholder": "Contoh: 3.000.000",
+            "status": "Status Kepegawaian",
+            "statusOptions": {
+                "Honorer": "Honorer",
+                "PNS": "PNS",
+                "PPPK": "PPPK",
+                "Swasta": "Guru Swasta",
+                "Lainnya": "Lainnya"
+            },
+            "experience": "Pengalaman (Tahun)",
+            "experiencePlaceholder": "Contoh: 5",
+            "source": "Sumber Data (Opsional)",
+            "sourcePlaceholder": "Link berita / dokumen pendukung",
+            "submit": "Kirim Data",
+            "sending": "Mengirim..."
+        }
+    },
+    "Metadata": {
+        "title": "GuruKita - Platform Transparansi Gaji Guru Indonesia",
+        "description": "Berapa lama guru honorer harus menabung untuk beli rumah? Kalkulator realita gaji guru Indonesia. Data real untuk perubahan nyata.",
+        "ogTitle": "GuruKita - Berapa Lama Guru Harus Menabung?",
+        "ogDescription": "Kalkulator realita gaji guru Indonesia. Lihat berapa tahun guru honorer harus menabung untuk beli rumah, motor, atau HP. 😢"
+    },
+    "NotFound": {
+        "title": "Halaman Tidak Ditemukan",
+        "description": "Ups! Sepertinya halaman yang kamu cari tersesat atau sudah dihapus.",
+        "backButton": "Kembali ke Beranda"
+    }
+}

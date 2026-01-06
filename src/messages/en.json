@@ -1,0 +1,461 @@
+{
+    "Common": {
+        "back": "Back",
+        "loading": "Loading...",
+        "share": "Share",
+        "tryNow": "Try Now",
+        "whyImportant": "Why Important?",
+        "readMore": "Read More",
+        "feedback": "Feedback",
+        "inputSalary": "Input Salary",
+        "footer": "The Voice of Indonesian Teachers",
+        "yearsExp": "years experience",
+        "perMonth": "per month",
+        "sourceLink": "Data Source",
+        "selectProfile": "Select profile",
+        "delete": "Delete",
+        "hide": "Hide",
+        "reset": "Reset",
+        "million": "million",
+        "thousand": "thousand",
+        "show": "Show",
+        "millionShort": "M",
+        "thousandShort": "k"
+    },
+    "Hero": {
+        "title": "GuruKita",
+        "shockStats": {
+            "honorerCount": "recorded honorary teachers (2022)",
+            "honorerCountValue": "704,503",
+            "pppkCount": "appointed contract teachers (2024)",
+            "pppkCountValue": "770,134",
+            "lowestSalary": "lowest honorary teacher salary/month",
+            "lowestSalaryValue": "Rp 90k",
+            "honorerCountSource": "MoECRT",
+            "pppkCountSource": "BKN",
+            "lowestSalarySource": "BBC Indonesia"
+        },
+        "mainQuestion": {
+            "prefix": "Teachers need",
+            "highlight": "how many years",
+            "suffix": "to buy an iPhone?"
+        },
+        "subtitle": "The answer will shock you"
+    },
+    "GuruSelection": {
+        "headerTitle": "How long must a teacher save?",
+        "selectProfileTitle": "Select Teacher Profile",
+        "selectProfileSubtitle": "Click a teacher profile to see affordability analysis",
+        "noData": "No teacher data for this status.",
+        "showMore": "+ See {count} More Profiles",
+        "showLess": "- Show Less",
+        "filters": {
+            "all": "All Teachers",
+            "honorer": "Honorary",
+            "pppk": "PPPK (Contract)",
+            "pns": "PNS (Civil Servant)",
+            "allDesc": "All employment statuses",
+            "honorerDesc": "Salary below minimum wage, no security",
+            "pppkDesc": "Government contract employees",
+            "pnsDesc": "Civil Servants"
+        }
+    },
+    "ItemSelection": {
+        "title": "Select Target Item",
+        "subtitle": "What do you want to calculate?",
+        "customItem": "Custom Item",
+        "price": "Price",
+        "searchPlaceholder": "Search items...",
+        "seeAllCalculation": "SEE ALL CALCULATIONS"
+    },
+    "Result": {
+        "title": "Calculation Results",
+        "time": {
+            "year": "years",
+            "month": "months",
+            "impossible": "Impossible to save 😔"
+        },
+        "savingDuration": "Saving for",
+        "months": "months",
+        "years": "years",
+        "cannotSave": "Impossible to save 😔",
+        "shareText": "Check how long an honorary teacher must save to buy {item} at GuruKita.id! 😢",
+        "realityCheck": "Reality",
+        "custom": "Custom",
+        "livingCost": "Living Cost",
+        "monthlySavings": "Monthly Savings",
+        "salary": "Salary",
+        "itemPrice": "Item Price",
+        "calculating": "Calculating analysis results...",
+        "calculatingDesc": "Please wait, calculating how long a teacher must save 💸",
+        "advancedOptions": "Advanced Options",
+        "monthlyExpenses": "Monthly Expenses",
+        "dreamItems": "Dream Items",
+        "calcRemainingSalary": "Calculate Remaining Salary",
+        "grossSalary": "Gross Salary",
+        "canSave": "Can Save",
+        "expensesPerMonth": "Expenses per month:",
+        "salaryExhausted": "💸 Salary exhausted for living!",
+        "addDreamItem": "Add Dream Item",
+        "itemName": "Item Name:",
+        "itemNamePlaceholder": "Example: New Camera, Used Motorcycle",
+        "addItem": "+ Add Item",
+        "mainTimelines": "3 Main Timelines",
+        "dragToOrder": "Drag to reorder • Click eye to hide/show",
+        "seeMoreTimelines": "See {count} other timelines...",
+        "hiddenItems": "Hidden Items",
+        "shareResults": "Share Results",
+        "estimatedSavingTime": "Estimated Saving Time",
+        "withSalary": "with salary {amount}/month",
+        "hideExpenses": "Hide Expenses",
+        "addExpenses": "Add Monthly Expenses?",
+        "remainingSavings": "Remaining savings:",
+        "shareContent": "⚠️ Check teacher salary reality in Indonesia!\n\n👩‍🏫 {level} in {location}\n💰 Salary: {salary}\n🆚\n📱 {item}\n\nNeed {time} to buy it! 😱\n\nCheck other teachers' fate here 👇\n#GuruKita #TeacherFate #EducationReality",
+        "shareContentSingle": "A {level} in {location} needs {time} to buy {item}!\n\n💰 Salary: {salary}\n📱 Price: {price}\n\nCheck reality at GuruKita.id 😢",
+        "severity": {
+            "impossible": "Impossible",
+            "veryChallenging": "Very Challenging",
+            "challenging": "Challenging",
+            "affordable": "Affordable"
+        }
+    },
+    "ShareModal": {
+        "title": "Share Result",
+        "copyManual": "Copy Link Manually",
+        "copied": "Copied!",
+        "copy": "Copy"
+    },
+    "Data": {
+        "Teachers": {
+            "guru-sikka": {
+                "title": "Remote Area Honorary Teacher",
+                "description": "Crossing 6km of forest every day to teach",
+                "location": "Sikka, NTT"
+            },
+            "guru-papua": {
+                "title": "Mountain Honorary Teacher",
+                "description": "High living cost (fuel 50k/liter), salary paid every 3 months",
+                "location": "Papua Highlands"
+            },
+            "guru-bone": {
+                "title": "Viral Honorary Teacher",
+                "description": "Fired for posting salary slip on social media",
+                "location": "Bone, South Sulawesi"
+            },
+            "guru-medan": {
+                "title": "School Honorary Teacher",
+                "description": "Paid only from BOS funds, often late",
+                "location": "Medan, North Sumatra"
+            },
+            "guru-bengkulu-tengah": {
+                "title": "Honorary Teacher",
+                "description": "Salary Rp 300k/month, paid every 3 months",
+                "location": "Central Bengkulu"
+            },
+            "guru-toilet": {
+                "title": "Honorary Teacher",
+                "description": "Forced to live in school toilet unable to pay rent",
+                "location": "Pandeglang, Banten"
+            },
+            "guru-bogor": {
+                "title": "Senior Honorary Teacher",
+                "description": "36 years of service, salary stays at Rp 250k",
+                "location": "Bogor, West Java"
+            },
+            "guru-surabaya": {
+                "title": "Hourly Honorary Teacher",
+                "description": "Paid by teaching hours, no hours = no pay",
+                "location": "Surabaya, East Java"
+            },
+            "guru-agama-jkt": {
+                "title": "Honorary Religion Teacher",
+                "description": "Minimum salary amidst high Jakarta living costs",
+                "location": "Jakarta"
+            },
+            "pppk-jabar": {
+                "title": "PPPK Teacher",
+                "description": "After tax & BPJS deductions from base salary + allowances",
+                "location": "West Java"
+            },
+            "pppk-sulsel": {
+                "title": "PPPK Teacher",
+                "description": "More stable than honorary, but limited contract",
+                "location": "South Sulawesi"
+            },
+            "pppk-dki": {
+                "title": "PPPK Teacher Jakarta",
+                "description": "Includes high regional allowance compared to other provinces",
+                "location": "Jakarta"
+            },
+            "pns-dki-senior": {
+                "title": "Senior Civil Servant (IV/a)",
+                "description": "Base + Allowance + Certification + Position (Highest Tier)",
+                "location": "Jakarta"
+            },
+            "guru-inter": {
+                "title": "International School Teacher",
+                "description": "International school with Cambridge/IB curriculum",
+                "location": "Jakarta"
+            }
+        },
+        "Items": {
+            "laptop-guru": {
+                "name": "Work Laptop (Entry)",
+                "description": "Minimum spec laptop for admin & teaching (Core i3)"
+            },
+            "motor-beat": {
+                "name": "Honda Beat 2024",
+                "description": "Common vehicle for operational teaching"
+            },
+            "ppg-mandiri": {
+                "name": "Independent PPG Cost",
+                "description": "Teacher Professional Education (to get certification)"
+            },
+            "kost-jakarta": {
+                "name": "Rent in Jakarta (1 Year)",
+                "description": "Standard AC room in Jakarta (2m/month)"
+            },
+            "umroh": {
+                "name": "Budget Umrah Package",
+                "description": "Standard 9-day package (2024 Price)"
+            },
+            "iphone-15": {
+                "name": "iPhone 15 (128GB)",
+                "description": "Standard modern lifestyle phone"
+            },
+            "biaya-nikah": {
+                "name": "Simple Wedding Reception",
+                "description": "Catering & simple venue decoration costs"
+            },
+            "rumah-subsidi": {
+                "name": "Subsidized House (BTN)",
+                "description": "Landed house type 30/60 gov program (Jabodetabek)"
+            },
+            "mobil-lcgc": {
+                "name": "Toyota Calya G",
+                "description": "Most affordable 7-seater family car"
+            },
+            "haji-plus": {
+                "name": "Hajj Plus (ONH)",
+                "description": "Shorter waiting time (5-7 years)"
+            },
+            "iphone-15-promax": {
+                "name": "iPhone 15 Pro Max",
+                "description": "Highest flagship phone currently"
+            },
+            "all-items": {
+                "name": "Check All Immediately",
+                "description": "See calculations for all items at once"
+            }
+        }
+    },
+    "Lore": {
+        "header": {
+            "titleStart": "Why Is This",
+            "titleEnd": "Important?",
+            "subtitleStart": "This is not about a few unlucky teachers.",
+            "subtitleEnd": "This is a systemic crisis."
+        },
+        "cta": {
+            "quote": "\"But if teachers are paid 2.8 million, it is indeed bad. Better modify to work at Amazon. The truly smart ones won't want to be there. Teachers will determine our future.\"",
+            "author": "Purbaya Yudi Sadewa",
+            "role": "Minister of Finance RI, 2024",
+            "button": "Try Calculator"
+        },
+        "quote": {
+            "text": "\"If we pay a teacher Rp 10 million a month, I am sure those who wanted to work at Gojek, Google, Amazon—they will turn to teaching.\"",
+            "author": "Gita Wirjawan",
+            "role": "Investor & Former Trade Minister"
+        },
+        "salarySpectrum": {
+            "title": "Compare It Yourself",
+            "subtitle": "Teacher salary spectrum: from the lowest to global standards",
+            "perMonth": "per month",
+            "source": "Source",
+            "honorer": {
+                "label": "Honorary Teacher",
+                "subtext": "Average (Range: Rp 90k - 500k)",
+                "status": "Honorer",
+                "salary": "Rp 300k",
+                "time": "10+ years",
+                "sourceName": "BBC Indonesia"
+            },
+            "pppk": {
+                "label": "PPPK Teacher",
+                "subtext": "Basic Salary Grade IX (Bachelor)",
+                "status": "PPPK",
+                "salary": "Rp 3.2M+",
+                "time": "7-11 months",
+                "sourceName": "Perpres 11/2024"
+            },
+            "pns": {
+                "label": "Civil Servant Teacher",
+                "subtext": "Basic Salary + Allowances",
+                "status": "PNS",
+                "salary": "Rp 8M+",
+                "time": "2-4 months",
+                "sourceName": "Pikiran Rakyat"
+            },
+            "singapore": {
+                "label": "Singapore Teacher",
+                "subtext": "Fresh Graduate (S$ 3,800)",
+                "status": "Global",
+                "salary": "Rp 45M+",
+                "time": "< 1 month",
+                "sourceName": "MOE Singapore"
+            }
+        },
+        "twoCrises": {
+            "emergency": {
+                "title": "Emergency Crisis",
+                "subtitle": "Honorary Teachers",
+                "points": {
+                    "0": "529,770 teachers without decent pay",
+                    "1": "Below minimum wage, below poverty line",
+                    "2": "Can be fired anytime without protection"
+                }
+            },
+            "structural": {
+                "title": "Structural Crisis",
+                "subtitle": "All Indonesian Teachers",
+                "points": {
+                    "0": "Paid far less than other professions",
+                    "1": "Paid far less than teachers in neighboring countries",
+                    "2": "Teaching the future generation, given wages of the past"
+                }
+            },
+            "footer": {
+                "part1": "The root problem is the same:",
+                "part2": "Indonesia does not prioritize education."
+            }
+        },
+        "stories": {
+            "titleStart": "Behind",
+            "titleEnd": "The Numbers",
+            "subtitle": "Real faces behind the statistics.",
+            "source": "Source",
+            "items": {
+                "ervina-ntt": {
+                    "title": "6 Kilometers Through the Forest",
+                    "role": "Honorary Elementary Teacher",
+                    "location": "Sikka, NTT",
+                    "salary": "Rp 300,000/month",
+                    "story": "Every morning, Ervina cuts through the forest and steep roads for 6 km. Her knees often tremble on the slopes, but she keeps walking because the school in that remote hamlet has no other teachers.",
+                    "quote": "I am tired, my knees often tremble... but if I don't come, the children here won't have a teacher.",
+                    "sideHustle": "Farming cassava for daily food"
+                },
+                "nining-banten": {
+                    "title": "Living in a School Toilet",
+                    "role": "Honorary Elementary Teacher",
+                    "location": "Pandeglang, Banten",
+                    "salary": "Rp 350,000/3 months",
+                    "story": "After her house collapsed, Nining and her family lived in a former school toilet. A place where people dispose of waste was transformed into a place to rest and raise children.",
+                    "quote": "Sometimes I am ashamed if students know their teacher lives next to the WC. But if I stop, who will support my children?",
+                    "sideHustle": "Relying on husband's odd jobs"
+                },
+                "alvi-sukabumi": {
+                    "title": "Scavenging After Teaching",
+                    "role": "Honorary MTs Teacher",
+                    "location": "Sukabumi, West Java",
+                    "salary": "Very Minimal",
+                    "story": "36 years of service. In the morning writing on the blackboard, in the afternoon picking up plastic bottles. His students often kiss his hand while he is scavenging trash.",
+                    "quote": "In the morning I write students' names. In the afternoon I write prices of used bottles. I want my students to have better jobs than their teacher.",
+                    "sideHustle": "Scavenger of used goods"
+                },
+                "ribut-lumajang": {
+                    "title": "Renting Dance Costumes",
+                    "role": "Dance Teacher",
+                    "location": "Lumajang, East Java",
+                    "salary": "Rp 250,000/month",
+                    "story": "21 years of service, traveling 18 km every day. His salary is spent on gasoline. He survives by renting out dance costumes he sews himself.",
+                    "quote": "Every time I want to quit, I remember the faces of children dancing on stage. Gasoline might run out, but my pride does not.",
+                    "sideHustle": "Costume rental & content creator"
+                }
+            }
+        }
+    },
+    "Feedback": {
+        "title": "Feedback",
+        "header": {
+            "title": "Send Feedback",
+            "subtitleStart": "Help us improve",
+            "subtitleEnd": "with your valuable suggestions and feedback."
+        },
+        "success": {
+            "title": "Thank You!",
+            "message": "We have received your feedback and it means a lot for the development of this platform.",
+            "backButton": "Back to Home"
+        },
+        "form": {
+            "name": "Name (Optional)",
+            "namePlaceholder": "Your Name",
+            "email": "Email (Optional)",
+            "emailPlaceholder": "email@example.com",
+            "category": "Feedback Category",
+            "categoryOptions": {
+                "Saran": "Feature Suggestion",
+                "Bug": "Report Issue (Bug)",
+                "Apresiasi": "Appreciation",
+                "Lainnya": "Others"
+            },
+            "rating": "Experience Rating",
+            "ratingLabels": {
+                "1": "⚠️ Very Poor",
+                "2": "🙁 Poor",
+                "3": "😐 Fair",
+                "4": "😊 Good",
+                "5": "✨ Excellent"
+            },
+            "message": "Message",
+            "messagePlaceholder": "Tell us your experience or suggestion...",
+            "submit": "Send Feedback",
+            "sending": "Sending..."
+        }
+    },
+    "SuggestSalary": {
+        "navTitle": "Input New Salary",
+        "header": {
+            "title": "Contribute Salary Data",
+            "subtitleStart": "Help us complete the database of teacher salaries in Indonesia to be more",
+            "subtitleEnd": "accurate and transparent"
+        },
+        "success": {
+            "title": "Data Sent!",
+            "message": "Thank you for contributing to the transparency of teacher salaries in Indonesia.",
+            "backButton": "Back to Home"
+        },
+        "form": {
+            "jobTitle": "Position / Job Title",
+            "jobTitlePlaceholder": "Example: 1st Grade Elementary Teacher",
+            "location": "Province & City/Regency",
+            "locationPlaceholder": "Example: West Java, Bandung",
+            "salary": "Monthly Salary (Rp)",
+            "salaryPlaceholder": "Example: 3.000.000",
+            "status": "Employment Status",
+            "statusOptions": {
+                "Honorer": "Honorary",
+                "PNS": "Civil Servant",
+                "PPPK": "PPPK",
+                "Swasta": "Private Teacher",
+                "Lainnya": "Others"
+            },
+            "experience": "Experience (Years)",
+            "experiencePlaceholder": "Example: 5",
+            "source": "Data Source (Optional)",
+            "sourcePlaceholder": "News link / supporting document",
+            "submit": "Send Data",
+            "sending": "Sending..."
+        }
+    },
+    "Metadata": {
+        "title": "GuruKita - Teacher Salary Transparency Platform Indonesia",
+        "description": "How long must honorary teachers save to buy a house? Indonesian teacher salary reality calculator. Real data for real change.",
+        "ogTitle": "GuruKita - How Long Must Teachers Save?",
+        "ogDescription": "Indonesian teacher salary reality calculator. See how many years honorary teachers must save to buy a house, motorcycle, or phone. 😢"
+    },
+    "NotFound": {
+        "title": "Page Not Found",
+        "description": "Oops! Looks like the page you are looking for is lost or has been removed.",
+        "backButton": "Back to Home"
+    }
+}

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { TeacherProfile } from '@/types/calculator'
 
 interface TeacherProfileCardProps {
@@ -9,6 +10,8 @@ interface TeacherProfileCardProps {
 }
 
 export default function TeacherProfileCard({ teacher, isSelected, onSelect }: TeacherProfileCardProps) {
+  const t = useTranslations();
+
   const handleClick = () => {
     onSelect(teacher)
   }
@@ -17,10 +20,10 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
   const formatSalary = (amount: number) => {
     if (amount >= 1000000) {
       const millions = amount / 1000000
-      return `Rp ${millions.toFixed(1)} juta`
+      return `Rp ${millions.toFixed(1)} ${t('Common.million')}`
     }
     const thousands = amount / 1000
-    return `Rp ${thousands.toFixed(0)} ribu`
+    return `Rp ${thousands.toFixed(0)} ${t('Common.thousand')}`
   }
 
   return (
@@ -36,7 +39,7 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
       `}
       role="button"
       tabIndex={0}
-      aria-label={`Pilih profil: ${teacher.title}, gaji ${formatSalary(teacher.monthlySalary)}`}
+      aria-label={`${t('Common.selectProfile')}: ${t(`Data.Teachers.${teacher.id}.title`)}, ${t('Result.salary')} ${formatSalary(teacher.monthlySalary)}`}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
@@ -46,12 +49,12 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
     >
       {/* Top: Location */}
       <div className="text-lg font-semibold text-gray-900 mb-2">
-        {teacher.location}
+        {t(`Data.Teachers.${teacher.id}.location`)}
       </div>
 
       {/* Second line: Level + Experience */}
       <div className="text-sm text-gray-600 mb-3">
-        Guru {teacher.level} • {teacher.experience} tahun pengalaman
+        Guru {teacher.level} • {teacher.experience} {t('Common.yearsExp')}
       </div>
 
       {/* BIG SALARY */}
@@ -60,7 +63,7 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
           {formatSalary(teacher.monthlySalary)}
         </div>
         <div className="text-sm text-gray-500 mt-1">
-          per bulan
+          {t('Common.perMonth')}
         </div>
       </div>
 
@@ -89,7 +92,7 @@ export default function TeacherProfileCard({ teacher, isSelected, onSelect }: Te
               e.stopPropagation()
             }}
           >
-            <span>🔗 Sumber Data</span>
+            <span>🔗 {t('Common.sourceLink')}</span>
           </a>
         </div>
       )}
