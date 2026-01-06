@@ -59,6 +59,11 @@ export async function generateMetadata({
       index: true,
       follow: true,
     },
+    icons: {
+      icon: '/images/logo-guru-kita.png?v=2',
+      shortcut: '/images/logo-guru-kita.png?v=2',
+      apple: '/images/logo-guru-kita.png?v=2',
+    },
   };
 }
 

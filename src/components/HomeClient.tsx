@@ -351,12 +351,14 @@ export default function HomeClient() {
       <header className="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-sm border-b border-gray-200/50 transition-all duration-300">
         <div className="max-w-6xl lg:max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer" onClick={handleBackToHome}>
-            <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg transform hover:rotate-3 transition-transform">
-              GK
-            </div>
+            <img
+              src="/images/logo-guru-kita.png?v=2"
+              alt="GuruKita Logo"
+              className="w-20 h-20 object-contain transform hover:rotate-3 transition-transform"
+            />
             <div>
               <h1 className="text-xl font-black text-gray-900 tracking-tight leading-none">
-                {t('Hero.title')}<span className="text-emerald-600">.id</span>
+                {t('Hero.title')}
               </h1>
               <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
                 {t('Common.footer')}
