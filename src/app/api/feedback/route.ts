@@ -25,8 +25,6 @@ export async function POST(request: Request) {
             )
         }
 
-        // Note: Google Apps Script Web App requires following redirects sometimes, 
-        // but fetch usually handles it. We send JSON.
         const response = await fetch(scriptUrl, {
             method: 'POST',
             headers: {

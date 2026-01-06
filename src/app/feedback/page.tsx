@@ -8,6 +8,7 @@ export default function FeedbackPage() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        category: 'Saran',
         message: '',
         rating: 5
     })
@@ -28,10 +29,11 @@ export default function FeedbackPage() {
                 body: JSON.stringify(formData),
             })
 
+            const data = await response.json()
             if (response.ok) {
                 setSubmitted(true)
             } else {
-                alert('Gagal mengirim feedback. Silakan coba lagi.')
+                alert(data.error || 'Gagal mengirim feedback. Silakan coba lagi.')
             }
         } catch (error) {
             console.error('Error submitting feedback:', error)
@@ -113,24 +115,50 @@ export default function FeedbackPage() {
                                         placeholder="email@contoh.com"
                                     />
                                 </div>
+
+                                <div className="space-y-2">
+                                    <label htmlFor="category" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
+                                        Kategori Masukan <span className="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        id="category"
+                                        value={formData.category}
+                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                        className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors"
+                                    >
+                                        <option value="Saran">Saran Fitur</option>
+                                        <option value="Bug">Lapor Masalah (Bug)</option>
+                                        <option value="Apresiasi">Apresiasi</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div className="space-y-3">
                                 <label htmlFor="rating" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
                                     Rating Pengalaman
                                 </label>
-                                <div className="flex gap-3 justify-center sm:justify-start p-4 bg-white border-2 border-gray-100 rounded-xl">
-                                    {[1, 2, 3, 4, 5].map((star) => (
-                                        <button
-                                            key={star}
-                                            type="button"
-                                            onClick={() => setFormData({ ...formData, rating: star })}
-                                            className={`text-3xl transition-all duration-200 transform hover:scale-125 focus:outline-none ${formData.rating >= star ? 'text-yellow-400 drop-shadow-sm' : 'text-gray-200 hover:text-gray-300'
-                                                }`}
-                                        >
-                                            ★
-                                        </button>
-                                    ))}
+                                <div className="flex flex-col gap-3 p-4 bg-white border-2 border-gray-100 rounded-xl">
+                                    <div className="flex gap-3 justify-center sm:justify-start">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <button
+                                                key={star}
+                                                type="button"
+                                                onClick={() => setFormData({ ...formData, rating: star })}
+                                                className={`text-3xl transition-all duration-200 transform hover:scale-125 focus:outline-none ${formData.rating >= star ? 'text-yellow-400 drop-shadow-sm' : 'text-gray-200 hover:text-gray-300'
+                                                    }`}
+                                            >
+                                                ★
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="text-[10px] font-bold text-gray-400 uppercase text-center sm:text-left transition-all">
+                                        {formData.rating === 1 && "⚠️ Sangat Kurang"}
+                                        {formData.rating === 2 && "🙁 Kurang"}
+                                        {formData.rating === 3 && "😐 Cukup"}
+                                        {formData.rating === 4 && "😊 Baik"}
+                                        {formData.rating === 5 && "✨ Sangat Baik"}
+                                    </div>
                                 </div>
                             </div>
 

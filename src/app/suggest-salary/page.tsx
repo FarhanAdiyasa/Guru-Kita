@@ -9,6 +9,7 @@ export default function SuggestSalaryPage() {
         jobTitle: '',
         location: '',
         salary: '',
+        displaySalary: '',
         experience: '',
         status: 'Honorer',
         source: ''
@@ -30,10 +31,11 @@ export default function SuggestSalaryPage() {
                 body: JSON.stringify(formData),
             })
 
+            const data = await response.json()
             if (response.ok) {
                 setSubmitted(true)
             } else {
-                alert('Gagal mengirim data. Silakan coba lagi.')
+                alert(data.error || 'Gagal mengirim data. Silakan coba lagi.')
             }
         } catch (error) {
             console.error('Error submitting salary data:', error)
@@ -105,7 +107,7 @@ export default function SuggestSalaryPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="location" className="block text-xs font-bold text-gray-500 uppercase tracking-widest">
-                                        Lokasi (Kota/Kab) <span className="text-red-500">*</span>
+                                        Provinsi & Kota/Kab <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -114,7 +116,7 @@ export default function SuggestSalaryPage() {
                                         value={formData.location}
                                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                         className="w-full px-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Contoh: Jakarta Selatan"
+                                        placeholder="Contoh: Jawa Barat, Bandung"
                                     />
                                 </div>
                             </div>
@@ -128,13 +130,21 @@ export default function SuggestSalaryPage() {
                                         Rp
                                     </div>
                                     <input
-                                        type="number"
+                                        type="text"
                                         id="salary"
                                         required
-                                        value={formData.salary}
-                                        onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
+                                        value={formData.displaySalary}
+                                        onChange={(e) => {
+                                            const val = e.target.value.replace(/[^0-9]/g, '');
+                                            const formatted = val ? new Intl.NumberFormat('id-ID').format(parseInt(val)) : '';
+                                            setFormData({
+                                                ...formData,
+                                                salary: val,
+                                                displaySalary: formatted
+                                            });
+                                        }}
                                         className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-100 rounded-xl font-medium text-gray-900 focus:border-emerald-500 focus:ring-0 transition-colors placeholder-gray-300"
-                                        placeholder="Contoh: 3000000"
+                                        placeholder="Contoh: 3.000.000"
                                     />
                                 </div>
                             </div>

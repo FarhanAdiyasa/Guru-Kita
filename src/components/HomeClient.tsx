@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { arrayMove } from '@dnd-kit/sortable'
 import Hero from '@/components/Hero'
 import GuruSelection from '@/components/GuruSelection'
@@ -349,12 +350,12 @@ export default function HomeClient() {
           </div>
 
           <nav className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-400 cursor-not-allowed" title="Coming Soon">
+            <Link href="/feedback" className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all">
               Feedback
-            </span>
-            <span className="text-sm font-medium text-gray-400 cursor-not-allowed" title="Coming Soon">
+            </Link>
+            <Link href="/suggest-salary" className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all">
               Input Gaji
-            </span>
+            </Link>
           </nav>
         </div>
       </header>
