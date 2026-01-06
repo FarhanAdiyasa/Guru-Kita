@@ -240,7 +240,7 @@ Cek nasib guru lainnya di sini 👇
               className="w-full px-4 py-3 flex items-center justify-between text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center gap-2">
-                <span className="font-medium">Advanced Options</span>
+                <span className="font-medium">Opsi Lanjutan</span>
               </div>
               <svg
                 className={`w-4 h-4 transition-transform ${showLivingCostInput ? 'rotate-180' : ''}`}

@@ -22,9 +22,9 @@ export function calculateTimeMessage(months: number): string {
   const remainingMonths = months % 12
 
   if (years >= 1) {
-    return `${years} year${years > 1 ? 's' : ''}${remainingMonths > 0 ? ` ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}` : ''}`
+    return `${years} tahun${remainingMonths > 0 ? ` ${remainingMonths} bulan` : ''}`
   } else {
-    return `${months} month${months > 1 ? 's' : ''}`
+    return `${months} bulan`
   }
 }
 
