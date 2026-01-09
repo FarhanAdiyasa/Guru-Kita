@@ -159,16 +159,6 @@ export const CONFIG = {
       status: "PNS",
       monthlySalary: 14500000,
       source: "https://flotim.pikiran-rakyat.com/ekonomi/pr-3669861180/mengintip-gaji-guru-tertinggi-di-indonesia-2025-dari-pns-pppk-hingga-sekolah-internasional"
-    },
-    {
-      id: "guru-inter",
-      title: "Guru International School",
-      location: "Jakarta Selatan",
-      level: "SMA",
-      experience: 8,
-      status: "Swasta",
-      monthlySalary: 18000000,
-      source: "https://pina.id/artikel/keuangan/gaji-guru-di-indonesia-berapa-sih-standarnya"
     }
   ],
 
