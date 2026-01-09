@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useTranslations } from 'next-intl'
 import Hero from '@/components/Hero'
