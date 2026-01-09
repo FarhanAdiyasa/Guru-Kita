@@ -214,9 +214,9 @@
                 "name": "Budget Umrah Package",
                 "description": "Standard 9-day package (2024 Price)"
             },
-            "iphone-15": {
-                "name": "iPhone 15 (128GB)",
-                "description": "Standard modern lifestyle phone"
+            "iphone-17-promax": {
+                "name": "iPhone 17 Pro Max (2TB)",
+                "description": "Future flagship phone with largest storage"
             },
             "biaya-nikah": {
                 "name": "Simple Wedding Reception",
@@ -234,9 +234,9 @@
                 "name": "Hajj Plus (ONH)",
                 "description": "Shorter waiting time (5-7 years)"
             },
-            "iphone-15-promax": {
-                "name": "iPhone 15 Pro Max",
-                "description": "Highest flagship phone currently"
+            "richard-mille-sahroni": {
+                "name": "Richard Mille Watch (Ahmad Sahroni)",
+                "description": "Luxury watch collection of the Crazy Rich Tanjung Priok"
             },
             "all-items": {
                 "name": "Check All Immediately",

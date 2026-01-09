@@ -205,10 +205,10 @@ export const CONFIG = {
       icon: "🕋"
     },
     {
-      id: "iphone-15",
-      name: "iPhone 15 (128GB)",
+      id: "iphone-17-promax",
+      name: "iPhone 17 Pro Max (2TB)",
       category: "technology",
-      price: 16499000,
+      price: 43999000,
       icon: "📱"
     },
     {
@@ -242,11 +242,11 @@ export const CONFIG = {
       icon: "🕌"
     },
     {
-      id: "iphone-15-promax",
-      name: "iPhone 15 Pro Max",
-      category: "technology",
-      price: 24999000,
-      icon: "📲"
+      id: "richard-mille-sahroni",
+      name: "Jam Richard Mille (Ahmad Sahroni)",
+      category: "luxury",
+      price: 11000000000,
+      icon: "⌚"
     },
 
     // --- SPECIAL ---
