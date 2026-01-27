@@ -110,8 +110,8 @@
         "hideExpenses": "Hide Expenses",
         "addExpenses": "Add Monthly Expenses?",
         "remainingSavings": "Remaining savings:",
-        "shareContent": "⚠️ Check teacher salary reality in Indonesia!\n\n👩‍🏫 {level} in {location}\n💰 Salary: {salary}\n🆚\n📱 {item}\n\nNeed {time} to buy it! 😱\n\nCheck other teachers' fate here 👇\n#GuruKita #TeacherFate #EducationReality",
-        "shareContentSingle": "A {level} in {location} needs {time} to buy {item}!\n\n💰 Salary: {salary}\n📱 Price: {price}\n\nCheck reality at GuruKita.id 😢",
+        "shareContent": "⚠️ Check teacher salary reality in Indonesia!\n\n👩‍🏫 {level} Teacher in {location}\n💰 Salary: {salary}\n🆚\n📱 {item}\n\nNeed {time} to buy it! 😱\n\nCheck other teachers' fate here 👇\n#GuruKita #TeacherFate #EducationReality",
+        "shareContentSingle": "A {level} Teacher in {location} needs {time} to buy {item}!\n\n💰 Salary: {salary}\n📱 Price: {price}\n\nCheck reality at GuruKita.id 😢",
         "severity": {
             "impossible": "Impossible",
             "veryChallenging": "Very Challenging",

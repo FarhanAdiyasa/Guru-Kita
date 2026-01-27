@@ -110,8 +110,8 @@
         "hideExpenses": "Sembunyikan Pengeluaran",
         "addExpenses": "Tambah Pengeluaran Bulanan?",
         "remainingSavings": "Sisa tabungan:",
-        "shareContent": "⚠️ Cek realita gaji guru di Indonesia!\n\n👩‍🏫 {level} di {location}\n💰 Gaji: {salary}\n🆚\n📱 {item}\n\nButuh {time} buat beli! 😱\n\nCek nasib guru lain disini 👇\n#GuruKita #NasibGuru #RealitaPendidikan",
-        "shareContentSingle": "Seorang {level} di {location} butuh {time} buat beli {item}!\n\n💰 Gaji: {salary}\n📱 Harga: {price}\n\nCek realitanya di GuruKita.id 😢",
+        "shareContent": "⚠️ Cek realita gaji guru di Indonesia!\n\n👩‍🏫 Guru {level} di {location}\n💰 Gaji: {salary}\n🆚\n📱 {item}\n\nButuh {time} buat beli! 😱\n\nCek nasib guru lain disini 👇\n#GuruKita #NasibGuru #RealitaPendidikan",
+        "shareContentSingle": "Seorang Guru {level} di {location} butuh {time} buat beli {item}!\n\n💰 Gaji: {salary}\n📱 Harga: {price}\n\nCek realitanya di GuruKita.id 😢",
         "severity": {
             "impossible": "Mustahil",
             "veryChallenging": "Sangat Berat",
