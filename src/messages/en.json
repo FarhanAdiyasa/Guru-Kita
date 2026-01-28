@@ -159,8 +159,13 @@
             },
             "guru-bogor": {
                 "title": "Senior Honorary Teacher",
-                "description": "36 years of service, salary stays at Rp 250k",
+                "description": "36 years of service, now struggling with a Rp 1.5M salary",
                 "location": "Bogor, West Java"
+            },
+            "guru-banyumas": {
+                "title": "Community Learning Center Teacher",
+                "description": "10 years of service, Rp 250k salary isn't even enough for fuel",
+                "location": "Banyumas, Central Java"
             },
             "guru-surabaya": {
                 "title": "Hourly Honorary Teacher",
@@ -206,10 +211,6 @@
                 "name": "Independent PPG Cost",
                 "description": "Teacher Professional Education (to get certification)"
             },
-            "kost-jakarta": {
-                "name": "Rent in Jakarta (1 Year)",
-                "description": "Standard AC room in Jakarta (2m/month)"
-            },
             "umroh": {
                 "name": "Budget Umrah Package",
                 "description": "Standard 9-day package (2024 Price)"
@@ -221,6 +222,10 @@
             "biaya-nikah": {
                 "name": "Simple Wedding Reception",
                 "description": "Catering & simple venue decoration costs"
+            },
+            "kos-dpr": {
+                "name": "DPR Housing Rent (1 Mo)",
+                "description": "Housing allowance for DPR members claimed to be 'modest' (78m/month)"
             },
             "rumah-subsidi": {
                 "name": "Subsidized House (BTN)",

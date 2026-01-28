@@ -159,8 +159,13 @@
             },
             "guru-bogor": {
                 "title": "Guru Honorer Senior",
-                "description": "36 tahun mengabdi, gaji tetap Rp 250 ribu",
+                "description": "36 tahun mengabdi, kini berjuang dengan gaji Rp 1,5 juta",
                 "location": "Bogor, Jabar"
+            },
+            "guru-banyumas": {
+                "title": "Guru PKBM",
+                "description": "10 tahun mengabdi, gaji Rp 250 ribu tidak cukup untuk biaya bensin",
+                "location": "Banyumas, Jateng"
             },
             "guru-surabaya": {
                 "title": "Guru Honorer Jam-jaman",
@@ -206,10 +211,6 @@
                 "name": "Biaya PPG Mandiri",
                 "description": "Pendidikan Profesi Guru (agar dapat sertifikasi)"
             },
-            "kost-jakarta": {
-                "name": "Sewa Kos Jakarta (1 Thn)",
-                "description": "Kos standar AC di Jakarta (2jt/bulan)"
-            },
             "umroh": {
                 "name": "Paket Umroh Hemat",
                 "description": "Paket standar 9 hari (Update Hrg 2024)"
@@ -221,6 +222,10 @@
             "biaya-nikah": {
                 "name": "Resepsi Nikah Sederhana",
                 "description": "Biaya katering & dekorasi venue sederhana"
+            },
+            "kos-dpr": {
+                "name": "Sewa Kos DPR (1 Bln)",
+                "description": "Tunjangan perumahan anggota DPR yang disebut 'pas-pasan' (78jt/bulan)"
             },
             "rumah-subsidi": {
                 "name": "Rumah Subsidi (BTN)",

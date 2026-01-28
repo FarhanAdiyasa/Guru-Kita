@@ -93,8 +93,18 @@ export const CONFIG = {
       level: "SD",
       experience: 36,
       status: "Honorer",
-      monthlySalary: 250000,
+      monthlySalary: 1500000,
       source: "https://www.youtube.com/watch?v=TVlO3QJroQ8"
+    },
+    {
+      id: "guru-banyumas",
+      title: "Guru PKBM",
+      location: "Banyumas, Jateng",
+      level: "PKBM",
+      experience: 10,
+      status: "Honorer",
+      monthlySalary: 250000,
+      source: "https://jateng.tribunnews.com/jawa-tengah/1241866/kisah-lilis-10-tahun-mengabdi-di-pkbm-gaji-cuma-rp-250-ribu-tak-cukup-menutup-biaya-bensin"
     },
     {
       id: "guru-surabaya",
@@ -188,13 +198,6 @@ export const CONFIG = {
       price: 17000000,
       icon: "🎓"
     },
-    {
-      id: "kost-jakarta",
-      name: "Sewa Kos Jakarta (1 Thn)",
-      category: "housing",
-      price: 24000000,
-      icon: "🏠"
-    },
 
     // --- DREAM ITEMS (MID) ---
     {
@@ -218,8 +221,13 @@ export const CONFIG = {
       price: 60000000,
       icon: "💍"
     },
-
-    // --- DREAM ITEMS (HIGH) ---
+    {
+      id: "kos-dpr",
+      name: "Sewa Kos DPR (1 Bln)",
+      category: "housing",
+      price: 78000000,
+      icon: "🏢"
+    },
     {
       id: "rumah-subsidi",
       name: "Rumah Subsidi (BTN)",
