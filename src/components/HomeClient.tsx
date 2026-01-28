@@ -349,31 +349,32 @@ export default function HomeClient() {
     <div className="min-h-screen bg-[#FDFBF7]">
       {/* Header - Sticky */}
       <header className="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-sm border-b border-gray-200/50 transition-all duration-300">
-        <div className="max-w-6xl lg:max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={handleBackToHome}>
+        <div className="max-w-6xl lg:max-w-7xl mx-auto px-4 py-2 sm:py-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0" onClick={handleBackToHome}>
             <img
               src="/images/logo-guru-kita.png?v=2"
               alt="GuruKita Logo"
-              className="w-20 h-20 object-contain transform hover:rotate-3 transition-transform"
+              className="w-12 h-12 sm:w-20 sm:h-20 object-contain transform hover:rotate-3 transition-transform shrink-0"
             />
-            <div>
-              <h1 className="text-xl font-black text-gray-900 tracking-tight leading-none">
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-xl font-black text-gray-900 tracking-tight leading-none truncate">
                 {t('Hero.title')}
               </h1>
-              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
+              <p className="text-[8px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5 truncate">
                 {t('Common.footer')}
               </p>
             </div>
           </div>
 
-          <nav className="flex items-center gap-4">
-            <Link href="/feedback" className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all">
+          <nav className="flex items-center gap-1.5 sm:gap-4 shrink-0">
+            <Link href="/feedback" className="text-[10px] sm:text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all whitespace-nowrap">
               {t('Common.feedback')}
             </Link>
-            <Link href="/suggest-salary" className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all">
+            <div className="h-3 sm:h-4 w-px bg-gray-300 mx-0.5 sm:mx-1"></div>
+            <Link href="/suggest-salary" className="text-[10px] sm:text-sm font-bold text-gray-600 hover:text-emerald-600 transition-all whitespace-nowrap">
               {t('Common.inputSalary')}
             </Link>
-            <div className="h-4 w-px bg-gray-300 mx-1"></div>
+            <div className="h-4 w-px bg-gray-300 mx-1 hidden sm:block"></div>
             <LanguageSwitcher />
           </nav>
         </div>

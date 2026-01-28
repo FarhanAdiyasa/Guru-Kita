@@ -90,7 +90,9 @@ export default function SortableTimelineItem({
 
       {/* Item Content */}
       <div className="flex items-center gap-2 flex-1">
-        <span className="text-xl">{getItemEmoji(itemResult.item.category, itemResult.item.id)}</span>
+        <span className="text-xl">
+          {itemResult.item.icon || getItemEmoji(itemResult.item.category, itemResult.item.id)}
+        </span>
         <div>
           <div className="font-semibold text-sm text-gray-900">
             {itemResult.item.name || t(`Data.Items.${itemResult.item.id}.name`)}
